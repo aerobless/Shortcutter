@@ -1,0 +1,13 @@
+﻿<Properties MonoDevelop.MonoMac.LastXamMacNagTime="10/14/2014 1:25:03 PM">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|x86" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Shortcutter/MainWindowController.cs">
+    <Files>
+      <File FileName="Shortcutter/MainWindowController.cs" Line="21" Column="21" />
+      <File FileName="Shortcutter/Main.cs" Line="1" Column="1" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+</Properties>

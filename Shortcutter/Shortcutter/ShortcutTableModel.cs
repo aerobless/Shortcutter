@@ -11,6 +11,7 @@ namespace Shortcutter
 		List<Shortcut> allShortcuts;
 		List<Shortcut> filteredShorcuts;
 		NSTableView tableView;
+		String currentFilter = "";
 
 		public ShortcutTableModel (List<Shortcut> shortcuts, NSTableView tableView)
 		{
@@ -45,9 +46,16 @@ namespace Shortcutter
 
 		public void filter(string filter)
 		{
+			currentFilter = filter;
 			IEnumerable<Shortcut> query = allShortcuts.Where(s => (s.ApplicationName.ToLower().Contains(filter.ToLower())||s.Description.ToLower().Contains(filter.ToLower())));
 			filteredShorcuts = query.ToList();
 			tableView.ReloadData ();
+		}
+
+		public void addNewShortcut(Shortcut shortcut)
+		{
+			allShortcuts.Add (shortcut);
+			filter (currentFilter);
 		}
 	}
 }

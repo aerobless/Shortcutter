@@ -41,6 +41,9 @@ namespace Shortcutter
 		{
 		}
 		#endregion
+
+		AddEntryController aAddEntryController;
+
 		//strongly typed window accessor
 		public new MainWindow Window {
 			get {
@@ -53,9 +56,11 @@ namespace Shortcutter
 			base.AwakeFromNib ();
 
 			ClickMeToolbar.Activated += (object sender, EventArgs e) => {
-				numberOfTimesClicked++;
-				OutputLabel.StringValue = "Clicked " + 
-					numberOfTimesClicked + " times.";
+				if(aAddEntryController == null)
+				{
+					aAddEntryController = new AddEntryController();
+				}
+				tm.addNewShortcut(aAddEntryController.edit(null, this));
 			};
 			tm = new ShortcutTableModel (MainClass.Shortcuts, ShortcutTable);
 			ShortcutTable.DataSource = tm;

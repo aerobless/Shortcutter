@@ -86,10 +86,16 @@
     </Compile>
     <Compile Include="DataObjects\Shortcut.cs" />
     <Compile Include="ShortcutTableModel.cs" />
+    <Compile Include="AddEntry.cs" />
+    <Compile Include="AddEntryController.cs" />
+    <Compile Include="AddEntry.designer.cs">
+      <DependentUpon>AddEntry.cs</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="MainWindow.xib" />
     <InterfaceDefinition Include="MainMenu.xib" />
+    <InterfaceDefinition Include="AddEntry.xib" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Info.plist" />

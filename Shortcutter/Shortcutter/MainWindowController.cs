@@ -10,6 +10,7 @@ namespace Shortcutter
 	public partial class MainWindowController : MonoMac.AppKit.NSWindowController
 	{
 		protected int numberOfTimesClicked = 0;
+		ShortcutTableModel tm;
 
 		internal static NSString APPLICATION = new NSString("applicationColumn");
 		internal static NSString SHORTCUT = new NSString("shortcutColumn");
@@ -56,24 +57,14 @@ namespace Shortcutter
 				OutputLabel.StringValue = "Clicked " + 
 					numberOfTimesClicked + " times.";
 			};
-
-			ShortcutTableModel tm = new ShortcutTableModel (MainClass.Shortcuts);
-
-			//NSTableColumn applicationColum = ShortcutTable.FindTableColumn(APPLICATION);
-			//applicationColum.Bind ("value",tm,"shortcutTable.applicationRow",null);
-
+			tm = new ShortcutTableModel (MainClass.Shortcuts, ShortcutTable);
 			ShortcutTable.DataSource = tm;
-
-			//NSTableColumn shortcutColum = ShortcutTable.FindTableColumn(SHORTCUT);
-			//shortcutColum.Bind("value",MainClass.Shortcuts,"arrangedObjects.lastname",null);
-
 			SearchField.Changed += searchEvent;
-
 		}
 
 		void searchEvent(object sender, EventArgs e)
 		{
-			Console.Out.WriteLine ("search bar typed...");
+			tm.filter (SearchField.StringValue);
 		}
 	}
 }

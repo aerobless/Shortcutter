@@ -67,6 +67,13 @@ namespace Shortcutter
 			//NSTableColumn shortcutColum = ShortcutTable.FindTableColumn(SHORTCUT);
 			//shortcutColum.Bind("value",MainClass.Shortcuts,"arrangedObjects.lastname",null);
 
+			SearchField.Changed += searchEvent;
+
+		}
+
+		void searchEvent(object sender, EventArgs e)
+		{
+			Console.Out.WriteLine ("search bar typed...");
 		}
 	}
 }

@@ -4,6 +4,7 @@ using MonoMac.Foundation;
 using MonoMac.AppKit;
 using MonoMac.ObjCRuntime;
 using System.Collections.Generic;
+using System.IO;
 
 namespace Shortcutter
 {
@@ -13,7 +14,17 @@ namespace Shortcutter
 
 		static void Main (string[] args)
 		{
-			loadDemoContent ();
+			if (File.Exists (getStoragePath ()))
+			{
+				Console.Out.WriteLine ("shortcuts.xml found, loading existing data..");
+				Shortcuts = readFromDisk ();
+			} else 
+			{
+				Console.Out.WriteLine ("shortcuts.xml not found, loading demo data..");
+				loadDemoContent ();
+				saveToDisk (Shortcuts);
+			}
+
 			NSApplication.Init ();
 			NSApplication.Main (args);
 		}
@@ -26,6 +37,30 @@ namespace Shortcutter
 			Shortcuts.Add (new Shortcut ("Chrome","Close Tab","CMD+W"));
 
 			Console.Out.WriteLine ("Demo-Content loaded..");
+		}
+
+		static void saveToDisk(List<Shortcut> shortcutList)
+		{
+			string savePath = Path.Combine(Directory.GetCurrentDirectory(), getStoragePath());
+			System.Xml.Serialization.XmlSerializer writer = new System.Xml.Serialization.XmlSerializer(typeof(List<Shortcut>));
+
+			System.IO.StreamWriter file = new System.IO.StreamWriter(savePath);
+			writer.Serialize(file, shortcutList);
+			file.Close();
+		}
+
+		static List<Shortcut> readFromDisk()
+		{
+			System.Xml.Serialization.XmlSerializer reader = new System.Xml.Serialization.XmlSerializer(typeof(List<Shortcut>));
+			System.IO.StreamReader file = new System.IO.StreamReader(getStoragePath());
+			return (List<Shortcut>)reader.Deserialize(file);
+		}
+
+		static String getStoragePath()
+		{
+			var documents = Environment.GetFolderPath (Environment.SpecialFolder.MyDocuments);
+			Console.Out.WriteLine ("Storage-Location: "+Path.Combine (documents, "shortcuts.xml"));
+			return Path.Combine (documents, "shortcuts.xml");
 		}
 	}
 }	

@@ -7,10 +7,18 @@
 	<key>CFBundleVersion</key>
 	<string>1</string>
 	<key>LSMinimumSystemVersion</key>
-	<string>10.6</string>
+	<string>10.9</string>
 	<key>NSMainNibFile</key>
 	<string>MainMenu</string>
 	<key>NSPrincipalClass</key>
 	<string>NSApplication</string>
+	<key>CFBundleDisplayName</key>
+	<string>Shortcutter</string>
+	<key>CFBundleIconFile</key>
+	<string>Shortcutter_ICON</string>
+	<key>LSApplicationCategoryType</key>
+	<string>public.app-category.productivity</string>
+	<key>CFBundleIdentifier</key>
+	<string>com.w1nter.Shortcutter</string>
 </dict>
 </plist>

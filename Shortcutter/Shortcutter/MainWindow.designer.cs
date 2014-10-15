@@ -16,9 +16,6 @@ namespace Shortcutter
 		MonoMac.AppKit.NSToolbarItem ClickMeToolbar { get; set; }
 
 		[Outlet]
-		MonoMac.AppKit.NSTextField OutputLabel { get; set; }
-
-		[Outlet]
 		MonoMac.AppKit.NSSearchField SearchField { get; set; }
 
 		[Outlet]
@@ -31,19 +28,14 @@ namespace Shortcutter
 				ClickMeToolbar = null;
 			}
 
-			if (OutputLabel != null) {
-				OutputLabel.Dispose ();
-				OutputLabel = null;
+			if (SearchField != null) {
+				SearchField.Dispose ();
+				SearchField = null;
 			}
 
 			if (ShortcutTable != null) {
 				ShortcutTable.Dispose ();
 				ShortcutTable = null;
-			}
-
-			if (SearchField != null) {
-				SearchField.Dispose ();
-				SearchField = null;
 			}
 		}
 	}

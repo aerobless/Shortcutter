@@ -57,7 +57,7 @@ namespace Shortcutter
 					numberOfTimesClicked + " times.";
 			};
 
-			ShortcutTableModel tm = new ShortcutTableModel ();
+			ShortcutTableModel tm = new ShortcutTableModel (MainClass.Shortcuts);
 
 			//NSTableColumn applicationColum = ShortcutTable.FindTableColumn(APPLICATION);
 			//applicationColum.Bind ("value",tm,"shortcutTable.applicationRow",null);
@@ -70,4 +70,3 @@ namespace Shortcutter
 		}
 	}
 }
-

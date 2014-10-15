@@ -8,18 +8,17 @@ namespace Shortcutter
 {
 	public class ShortcutTableModel : NSTableViewDataSource
 	{
-		// populate this in constructor, via service, setter, etc - whatever makes sense
-		//private string[] data;
+		List<Application> appList;
 
-		public ShortcutTableModel ()
+		public ShortcutTableModel (List<Application> appList)
 		{
-		//	data = new string[]{"test","tessddt"};
+			this.appList = appList;
 		}
 	
 		// how many rows are in the table
 		public override int GetRowCount (NSTableView tableView)
 		{
-			return 2;
+			return appList.Count;
 		}
 
 		// what to draw in the table
@@ -28,7 +27,7 @@ namespace Shortcutter
 			int row)
 		{
 			if (tableColumn.Identifier == "applicationColumn")
-				return new NSString ("ddd");
+				return new NSString (appList[row].Name);
 
 			if (tableColumn.Identifier == "shortcutColumn")
 				return new NSString ("ddd");

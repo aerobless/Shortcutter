@@ -53,7 +53,7 @@
 					<array class="NSMutableArray" key="NSSubviews">
 						<object class="NSButton" id="833776239">
 							<reference key="NSNextResponder" ref="312036702"/>
-							<int key="NSvFlags">268</int>
+							<int key="NSvFlags">292</int>
 							<string key="NSFrame">{{14, 13}, {223, 32}}</string>
 							<reference key="NSSuperview" ref="312036702"/>
 							<reference key="NSWindow"/>
@@ -82,7 +82,7 @@
 						</object>
 						<object class="NSTextField" id="366992470">
 							<reference key="NSNextResponder" ref="312036702"/>
-							<int key="NSvFlags">268</int>
+							<int key="NSvFlags">292</int>
 							<string key="NSFrame">{{255, 20}, {333, 17}}</string>
 							<reference key="NSSuperview" ref="312036702"/>
 							<reference key="NSWindow"/>
@@ -121,7 +121,7 @@
 						</object>
 						<object class="NSScrollView" id="822882292">
 							<reference key="NSNextResponder" ref="312036702"/>
-							<int key="NSvFlags">268</int>
+							<int key="NSvFlags">282</int>
 							<array class="NSMutableArray" key="NSSubviews">
 								<object class="NSClipView" id="129213710">
 									<reference key="NSNextResponder" ref="822882292"/>
@@ -131,10 +131,10 @@
 											<reference key="NSNextResponder" ref="129213710"/>
 											<int key="NSvFlags">256</int>
 											<array class="NSMutableArray" key="NSSubviews"/>
-											<string key="NSFrameSize">{568, 255}</string>
+											<string key="NSFrameSize">{564, 255}</string>
 											<reference key="NSSuperview" ref="129213710"/>
 											<reference key="NSWindow"/>
-											<reference key="NSNextKeyView"/>
+											<reference key="NSNextKeyView" ref="343960500"/>
 											<string key="NSReuseIdentifierKey">_NS:13</string>
 											<bool key="NSEnabled">YES</bool>
 											<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
@@ -142,7 +142,7 @@
 											<object class="NSTableHeaderView" key="NSHeaderView" id="117792290">
 												<reference key="NSNextResponder" ref="497035920"/>
 												<int key="NSvFlags">256</int>
-												<string key="NSFrameSize">{568, 17}</string>
+												<string key="NSFrameSize">{564, 17}</string>
 												<reference key="NSSuperview" ref="497035920"/>
 												<reference key="NSWindow"/>
 												<reference key="NSNextKeyView" ref="129213710"/>
@@ -212,7 +212,7 @@
 												</object>
 												<object class="NSTableColumn" id="306156959">
 													<string key="NSIdentifier">shortcutColumn</string>
-													<double key="NSWidth">444</double>
+													<double key="NSWidth">440</double>
 													<double key="NSMinWidth">40</double>
 													<double key="NSMaxWidth">1000</double>
 													<object class="NSTableHeaderCell" key="NSHeaderCell">
@@ -288,13 +288,12 @@
 								</object>
 								<object class="NSScroller" id="29434333">
 									<reference key="NSNextResponder" ref="822882292"/>
-									<int key="NSvFlags">256</int>
+									<int key="NSvFlags">-2147483392</int>
 									<string key="NSFrame">{{1, 256}, {564, 16}}</string>
 									<reference key="NSSuperview" ref="822882292"/>
 									<reference key="NSWindow"/>
 									<reference key="NSNextKeyView" ref="833776239"/>
 									<string key="NSReuseIdentifierKey">_NS:61</string>
-									<bool key="NSEnabled">YES</bool>
 									<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
 									<string key="NSControlAction">_doScroller:</string>
 									<reference key="NSControlTarget" ref="822882292"/>
@@ -323,7 +322,7 @@
 							<reference key="NSWindow"/>
 							<reference key="NSNextKeyView" ref="497035920"/>
 							<string key="NSReuseIdentifierKey">_NS:9</string>
-							<int key="NSsFlags">133810</int>
+							<int key="NSsFlags">133682</int>
 							<reference key="NSVScroller" ref="343960500"/>
 							<reference key="NSHScroller" ref="29434333"/>
 							<reference key="NSContentView" ref="129213710"/>
@@ -417,9 +416,9 @@
 						<int key="objectID">3</int>
 						<reference key="object" ref="312036702"/>
 						<array class="NSMutableArray" key="children">
-							<reference ref="833776239"/>
 							<reference ref="366992470"/>
 							<reference ref="822882292"/>
+							<reference ref="833776239"/>
 						</array>
 						<reference key="parent" ref="748157544"/>
 					</object>

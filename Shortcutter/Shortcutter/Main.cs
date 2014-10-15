@@ -22,7 +22,7 @@ namespace Shortcutter
 			{
 				Console.Out.WriteLine ("shortcuts.xml not found, loading demo data..");
 				loadDemoContent ();
-				saveToDisk (Shortcuts);
+				SaveToDisk (Shortcuts);
 			}
 
 			NSApplication.Init ();
@@ -39,7 +39,7 @@ namespace Shortcutter
 			Console.Out.WriteLine ("Demo-Content loaded..");
 		}
 
-		static void saveToDisk(List<Shortcut> shortcutList)
+		public static void SaveToDisk(List<Shortcut> shortcutList)
 		{
 			string savePath = Path.Combine(Directory.GetCurrentDirectory(), getStoragePath());
 			System.Xml.Serialization.XmlSerializer writer = new System.Xml.Serialization.XmlSerializer(typeof(List<Shortcut>));
@@ -49,7 +49,7 @@ namespace Shortcutter
 			file.Close();
 		}
 
-		static List<Shortcut> readFromDisk()
+		private static List<Shortcut> readFromDisk()
 		{
 			System.Xml.Serialization.XmlSerializer reader = new System.Xml.Serialization.XmlSerializer(typeof(List<Shortcut>));
 			System.IO.StreamReader file = new System.IO.StreamReader(getStoragePath());

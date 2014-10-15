@@ -56,6 +56,7 @@ namespace Shortcutter
 		{
 			allShortcuts.Add (shortcut);
 			filter (currentFilter);
+			MainClass.SaveToDisk (allShortcuts);
 		}
 	}
 }

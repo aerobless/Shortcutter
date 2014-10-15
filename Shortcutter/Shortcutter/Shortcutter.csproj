@@ -86,6 +86,7 @@
     </Compile>
     <Compile Include="DataObjects\Shortcut.cs" />
     <Compile Include="DataObjects\Application.cs" />
+    <Compile Include="ShortcutTableModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="MainWindow.xib" />

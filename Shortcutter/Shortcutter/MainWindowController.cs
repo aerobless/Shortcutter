@@ -3,12 +3,20 @@ using System.Collections.Generic;
 using System.Linq;
 using MonoMac.Foundation;
 using MonoMac.AppKit;
+using MonoMac.ObjCRuntime;
 
 namespace Shortcutter
 {
 	public partial class MainWindowController : MonoMac.AppKit.NSWindowController
 	{
 		protected int numberOfTimesClicked = 0;
+
+		internal static NSString APPLICATION = new NSString("applicationColumn");
+		internal static NSString SHORTCUT = new NSString("shortcutColumn");
+
+		internal static List<NSString> Keys = new List<NSString> { APPLICATION, SHORTCUT};			
+		internal const int APPLICATION_IDX = 0;
+		internal const int SHORTCUT_IDX = 1;
 
 		#region Constructors
 		// Called when created from unmanaged code
@@ -42,11 +50,23 @@ namespace Shortcutter
 		public override void AwakeFromNib ()
 		{
 			base.AwakeFromNib ();
+
 			ClickMeButton.Activated += (object sender, EventArgs e) => {
 				numberOfTimesClicked++;
 				OutputLabel.StringValue = "Clicked " + 
 					numberOfTimesClicked + " times.";
 			};
+
+			ShortcutTableModel tm = new ShortcutTableModel ();
+
+			//NSTableColumn applicationColum = ShortcutTable.FindTableColumn(APPLICATION);
+			//applicationColum.Bind ("value",tm,"shortcutTable.applicationRow",null);
+
+			ShortcutTable.DataSource = tm;
+
+			//NSTableColumn shortcutColum = ShortcutTable.FindTableColumn(SHORTCUT);
+			//shortcutColum.Bind("value",MainClass.Shortcuts,"arrangedObjects.lastname",null);
+
 		}
 	}
 }

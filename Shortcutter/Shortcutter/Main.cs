@@ -9,7 +9,7 @@ namespace Shortcutter
 {
 	class MainClass
 	{
-		public static List<Application> shortcuts = new List<Application> ();
+		public static List<Application> Shortcuts = new List<Application> ();
 
 		static void Main (string[] args)
 		{
@@ -22,7 +22,7 @@ namespace Shortcutter
 		{
 			Application chrome = new Application ("Chrome", "A webbrowser from Google");
 			chrome.addShortcut (new Shortcut ("New tab","Opens a new tab.","crtl+T"));
-			shortcuts.Add (chrome);
+			Shortcuts.Add (chrome);
 
 			Console.Out.WriteLine ("Demo-Content loaded..");
 		}

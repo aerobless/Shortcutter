@@ -17,6 +17,9 @@ namespace Shortcutter
 
 		[Outlet]
 		MonoMac.AppKit.NSTextField OutputLabel { get; set; }
+
+		[Outlet]
+		MonoMac.AppKit.NSTableView ShortcutTable { get; set; }
 		
 		void ReleaseDesignerOutlets ()
 		{
@@ -28,6 +31,11 @@ namespace Shortcutter
 			if (OutputLabel != null) {
 				OutputLabel.Dispose ();
 				OutputLabel = null;
+			}
+
+			if (ShortcutTable != null) {
+				ShortcutTable.Dispose ();
+				ShortcutTable = null;
 			}
 		}
 	}

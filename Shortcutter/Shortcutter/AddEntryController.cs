@@ -97,7 +97,11 @@ namespace Shortcutter
 			// when StopModal is called will continue here ....
 			NSApp.EndSheet(window);
 			window.OrderOut(this);
-			return savedValues;
+			if (cancelled) {
+				return null;
+			} else {
+				return savedValues;
+			}
 		}
 	}
 }

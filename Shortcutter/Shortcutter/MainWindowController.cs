@@ -55,12 +55,19 @@ namespace Shortcutter
 		{
 			base.AwakeFromNib ();
 
+			RemoveButton.Activated += (object sender, EventArgs e) => {
+				tm.removeShortcut(ShortcutTable.SelectedRow);
+			};
+
 			ClickMeToolbar.Activated += (object sender, EventArgs e) => {
 				if(aAddEntryController == null)
 				{
 					aAddEntryController = new AddEntryController();
 				}
-				tm.addNewShortcut(aAddEntryController.edit(null, this));
+				Shortcut result = aAddEntryController.edit(null, this);
+				if(result != null){
+					tm.addNewShortcut(result);
+				}
 			};
 			tm = new ShortcutTableModel (MainClass.Shortcuts, ShortcutTable);
 			ShortcutTable.DataSource = tm;

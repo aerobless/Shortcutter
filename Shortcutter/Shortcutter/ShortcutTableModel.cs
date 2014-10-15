@@ -58,5 +58,12 @@ namespace Shortcutter
 			filter (currentFilter);
 			MainClass.SaveToDisk (allShortcuts);
 		}
+
+		public void removeShortcut(int idInFilteredList)
+		{
+			allShortcuts.Remove (filteredShorcuts [idInFilteredList]);
+			filter (currentFilter);
+			MainClass.SaveToDisk (allShortcuts);
+		}
 	}
 }

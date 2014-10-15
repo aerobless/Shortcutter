@@ -85,7 +85,6 @@
       <DependentUpon>AppDelegate.cs</DependentUpon>
     </Compile>
     <Compile Include="DataObjects\Shortcut.cs" />
-    <Compile Include="DataObjects\Application.cs" />
     <Compile Include="ShortcutTableModel.cs" />
   </ItemGroup>
   <ItemGroup>

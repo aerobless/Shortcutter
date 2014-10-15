@@ -51,7 +51,7 @@ namespace Shortcutter
 		{
 			base.AwakeFromNib ();
 
-			ClickMeButton.Activated += (object sender, EventArgs e) => {
+			ClickMeToolbar.Activated += (object sender, EventArgs e) => {
 				numberOfTimesClicked++;
 				OutputLabel.StringValue = "Clicked " + 
 					numberOfTimesClicked + " times.";

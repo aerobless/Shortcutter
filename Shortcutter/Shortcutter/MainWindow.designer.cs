@@ -13,7 +13,7 @@ namespace Shortcutter
 	partial class MainWindowController
 	{
 		[Outlet]
-		MonoMac.AppKit.NSButton ClickMeButton { get; set; }
+		MonoMac.AppKit.NSToolbarItem ClickMeToolbar { get; set; }
 
 		[Outlet]
 		MonoMac.AppKit.NSTextField OutputLabel { get; set; }
@@ -23,9 +23,9 @@ namespace Shortcutter
 		
 		void ReleaseDesignerOutlets ()
 		{
-			if (ClickMeButton != null) {
-				ClickMeButton.Dispose ();
-				ClickMeButton = null;
+			if (ClickMeToolbar != null) {
+				ClickMeToolbar.Dispose ();
+				ClickMeToolbar = null;
 			}
 
 			if (OutputLabel != null) {

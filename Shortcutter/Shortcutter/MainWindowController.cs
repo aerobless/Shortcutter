@@ -56,9 +56,13 @@ namespace Shortcutter
 			base.AwakeFromNib ();
 
 			RemoveButton.Activated += (object sender, EventArgs e) => {
-				tm.removeShortcut(ShortcutTable.SelectedRow);
+				int selectedRow = ShortcutTable.SelectedRow;
+				if(selectedRow>=0)
+				{
+					tm.removeShortcut(selectedRow);
+				}
 			};
-
+			Console.Out.WriteLine ("here blah");
 			ClickMeToolbar.Activated += (object sender, EventArgs e) => {
 				if(aAddEntryController == null)
 				{
@@ -69,6 +73,23 @@ namespace Shortcutter
 					tm.addNewShortcut(result);
 				}
 			};
+
+			EditButton.Activated += (object sender, EventArgs e) => {
+				int selectedRow = ShortcutTable.SelectedRow;
+				if(selectedRow>=0)
+				{
+					if(aAddEntryController == null)
+					{
+						aAddEntryController = new AddEntryController();
+					}
+					Shortcut result = aAddEntryController.edit(tm.getFilteredShortcut(selectedRow), this);
+					if(result != null){
+						tm.removeShortcut(selectedRow);
+						tm.addNewShortcut(result);
+					}
+				}
+			};
+
 			tm = new ShortcutTableModel (MainClass.Shortcuts, ShortcutTable);
 			ShortcutTable.DataSource = tm;
 			SearchField.Changed += searchEvent;
@@ -77,6 +98,15 @@ namespace Shortcutter
 		void searchEvent(object sender, EventArgs e)
 		{
 			tm.filter (SearchField.StringValue);
+			if (ShortcutTable.RowCount > 0) {
+				EditButton.Enabled = true;
+				EditButton.Validate ();
+				RemoveButton.Enabled = true;
+				RemoveButton.Validate ();
+			} else {
+				EditButton.Enabled = false;
+				RemoveButton.Enabled = false;
+			}
 		}
 	}
 }

@@ -16,6 +16,9 @@ namespace Shortcutter
 		MonoMac.AppKit.NSToolbarItem ClickMeToolbar { get; set; }
 
 		[Outlet]
+		MonoMac.AppKit.NSToolbarItem EditButton { get; set; }
+
+		[Outlet]
 		MonoMac.AppKit.NSToolbarItem RemoveButton { get; set; }
 
 		[Outlet]
@@ -31,6 +34,11 @@ namespace Shortcutter
 				ClickMeToolbar = null;
 			}
 
+			if (RemoveButton != null) {
+				RemoveButton.Dispose ();
+				RemoveButton = null;
+			}
+
 			if (SearchField != null) {
 				SearchField.Dispose ();
 				SearchField = null;
@@ -41,9 +49,9 @@ namespace Shortcutter
 				ShortcutTable = null;
 			}
 
-			if (RemoveButton != null) {
-				RemoveButton.Dispose ();
-				RemoveButton = null;
+			if (EditButton != null) {
+				EditButton.Dispose ();
+				EditButton = null;
 			}
 		}
 	}

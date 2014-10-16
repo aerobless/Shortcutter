@@ -65,5 +65,10 @@ namespace Shortcutter
 			filter (currentFilter);
 			MainClass.SaveToDisk (allShortcuts);
 		}
+
+		public Shortcut getFilteredShortcut(int filteredRowNr)
+		{
+			return filteredShorcuts [filteredRowNr];
+		}
 	}
 }

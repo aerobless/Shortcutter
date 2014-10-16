@@ -73,7 +73,7 @@
 							<string key="NSToolbarItemMinSize">{0, 0}</string>
 							<string key="NSToolbarItemMaxSize">{0, 0}</string>
 							<bool key="NSToolbarItemEnabled">YES</bool>
-							<bool key="NSToolbarItemAutovalidates">YES</bool>
+							<bool key="NSToolbarItemAutovalidates">NO</bool>
 							<int key="NSToolbarItemTag">-1</int>
 							<bool key="NSToolbarIsUserRemovable">YES</bool>
 							<int key="NSToolbarItemVisibilityPriority">0</int>
@@ -93,7 +93,27 @@
 							<string key="NSToolbarItemMinSize">{0, 0}</string>
 							<string key="NSToolbarItemMaxSize">{0, 0}</string>
 							<bool key="NSToolbarItemEnabled">YES</bool>
-							<bool key="NSToolbarItemAutovalidates">YES</bool>
+							<bool key="NSToolbarItemAutovalidates">NO</bool>
+							<int key="NSToolbarItemTag">-1</int>
+							<bool key="NSToolbarIsUserRemovable">YES</bool>
+							<int key="NSToolbarItemVisibilityPriority">0</int>
+						</object>
+						<object class="NSToolbarItem" key="6B84ED22-A52E-4F7E-8086-797AABB042F7" id="29127432">
+							<string key="NSToolbarItemIdentifier">6B84ED22-A52E-4F7E-8086-797AABB042F7</string>
+							<string key="NSToolbarItemLabel">Edit</string>
+							<string key="NSToolbarItemPaletteLabel">Edit</string>
+							<string key="NSToolbarItemToolTip"/>
+							<nil key="NSToolbarItemView"/>
+							<object class="NSCustomResource" key="NSToolbarItemImage">
+								<string key="NSClassName">NSImage</string>
+								<string key="NSResourceName">NSColumnViewTemplate</string>
+							</object>
+							<nil key="NSToolbarItemTarget"/>
+							<nil key="NSToolbarItemAction"/>
+							<string key="NSToolbarItemMinSize">{0, 0}</string>
+							<string key="NSToolbarItemMaxSize">{0, 0}</string>
+							<bool key="NSToolbarItemEnabled">YES</bool>
+							<bool key="NSToolbarItemAutovalidates">NO</bool>
 							<int key="NSToolbarItemTag">-1</int>
 							<bool key="NSToolbarIsUserRemovable">YES</bool>
 							<int key="NSToolbarItemVisibilityPriority">0</int>
@@ -101,7 +121,7 @@
 						<object class="NSToolbarItem" key="91463777-E079-48EE-964A-93805790CC30" id="202526828">
 							<string key="NSToolbarItemIdentifier">91463777-E079-48EE-964A-93805790CC30</string>
 							<string key="NSToolbarItemLabel">Search</string>
-							<string key="NSToolbarItemPaletteLabel">Custom View</string>
+							<string key="NSToolbarItemPaletteLabel">Search</string>
 							<nil key="NSToolbarItemToolTip"/>
 							<object class="NSSearchField" key="NSToolbarItemView" id="732383587">
 								<nil key="NSNextResponder"/>
@@ -254,6 +274,7 @@
 					</dictionary>
 					<array key="NSToolbarIBAllowedItems">
 						<reference ref="207184362"/>
+						<reference ref="29127432"/>
 						<reference ref="605208996"/>
 						<reference ref="849404312"/>
 						<reference ref="202526828"/>
@@ -262,6 +283,7 @@
 					<array key="NSToolbarIBDefaultItems">
 						<reference ref="849404312"/>
 						<reference ref="561511242"/>
+						<reference ref="29127432"/>
 						<reference ref="605208996"/>
 						<reference ref="202526828"/>
 					</array>
@@ -557,6 +579,14 @@
 					</object>
 					<int key="connectionID">90</int>
 				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">EditButton</string>
+						<reference key="source" ref="1001"/>
+						<reference key="destination" ref="29127432"/>
+					</object>
+					<int key="connectionID">94</int>
+				</object>
 			</array>
 			<object class="IBMutableOrderedSet" key="objectRecords">
 				<array key="orderedObjects">
@@ -674,6 +704,7 @@
 							<reference ref="849404312"/>
 							<reference ref="202526828"/>
 							<reference ref="561511242"/>
+							<reference ref="29127432"/>
 						</array>
 						<reference key="parent" ref="748157544"/>
 					</object>
@@ -731,6 +762,11 @@
 						<reference key="object" ref="561511242"/>
 						<reference key="parent" ref="783360983"/>
 					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">93</int>
+						<reference key="object" ref="29127432"/>
+						<reference key="parent" ref="783360983"/>
+					</object>
 				</array>
 			</object>
 			<dictionary class="NSMutableDictionary" key="flattenedProperties">
@@ -768,12 +804,14 @@
 				<string key="86.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="87.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="89.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<string key="93.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<string key="93.designableToolbarItemIdentifier">editButton</string>
 			</dictionary>
 			<dictionary class="NSMutableDictionary" key="unlocalizedProperties"/>
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">90</int>
+			<int key="maxID">104</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -790,6 +828,7 @@
 					<string key="superclassName">NSWindowController</string>
 					<dictionary class="NSMutableDictionary" key="outlets">
 						<string key="ClickMeToolbar">NSToolbarItem</string>
+						<string key="EditButton">NSToolbarItem</string>
 						<string key="RemoveButton">NSToolbarItem</string>
 						<string key="SearchField">NSSearchField</string>
 						<string key="ShortcutTable">NSTableView</string>
@@ -797,6 +836,10 @@
 					<dictionary class="NSMutableDictionary" key="toOneOutletInfosByName">
 						<object class="IBToOneOutletInfo" key="ClickMeToolbar">
 							<string key="name">ClickMeToolbar</string>
+							<string key="candidateClassName">NSToolbarItem</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="EditButton">
+							<string key="name">EditButton</string>
 							<string key="candidateClassName">NSToolbarItem</string>
 						</object>
 						<object class="IBToOneOutletInfo" key="RemoveButton">
@@ -840,6 +883,7 @@
 		<int key="IBDocument.defaultPropertyAccessControl">3</int>
 		<dictionary class="NSMutableDictionary" key="IBDocument.LastKnownImageSizes">
 			<string key="NSAddTemplate">{11, 11}</string>
+			<string key="NSColumnViewTemplate">{16, 10}</string>
 			<string key="NSMenuCheckmark">{12, 12}</string>
 			<string key="NSMenuMixedState">{10, 2}</string>
 			<string key="NSRemoveTemplate">{11, 11}</string>

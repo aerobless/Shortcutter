@@ -102,5 +102,8 @@
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Mac\v0.0\Xamarin.Mac.targets" />
   <ItemGroup>
     <BundleResource Include="Resources\Shortcutter_ICON.icns" />
+    <BundleResource Include="Resources\add_ICON.png" />
+    <BundleResource Include="Resources\minus_ICON.png" />
+    <BundleResource Include="Resources\edit_ICON.png" />
   </ItemGroup>
 </Project>

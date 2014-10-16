@@ -90,7 +90,7 @@ namespace Shortcutter
 				}
 			};
 
-			tm = new ShortcutTableModel (MainClass.Shortcuts, ShortcutTable);
+			tm = new ShortcutTableModel (MainClass.Shortcuts, ShortcutTable, this);
 			ShortcutTable.DataSource = tm;
 			SearchField.Changed += searchEvent;
 		}
@@ -98,14 +98,15 @@ namespace Shortcutter
 		void searchEvent(object sender, EventArgs e)
 		{
 			tm.filter (SearchField.StringValue);
-			if (ShortcutTable.RowCount > 0) {
-				EditButton.Enabled = true;
-				EditButton.Validate ();
-				RemoveButton.Enabled = true;
+		}
+
+		public void enableButtons(bool shouldEnable)
+		{
+			EditButton.Enabled = shouldEnable;
+			RemoveButton.Enabled = shouldEnable;
+			if(shouldEnable){
 				RemoveButton.Validate ();
-			} else {
-				EditButton.Enabled = false;
-				RemoveButton.Enabled = false;
+				EditButton.Validate ();
 			}
 		}
 	}

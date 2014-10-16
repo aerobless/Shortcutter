@@ -11,13 +11,15 @@ namespace Shortcutter
 		List<Shortcut> allShortcuts;
 		List<Shortcut> filteredShorcuts;
 		NSTableView tableView;
+		MainWindowController mainWindow;
 		String currentFilter = "";
 
-		public ShortcutTableModel (List<Shortcut> shortcuts, NSTableView tableView)
+		public ShortcutTableModel (List<Shortcut> shortcuts, NSTableView tableView, MainWindowController mainWindow)
 		{
 			allShortcuts = shortcuts;
 			this.filteredShorcuts = allShortcuts;
 			this.tableView = tableView;
+			this.mainWindow = mainWindow;
 		}
 	
 		// how many rows are in the table
@@ -50,6 +52,12 @@ namespace Shortcutter
 			IEnumerable<Shortcut> query = allShortcuts.Where(s => (s.ApplicationName.ToLower().Contains(filter.ToLower())||s.Description.ToLower().Contains(filter.ToLower())));
 			filteredShorcuts = query.ToList();
 			tableView.ReloadData ();
+
+			if (filteredShorcuts.Count > 0) {
+				mainWindow.enableButtons (true);
+			} else {
+				mainWindow.enableButtons (false);
+			}
 		}
 
 		public void addNewShortcut(Shortcut shortcut)

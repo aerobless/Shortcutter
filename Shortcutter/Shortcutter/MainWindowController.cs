@@ -71,6 +71,7 @@ namespace Shortcutter
 				Shortcut result = aAddEntryController.edit(null, this);
 				if(result != null){
 					tm.addNewShortcut(result);
+					SendNotification ("Shortcutter","New Shortcut added.");
 				}
 			};
 
@@ -108,6 +109,38 @@ namespace Shortcutter
 				RemoveButton.Validate ();
 				EditButton.Validate ();
 			}
+		}
+
+		public void SendNotification (string title, string text)
+		{
+			// First we create our notification and customize as needed
+			NSUserNotification not = new NSUserNotification();
+
+			not.Title = title;
+			not.InformativeText = text;
+			not.DeliveryDate = DateTime.Now;
+			not.SoundName = NSUserNotification.NSUserNotificationDefaultSoundName;
+
+			// We get the Default notification Center
+			NSUserNotificationCenter center = NSUserNotificationCenter.DefaultUserNotificationCenter;
+
+			center.DidDeliverNotification += (s, e) => 
+			{
+				Console.WriteLine("Notification Delivered");
+				//DeliveredColorWell.Color = NSColor.Green;
+			};
+
+			center.DidActivateNotification += (s, e) => 
+			{
+				Console.WriteLine("Notification Touched");
+				//TouchedColorWell.Color = NSColor.Green;
+			};
+
+			// If we return true here, Notification will show up even if your app is TopMost.
+			center.ShouldPresentNotification = (c, n) => { return true; };
+
+			center.ScheduleNotification(not);
+
 		}
 	}
 }

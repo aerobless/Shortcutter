@@ -14,6 +14,7 @@ namespace Shortcutter
 
 		static void Main (string[] args)
 		{
+			NSApplication.Init ();
 			if (File.Exists (getStoragePath ()))
 			{
 				Console.Out.WriteLine ("shortcuts.xml found, loading existing data..");
@@ -24,12 +25,14 @@ namespace Shortcutter
 				loadDemoContent ();
 				SaveToDisk (Shortcuts);
 			}
+				
+			AppTracker test = new AppTracker ();
 
-			NSApplication.Init ();
+
 			NSApplication.Main (args);
 		}
 
-		static void loadDemoContent()
+		private static void loadDemoContent()
 		{
 			Shortcuts.Add (new Shortcut ("Chrome","New tab.","CMD+T"));
 			Shortcuts.Add (new Shortcut ("Chrome","New window.","CMD+N"));
@@ -56,11 +59,44 @@ namespace Shortcutter
 			return (List<Shortcut>)reader.Deserialize(file);
 		}
 
-		static String getStoragePath()
+		private static String getStoragePath()
 		{
 			var documents = Environment.GetFolderPath (Environment.SpecialFolder.MyDocuments);
 			Console.Out.WriteLine ("Storage-Location: "+Path.Combine (documents, "shortcuts.xml"));
 			return Path.Combine (documents, "shortcuts.xml");
+		}
+
+		public static void SendNotification (string title, string text)
+		{
+			// First we create our notification and customize as needed
+			NSUserNotification not = new NSUserNotification();
+
+			not.Title = title;
+			not.InformativeText = text;
+			not.DeliveryDate = DateTime.Now;
+			not.SoundName = NSUserNotification.NSUserNotificationDefaultSoundName;
+
+			// We get the Default notification Center
+			NSUserNotificationCenter center = NSUserNotificationCenter.DefaultUserNotificationCenter;
+
+			center.DidDeliverNotification += (s, e) => 
+			{
+				Console.WriteLine("Notification Delivered");
+				//DeliveredColorWell.Color = NSColor.Green;
+			};
+
+			center.DidActivateNotification += (s, e) => 
+			{
+				Console.WriteLine("Notification Touched");
+				//TouchedColorWell.Color = NSColor.Green;
+			};
+
+
+			// If we return true here, Notification will show up even if your app is TopMost.
+			center.ShouldPresentNotification = (c, n) => { return true; };
+
+			center.ScheduleNotification(not);
+
 		}
 	}
 }	

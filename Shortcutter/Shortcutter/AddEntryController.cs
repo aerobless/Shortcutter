@@ -40,6 +40,10 @@ namespace Shortcutter
 		}
 		#endregion
 
+		private bool cancelled{ get; set;}
+		private Shortcut savedValues;
+		private NSApplication NSApp = NSApplication.SharedApplication;
+
 		public override void AwakeFromNib ()
 		{
 			base.AwakeFromNib ();
@@ -55,10 +59,6 @@ namespace Shortcutter
 				cancelled = true;
 			};
 		}
-
-		private bool cancelled{ get; set;}
-		private Shortcut savedValues;
-		private NSApplication NSApp = NSApplication.SharedApplication;
 
 		//strongly typed window accessor
 		public new AddEntry Window {

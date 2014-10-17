@@ -89,6 +89,7 @@
     <Compile Include="AddEntry.designer.cs">
       <DependentUpon>AddEntry.cs</DependentUpon>
     </Compile>
+    <Compile Include="AppTracker.cs" />
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="MainWindow.xib" />

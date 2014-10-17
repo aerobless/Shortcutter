@@ -34,16 +34,19 @@ namespace Shortcutter
 
 		private static void loadDemoContent()
 		{
-			Shortcuts.Add (new Shortcut ("Chrome","New tab.","CMD+T"));
-			Shortcuts.Add (new Shortcut ("Chrome","New window.","CMD+N"));
-			Shortcuts.Add (new Shortcut ("Chrome","New incognito window.","CMD+Shift-N"));
-			Shortcuts.Add (new Shortcut ("Chrome","Close Tab","CMD+W"));
+			Shortcuts.Add (new Shortcut ("Google Chrome","New tab.","CMD+T"));
+			Shortcuts.Add (new Shortcut ("Google Chrome","New window.","CMD+N"));
+			Shortcuts.Add (new Shortcut ("Google Chrome","New incognito window.","CMD+Shift-N"));
+			Shortcuts.Add (new Shortcut ("Google Chrome","Close Tab","CMD+W"));
 
 			Console.Out.WriteLine ("Demo-Content loaded..");
 		}
 
 		public static void SaveToDisk(List<Shortcut> shortcutList)
 		{
+			//TODO: maybe ugly, need a better way to keep in sync or only use one List
+			Shortcuts = shortcutList;
+
 			string savePath = Path.Combine(Directory.GetCurrentDirectory(), getStoragePath());
 			System.Xml.Serialization.XmlSerializer writer = new System.Xml.Serialization.XmlSerializer(typeof(List<Shortcut>));
 

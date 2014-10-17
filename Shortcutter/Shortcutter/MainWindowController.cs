@@ -19,9 +19,6 @@ namespace Shortcutter
 		internal const int APPLICATION_IDX = 0;
 		internal const int SHORTCUT_IDX = 1;
 
-		NSWorkspace workspace = NSWorkspace.SharedWorkspace;
-	
-
 		#region Constructors
 		// Called when created from unmanaged code
 		public MainWindowController (IntPtr handle) : base (handle)

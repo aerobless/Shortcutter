@@ -11,10 +11,12 @@ namespace Shortcutter
 	class MainClass
 	{
 		public static List<Shortcut> Shortcuts = new List<Shortcut> ();
+		private static AppTracker apptracker;
 
 		static void Main (string[] args)
 		{
 			NSApplication.Init ();
+
 			if (File.Exists (getStoragePath ()))
 			{
 				Console.Out.WriteLine ("shortcuts.xml found, loading existing data..");
@@ -26,9 +28,7 @@ namespace Shortcutter
 				SaveToDisk (Shortcuts);
 			}
 				
-			AppTracker test = new AppTracker ();
-
-
+			apptracker = new AppTracker ();
 			NSApplication.Main (args);
 		}
 
@@ -38,7 +38,6 @@ namespace Shortcutter
 			Shortcuts.Add (new Shortcut ("Google Chrome","New window.","CMD+N"));
 			Shortcuts.Add (new Shortcut ("Google Chrome","New incognito window.","CMD+Shift-N"));
 			Shortcuts.Add (new Shortcut ("Google Chrome","Close Tab","CMD+W"));
-
 			Console.Out.WriteLine ("Demo-Content loaded..");
 		}
 
@@ -71,13 +70,13 @@ namespace Shortcutter
 
 		public static void SendNotification (string title, string text)
 		{
-			// First we create our notification and customize as needed
 			NSUserNotification not = new NSUserNotification();
 
 			not.Title = title;
 			not.InformativeText = text;
 			not.DeliveryDate = DateTime.Now;
 			not.SoundName = NSUserNotification.NSUserNotificationDefaultSoundName;
+			not.ActionButtonTitle = new NSString ("test");
 
 			// We get the Default notification Center
 			NSUserNotificationCenter center = NSUserNotificationCenter.DefaultUserNotificationCenter;
@@ -94,12 +93,10 @@ namespace Shortcutter
 				//TouchedColorWell.Color = NSColor.Green;
 			};
 
-
 			// If we return true here, Notification will show up even if your app is TopMost.
 			center.ShouldPresentNotification = (c, n) => { return true; };
 
 			center.ScheduleNotification(not);
-
 		}
 	}
 }	

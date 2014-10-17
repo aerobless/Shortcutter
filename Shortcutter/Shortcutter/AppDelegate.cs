@@ -18,6 +18,11 @@ namespace Shortcutter
 		{
 			mainWindowController = new MainWindowController ();
 			mainWindowController.Window.MakeKeyAndOrderFront (this);
+
+			NewWindowMenu.Activated += (object sender, EventArgs e) => {
+				//Open the main window and give it focus. Does nothing if the main window is already open.
+				mainWindowController.Window.MakeKeyAndOrderFront (this);
+			};
 		}
 	}
 }

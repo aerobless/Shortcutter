@@ -83,13 +83,11 @@ namespace Shortcutter
 
 			center.DidDeliverNotification += (s, e) => 
 			{
-				Console.WriteLine("Notification Delivered");
 				//DeliveredColorWell.Color = NSColor.Green;
 			};
 
 			center.DidActivateNotification += (s, e) => 
 			{
-				Console.WriteLine("Notification Touched");
 				//TouchedColorWell.Color = NSColor.Green;
 			};
 

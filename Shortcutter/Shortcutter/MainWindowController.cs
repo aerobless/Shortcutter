@@ -62,7 +62,7 @@ namespace Shortcutter
 					tm.removeShortcut(selectedRow);
 				}
 			};
-			Console.Out.WriteLine ("here blah");
+
 			ClickMeToolbar.Activated += (object sender, EventArgs e) => {
 				if(aAddEntryController == null)
 				{

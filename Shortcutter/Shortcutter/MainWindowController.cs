@@ -90,7 +90,7 @@ namespace Shortcutter
 				}
 			};
 
-			tm = new ShortcutTableModel (MainClass.Shortcuts, ShortcutTable, this);
+			tm = new ShortcutTableModel (ShortcutTable, this);
 			ShortcutTable.DataSource = tm;
 			SearchField.Changed += searchEvent;
 		}

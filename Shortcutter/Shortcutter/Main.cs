@@ -10,7 +10,9 @@ namespace Shortcutter
 {
 	class MainClass
 	{
-		public static List<Shortcut> Shortcuts = new List<Shortcut> ();
+		private const string STORAGE_FILENAME = "shortcutter.xml";
+		private static ApplicationSettings settings = new ApplicationSettings();
+
 		private static AppTracker apptracker;
 
 		static void Main (string[] args)
@@ -19,53 +21,41 @@ namespace Shortcutter
 
 			if (File.Exists (getStoragePath ()))
 			{
-				Console.Out.WriteLine ("shortcuts.xml found, loading existing data..");
-				Shortcuts = readFromDisk ();
+				Console.Out.WriteLine (STORAGE_FILENAME+" found, loading existing data..");
+				readFromDisk ();
 			} else 
 			{
-				Console.Out.WriteLine ("shortcuts.xml not found, loading demo data..");
-				loadDemoContent ();
-				SaveToDisk (Shortcuts);
+				Console.Out.WriteLine (STORAGE_FILENAME+" not found, loading demo data..");
+				settings.loadDemoContent ();
+				SaveToDisk ();
 			}
 				
 			apptracker = new AppTracker ();
 			NSApplication.Main (args);
 		}
 
-		private static void loadDemoContent()
+		public static void SaveToDisk()
 		{
-			Shortcuts.Add (new Shortcut ("Google Chrome","New tab.","CMD+T"));
-			Shortcuts.Add (new Shortcut ("Google Chrome","New window.","CMD+N"));
-			Shortcuts.Add (new Shortcut ("Google Chrome","New incognito window.","CMD+Shift-N"));
-			Shortcuts.Add (new Shortcut ("Google Chrome","Close Tab","CMD+W"));
-			Console.Out.WriteLine ("Demo-Content loaded..");
-		}
-
-		public static void SaveToDisk(List<Shortcut> shortcutList)
-		{
-			//TODO: maybe ugly, need a better way to keep in sync or only use one List
-			Shortcuts = shortcutList;
-
 			string savePath = Path.Combine(Directory.GetCurrentDirectory(), getStoragePath());
-			System.Xml.Serialization.XmlSerializer writer = new System.Xml.Serialization.XmlSerializer(typeof(List<Shortcut>));
+			System.Xml.Serialization.XmlSerializer writer = new System.Xml.Serialization.XmlSerializer(typeof(ApplicationSettings));
 
 			System.IO.StreamWriter file = new System.IO.StreamWriter(savePath);
-			writer.Serialize(file, shortcutList);
+			writer.Serialize(file, settings);
 			file.Close();
 		}
 
-		private static List<Shortcut> readFromDisk()
+		private static void readFromDisk()
 		{
 			System.Xml.Serialization.XmlSerializer reader = new System.Xml.Serialization.XmlSerializer(typeof(List<Shortcut>));
 			System.IO.StreamReader file = new System.IO.StreamReader(getStoragePath());
-			return (List<Shortcut>)reader.Deserialize(file);
+			settings =(ApplicationSettings)reader.Deserialize(file);
 		}
 
 		private static String getStoragePath()
 		{
 			var documents = Environment.GetFolderPath (Environment.SpecialFolder.MyDocuments);
-			Console.Out.WriteLine ("Storage-Location: "+Path.Combine (documents, "shortcuts.xml"));
-			return Path.Combine (documents, "shortcuts.xml");
+			Console.Out.WriteLine ("Storage-Location: "+Path.Combine (documents, STORAGE_FILENAME));
+			return Path.Combine (documents, STORAGE_FILENAME);
 		}
 
 		public static void SendNotification (string title, string text)
@@ -96,6 +86,22 @@ namespace Shortcutter
 
 			center.ScheduleNotification(not);
 		}
+
+		public static List<Shortcut> getShortcutList()
+		{
+			return settings.Shortcuts;
+		}
+
+		public static void addShortcut(Shortcut shortcut)
+		{
+			settings.Shortcuts.Add (shortcut);
+			SaveToDisk ();
+		}
+
+		public static void removeShortcut(Shortcut shortcut)
+		{
+			settings.Shortcuts.Remove (shortcut);
+			SaveToDisk ();
+		}
 	}
 }	
-

@@ -43,7 +43,7 @@ namespace Shortcutter
 
 		private void findShortcut(string applicationName)
 		{
-			IEnumerable<Shortcut> query = MainClass.Shortcuts.Where(s => (s.ApplicationName.ToLower().Contains(applicationName.ToLower())));
+			IEnumerable<Shortcut> query = MainClass.getShortcutList().Where(s => (s.ApplicationName.ToLower().Contains(applicationName.ToLower())));
 			List<Shortcut> filteredShorcuts = query.ToList();
 
 			if(filteredShorcuts.Count>0){

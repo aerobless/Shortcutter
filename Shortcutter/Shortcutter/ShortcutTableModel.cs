@@ -8,16 +8,14 @@ namespace Shortcutter
 {
 	public class ShortcutTableModel : NSTableViewDataSource
 	{
-		List<Shortcut> allShortcuts;
 		List<Shortcut> filteredShorcuts;
 		NSTableView tableView;
 		MainWindowController mainWindow;
 		String currentFilter = "";
 
-		public ShortcutTableModel (List<Shortcut> shortcuts, NSTableView tableView, MainWindowController mainWindow)
+		public ShortcutTableModel (NSTableView tableView, MainWindowController mainWindow)
 		{
-			allShortcuts = shortcuts;
-			this.filteredShorcuts = allShortcuts;
+			this.filteredShorcuts = MainClass.getShortcutList();
 			this.tableView = tableView;
 			this.mainWindow = mainWindow;
 		}
@@ -49,7 +47,7 @@ namespace Shortcutter
 		public void filter(string filter)
 		{
 			currentFilter = filter;
-			IEnumerable<Shortcut> query = allShortcuts.Where(s => (s.ApplicationName.ToLower().Contains(filter.ToLower())||s.Description.ToLower().Contains(filter.ToLower())));
+			IEnumerable<Shortcut> query = MainClass.getShortcutList().Where(s => (s.ApplicationName.ToLower().Contains(filter.ToLower())||s.Description.ToLower().Contains(filter.ToLower())));
 			filteredShorcuts = query.ToList();
 			tableView.ReloadData ();
 
@@ -62,16 +60,14 @@ namespace Shortcutter
 
 		public void addNewShortcut(Shortcut shortcut)
 		{
-			allShortcuts.Add (shortcut);
+			MainClass.addShortcut(shortcut);
 			filter (currentFilter);
-			MainClass.SaveToDisk (allShortcuts);
 		}
 
 		public void removeShortcut(int idInFilteredList)
 		{
-			allShortcuts.Remove (filteredShorcuts [idInFilteredList]);
+			MainClass.removeShortcut(filteredShorcuts [idInFilteredList]);
 			filter (currentFilter);
-			MainClass.SaveToDisk (allShortcuts);
 		}
 
 		public Shortcut getFilteredShortcut(int filteredRowNr)

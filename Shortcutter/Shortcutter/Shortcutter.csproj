@@ -90,6 +90,7 @@
       <DependentUpon>AddEntry.cs</DependentUpon>
     </Compile>
     <Compile Include="AppTracker.cs" />
+    <Compile Include="DataObjects\ApplicationSettings.cs" />
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="MainWindow.xib" />

@@ -16,17 +16,16 @@ namespace Shortcutter
 		//Check how long an application was open. We only send notifications when a user
 		//has been using his chosen application for a set period.
 		Timer applicationTimer;
-		int minTimeRequiredForNotification = 1;
 
 		public AppTracker ()
 		{
-			applicationTimer = new Timer(TimerCallback, null, TimeSpan.FromMinutes(minTimeRequiredForNotification), TimeSpan.Zero);
+			applicationTimer = new Timer(TimerCallback, null, TimeSpan.FromSeconds(MainClass.getWaittimeAfterContextSwitch()), TimeSpan.Zero);
 			Console.WriteLine ("Add the sleep/wake observers");
 			NSWorkspace.Notifications.ObserveDidActivateApplication ((object sender, NSWorkspaceApplicationEventArgs e) => {
 				currentlyActiveApp = workspace.ActiveApplication.ValueForKey(new NSString("NSApplicationName")).ToString();
 
 				//We set a new timer every time a context switch occures.. so only if a user stays x minutes in an app he gets notified
-				applicationTimer.Change(TimeSpan.FromMinutes(minTimeRequiredForNotification), TimeSpan.Zero);
+				applicationTimer.Change(TimeSpan.FromSeconds(MainClass.getWaittimeAfterContextSwitch()), TimeSpan.Zero);
 			});
 		}
 
@@ -59,4 +58,3 @@ namespace Shortcutter
 		}
 	}
 }
-

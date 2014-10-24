@@ -42,7 +42,6 @@
     <CreatePackage>false</CreatePackage>
     <EnableCodeSigning>false</EnableCodeSigning>
     <EnablePackageSigning>false</EnablePackageSigning>
-    <CodeSignEntitlements>Entitlements.plist</CodeSignEntitlements>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'AppStore|x86' ">
     <DebugType>full</DebugType>
@@ -73,13 +72,10 @@
   <ItemGroup>
     <Folder Include="Resources\" />
     <Folder Include="DataObjects\" />
+    <Folder Include="Controller\" />
+    <Folder Include="View\" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="MainWindow.cs" />
-    <Compile Include="MainWindowController.cs" />
-    <Compile Include="MainWindow.designer.cs">
-      <DependentUpon>MainWindow.cs</DependentUpon>
-    </Compile>
     <Compile Include="Main.cs" />
     <Compile Include="AppDelegate.cs" />
     <Compile Include="AppDelegate.designer.cs">
@@ -87,18 +83,29 @@
     </Compile>
     <Compile Include="DataObjects\Shortcut.cs" />
     <Compile Include="ShortcutTableModel.cs" />
-    <Compile Include="AddEntry.cs" />
-    <Compile Include="AddEntryController.cs" />
-    <Compile Include="AddEntry.designer.cs">
-      <DependentUpon>AddEntry.cs</DependentUpon>
-    </Compile>
     <Compile Include="AppTracker.cs" />
     <Compile Include="DataObjects\ApplicationSettings.cs" />
+    <Compile Include="Controller\MainWindowController.cs" />
+    <Compile Include="Controller\AddEntryController.cs" />
+    <Compile Include="View\MainWindow.cs" />
+    <Compile Include="View\MainWindow.designer.cs">
+      <DependentUpon>MainWindow.cs</DependentUpon>
+    </Compile>
+    <Compile Include="View\AddEntry.cs" />
+    <Compile Include="View\AddEntry.designer.cs">
+      <DependentUpon>AddEntry.cs</DependentUpon>
+    </Compile>
+    <Compile Include="View\Settings.cs" />
+    <Compile Include="View\Settings.designer.cs">
+      <DependentUpon>Settings.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DataObjects\SettingsController.cs" />
   </ItemGroup>
   <ItemGroup>
-    <InterfaceDefinition Include="MainWindow.xib" />
-    <InterfaceDefinition Include="MainMenu.xib" />
-    <InterfaceDefinition Include="AddEntry.xib" />
+    <InterfaceDefinition Include="View\MainWindow.xib" />
+    <InterfaceDefinition Include="View\AddEntry.xib" />
+    <InterfaceDefinition Include="View\MainMenu.xib" />
+    <InterfaceDefinition Include="View\Settings.xib" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Info.plist" />

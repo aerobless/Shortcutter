@@ -103,5 +103,20 @@ namespace Shortcutter
 			settings.Shortcuts.Remove (shortcut);
 			SaveToDisk ();
 		}
+
+		public static bool isNotificationEnabled()
+		{
+			return settings.NotificationsEnabled;
+		}
+
+		public static int getWaittimeAfterContextSwitch()
+		{
+			return settings.WaittimeAfterContextSwitch;
+		}
+
+		public static int getWaittimeBeforeNextNotification()
+		{
+			return settings.WaittimeBeforeNextNotification;
+		}
 	}
 }	

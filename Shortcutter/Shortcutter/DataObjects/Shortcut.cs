@@ -1,22 +1,32 @@
 ﻿using System;
+using System.Runtime.Serialization;
 
 namespace Shortcutter
 {
 	public class Shortcut
 	{
-		public string ApplicationName{ get; set;}
+		[DataMember()]
+		public Application parentApplication{ get; set;}
+
+		[DataMember()]
 		public string Description{ get; set; }
+
+		[DataMember()]
 		public string ShortcutAction{ get; set; }
+
+		[DataMember()]
 		public Boolean learnedShortcut{ get; set;}
-		private int nofShowed;
+
+		[DataMember()]
+		public int nofShowed;
 
 		public Shortcut ()
 		{
 		}
 
-		public Shortcut (string ApplicationName, string Description, string Shortcut)
+		public Shortcut (Application parentApplication, string Description, string Shortcut)
 		{
-			this.ApplicationName = ApplicationName;
+			this.parentApplication = parentApplication;
 			this.Description = Description;
 			this.ShortcutAction = Shortcut;
 			this.nofShowed = 0;
@@ -31,6 +41,14 @@ namespace Shortcutter
 		public void ResetNofShowed()
 		{
 			nofShowed = 0;
+		}
+
+		public string getApplicationName(){
+			return parentApplication.DisplayName;
+		}
+
+		public string getApplicationIdentifier(){
+			return parentApplication.Identifier;
 		}
 	}
 }

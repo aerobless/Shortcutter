@@ -12,6 +12,7 @@ namespace Shortcutter
 	{
 		NSWorkspace workspace = NSWorkspace.SharedWorkspace;
 		String currentlyActiveApp = "";
+		String selectedApplication = "Google Chrome";
 
 		//Check how long an application was open. We only send notifications when a user
 		//has been using his chosen application for a set period.
@@ -42,7 +43,7 @@ namespace Shortcutter
 
 		private void findShortcut(string applicationName)
 		{
-			IEnumerable<Shortcut> query = MainClass.getShortcutList().Where(s => (s.ApplicationName.ToLower().Contains(applicationName.ToLower())));
+			IEnumerable<Shortcut> query = MainClass.getShortcutList(selectedApplication).Where(s => (s.getApplicationName().ToLower().Contains(applicationName.ToLower())));
 			List<Shortcut> filteredShorcuts = query.ToList();
 
 			if(filteredShorcuts.Count>0){

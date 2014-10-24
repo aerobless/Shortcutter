@@ -5,6 +5,11 @@ using MonoMac.AppKit;
 using MonoMac.ObjCRuntime;
 using System.Collections.Generic;
 using System.IO;
+using System.Xml.Serialization;
+using System.Collections;
+using System.Runtime.Serialization;
+using System.Xml;
+
 
 namespace Shortcutter
 {
@@ -37,18 +42,30 @@ namespace Shortcutter
 		public static void SaveToDisk()
 		{
 			string savePath = Path.Combine(Directory.GetCurrentDirectory(), getStoragePath());
-			System.Xml.Serialization.XmlSerializer writer = new System.Xml.Serialization.XmlSerializer(typeof(ApplicationSettings));
 
-			System.IO.StreamWriter file = new System.IO.StreamWriter(savePath);
-			writer.Serialize(file, settings);
-			file.Close();
+			var ds = new DataContractSerializer(typeof(ApplicationSettings));
+			var xmlsettings = new XmlWriterSettings { Indent = true };
+			using (var w = XmlWriter.Create(savePath, xmlsettings))
+				ds.WriteObject(w, settings);
 		}
 
 		private static void readFromDisk()
 		{
+			DataContractSerializer ds = new DataContractSerializer(typeof(ApplicationSettings));
+			FileStream fs = new FileStream(getStoragePath(), FileMode.Open);
+			XmlDictionaryReader reader = XmlDictionaryReader.CreateTextReader(fs, new XmlDictionaryReaderQuotas());
+
+			settings = (ApplicationSettings)ds.ReadObject(reader);
+			reader.Close();
+			fs.Close();
+
+			Console.Out.WriteLine (settings.appDict["Google Chrome"].Description);
+			Console.Out.WriteLine (settings.appDict["Google Chrome"].ShortcutList[1].Description);
+			/*
 			System.Xml.Serialization.XmlSerializer reader = new System.Xml.Serialization.XmlSerializer(typeof(ApplicationSettings));
 			System.IO.StreamReader file = new System.IO.StreamReader(getStoragePath());
 			settings =(ApplicationSettings)reader.Deserialize(file);
+			*/
 		}
 
 		private static String getStoragePath()
@@ -87,20 +104,20 @@ namespace Shortcutter
 			center.ScheduleNotification(not);
 		}
 
-		public static List<Shortcut> getShortcutList()
+		public static List<Shortcut> getShortcutList(string application)
 		{
-			return settings.Shortcuts;
+			return settings.getShortcutsFor (application);
 		}
 
-		public static void addShortcut(Shortcut shortcut)
+		public static void addShortcut(string application, string description, string shortcutText)
 		{
-			settings.Shortcuts.Add (shortcut);
+			settings.addShortcut(application, description, shortcutText);
 			SaveToDisk ();
 		}
 
-		public static void removeShortcut(Shortcut shortcut)
+		public static void removeShortcut(string application,Shortcut shortcut)
 		{
-			settings.Shortcuts.Remove (shortcut);
+			settings.removeShortcut(application, shortcut);
 			SaveToDisk ();
 		}
 

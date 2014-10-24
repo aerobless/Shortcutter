@@ -71,7 +71,7 @@ namespace Shortcutter
 				}
 				Shortcut result = aAddEntryController.edit(null, this);
 				if(result != null){
-					tm.addNewShortcut(result);
+					tm.addNewShortcut(result.Description, result.ShortcutAction);
 				}
 			};
 
@@ -86,7 +86,7 @@ namespace Shortcutter
 					Shortcut result = aAddEntryController.edit(tm.getFilteredShortcut(selectedRow), this);
 					if(result != null){
 						tm.removeShortcut(selectedRow);
-						tm.addNewShortcut(result);
+						tm.addNewShortcut(result.Description, result.ShortcutAction);
 					}
 				}
 			};

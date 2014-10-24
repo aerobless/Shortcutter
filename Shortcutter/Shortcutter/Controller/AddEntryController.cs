@@ -50,7 +50,7 @@ namespace Shortcutter
 
 			okButton.Activated += (object sender, EventArgs e) => {
 				// save the values for later
-				savedValues = new Shortcut(applicationField.StringValue, descriptionField.StringValue, shortcutField.StringValue);
+				savedValues = new Shortcut(null, descriptionField.StringValue, shortcutField.StringValue);
 				NSApp.StopModal();
 			};
 
@@ -75,7 +75,7 @@ namespace Shortcutter
 
 			if (editingAShortcut != null)
 			{
-				applicationField.StringValue = editingAShortcut.ApplicationName;
+				applicationField.StringValue = editingAShortcut.getApplicationName();//TODO FIX
 				descriptionField.StringValue = editingAShortcut.Description;
 				shortcutField.StringValue = editingAShortcut.ShortcutAction;
 			}

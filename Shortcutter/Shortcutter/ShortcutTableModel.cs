@@ -12,10 +12,11 @@ namespace Shortcutter
 		NSTableView tableView;
 		MainWindowController mainWindow;
 		String currentFilter = "";
+		String selectedApplication = "Google Chrome";
 
 		public ShortcutTableModel (NSTableView tableView, MainWindowController mainWindow)
 		{
-			this.filteredShorcuts = MainClass.getShortcutList();
+			this.filteredShorcuts = MainClass.getShortcutList(selectedApplication);
 			this.tableView = tableView;
 			this.mainWindow = mainWindow;
 		}
@@ -32,7 +33,7 @@ namespace Shortcutter
 			int row)
 		{
 			if (tableColumn.Identifier == "applicationColumn")
-				return new NSString (filteredShorcuts[row].ApplicationName);
+				return new NSString (filteredShorcuts[row].getApplicationName());
 
 			if (tableColumn.Identifier == "descriptionColumn")
 				return new NSString (filteredShorcuts[row].Description);
@@ -47,7 +48,7 @@ namespace Shortcutter
 		public void filter(string filter)
 		{
 			currentFilter = filter;
-			IEnumerable<Shortcut> query = MainClass.getShortcutList().Where(s => (s.ApplicationName.ToLower().Contains(filter.ToLower())||s.Description.ToLower().Contains(filter.ToLower())));
+			IEnumerable<Shortcut> query = MainClass.getShortcutList(selectedApplication).Where(s => (s.getApplicationName().ToLower().Contains(filter.ToLower())||s.Description.ToLower().Contains(filter.ToLower())));
 			filteredShorcuts = query.ToList();
 			tableView.ReloadData ();
 
@@ -58,15 +59,15 @@ namespace Shortcutter
 			}
 		}
 
-		public void addNewShortcut(Shortcut shortcut)
+		public void addNewShortcut(string description, string shortcutText)
 		{
-			MainClass.addShortcut(shortcut);
+			MainClass.addShortcut(selectedApplication, description, shortcutText);
 			filter (currentFilter);
 		}
 
 		public void removeShortcut(int idInFilteredList)
 		{
-			MainClass.removeShortcut(filteredShorcuts [idInFilteredList]);
+			MainClass.removeShortcut(selectedApplication, filteredShorcuts [idInFilteredList]);
 			filter (currentFilter);
 		}
 

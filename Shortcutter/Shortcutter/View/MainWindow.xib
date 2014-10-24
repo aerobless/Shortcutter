@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <archive type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="8.00">
 	<data>
-		<int key="IBDocument.SystemTarget">1090</int>
+		<int key="IBDocument.SystemTarget">101000</int>
 		<string key="IBDocument.SystemVersion">14A388a</string>
-		<string key="IBDocument.InterfaceBuilderVersion">6245</string>
+		<string key="IBDocument.InterfaceBuilderVersion">6250</string>
 		<string key="IBDocument.AppKitVersion">1343.14</string>
 		<string key="IBDocument.HIToolboxVersion">755.00</string>
 		<object class="NSMutableDictionary" key="IBDocument.PluginVersions">
 			<string key="NS.key.0">com.apple.InterfaceBuilder.CocoaPlugin</string>
-			<string key="NS.object.0">6245</string>
+			<string key="NS.object.0">6250</string>
 		</object>
 		<array key="IBDocument.IntegratedClassDependencies">
 			<string>NSCustomObject</string>
@@ -118,15 +118,37 @@
 							<bool key="NSToolbarIsUserRemovable">YES</bool>
 							<int key="NSToolbarItemVisibilityPriority">0</int>
 						</object>
+						<object class="NSToolbarItem" key="6268D4D7-6722-4E16-8371-B89C9BEC7E53" id="173559560">
+							<string key="NSToolbarItemIdentifier">6268D4D7-6722-4E16-8371-B89C9BEC7E53</string>
+							<string key="NSToolbarItemLabel">Settings</string>
+							<string key="NSToolbarItemPaletteLabel">Settings</string>
+							<string key="NSToolbarItemToolTip"/>
+							<nil key="NSToolbarItemView"/>
+							<object class="NSCustomResource" key="NSToolbarItemImage">
+								<string key="NSClassName">NSImage</string>
+								<string key="NSResourceName">settings_ICON</string>
+							</object>
+							<nil key="NSToolbarItemTarget"/>
+							<nil key="NSToolbarItemAction"/>
+							<string key="NSToolbarItemMinSize">{0, 0}</string>
+							<string key="NSToolbarItemMaxSize">{0, 0}</string>
+							<bool key="NSToolbarItemEnabled">YES</bool>
+							<bool key="NSToolbarItemAutovalidates">YES</bool>
+							<int key="NSToolbarItemTag">-1</int>
+							<bool key="NSToolbarIsUserRemovable">YES</bool>
+							<int key="NSToolbarItemVisibilityPriority">0</int>
+						</object>
 						<object class="NSToolbarItem" key="91463777-E079-48EE-964A-93805790CC30" id="202526828">
 							<string key="NSToolbarItemIdentifier">91463777-E079-48EE-964A-93805790CC30</string>
 							<string key="NSToolbarItemLabel">Search</string>
 							<string key="NSToolbarItemPaletteLabel">Search</string>
 							<nil key="NSToolbarItemToolTip"/>
 							<object class="NSSearchField" key="NSToolbarItemView" id="732383587">
-								<nil key="NSNextResponder"/>
+								<reference key="NSNextResponder"/>
 								<int key="NSvFlags">268</int>
 								<string key="NSFrame">{{0, 14}, {96, 22}}</string>
+								<reference key="NSSuperview"/>
+								<reference key="NSWindow"/>
 								<bool key="NSViewIsLayerTreeHost">YES</bool>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<bool key="NSEnabled">YES</bool>
@@ -277,14 +299,16 @@
 						<reference ref="29127432"/>
 						<reference ref="605208996"/>
 						<reference ref="849404312"/>
+						<reference ref="173559560"/>
 						<reference ref="202526828"/>
 						<reference ref="561511242"/>
 					</array>
-					<array class="NSMutableArray" key="NSToolbarIBDefaultItems">
+					<array key="NSToolbarIBDefaultItems">
 						<reference ref="849404312"/>
 						<reference ref="561511242"/>
 						<reference ref="29127432"/>
 						<reference ref="605208996"/>
+						<reference ref="173559560"/>
 						<reference ref="202526828"/>
 					</array>
 					<array key="NSToolbarIBSelectableItems" id="0"/>
@@ -588,6 +612,14 @@
 					</object>
 					<int key="connectionID">94</int>
 				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">SettingsButton</string>
+						<reference key="source" ref="1001"/>
+						<reference key="destination" ref="173559560"/>
+					</object>
+					<int key="connectionID">117</int>
+				</object>
 			</array>
 			<object class="IBMutableOrderedSet" key="objectRecords">
 				<array key="orderedObjects">
@@ -706,6 +738,7 @@
 							<reference ref="202526828"/>
 							<reference ref="561511242"/>
 							<reference ref="29127432"/>
+							<reference ref="173559560"/>
 						</array>
 						<reference key="parent" ref="748157544"/>
 					</object>
@@ -768,12 +801,18 @@
 						<reference key="object" ref="29127432"/>
 						<reference key="parent" ref="783360983"/>
 					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">116</int>
+						<reference key="object" ref="173559560"/>
+						<reference key="parent" ref="783360983"/>
+					</object>
 				</array>
 			</object>
 			<dictionary class="NSMutableDictionary" key="flattenedProperties">
 				<string key="-1.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="-2.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="-3.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<string key="116.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="2.IBPersistedLastKnownCanvasPosition">{328, 412}</string>
 				<string key="2.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="2.IBWindowTemplateEditedContentRect">{{319, 371}, {606, 354}}</string>
@@ -812,7 +851,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">115</int>
+			<int key="maxID">117</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -832,6 +871,7 @@
 						<string key="EditButton">NSToolbarItem</string>
 						<string key="RemoveButton">NSToolbarItem</string>
 						<string key="SearchField">NSSearchField</string>
+						<string key="SettingsButton">NSToolbarItem</string>
 						<string key="ShortcutTable">NSTableView</string>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="toOneOutletInfosByName">
@@ -850,6 +890,10 @@
 						<object class="IBToOneOutletInfo" key="SearchField">
 							<string key="name">SearchField</string>
 							<string key="candidateClassName">NSSearchField</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="SettingsButton">
+							<string key="name">SettingsButton</string>
+							<string key="candidateClassName">NSToolbarItem</string>
 						</object>
 						<object class="IBToOneOutletInfo" key="ShortcutTable">
 							<string key="name">ShortcutTable</string>
@@ -888,6 +932,7 @@
 			<string key="add_ICON">{256, 256}</string>
 			<string key="edit_ICON">{256, 256}</string>
 			<string key="minus_ICON">{256, 256}</string>
+			<string key="settings_ICON">{256, 256}</string>
 		</dictionary>
 	</data>
 </archive>

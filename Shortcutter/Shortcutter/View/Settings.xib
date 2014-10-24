@@ -632,7 +632,7 @@
 				<string key="2.IBPersistedLastKnownCanvasPosition">{268.5, 239.5}</string>
 				<string key="2.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="2.IBWindowTemplateEditedContentRect">{{319, 371}, {606, 354}}</string>
-				<boolean value="YES" key="2.NSWindowTemplate.visibleAtLaunch"/>
+				<boolean value="NO" key="2.NSWindowTemplate.visibleAtLaunch"/>
 				<dictionary class="NSMutableDictionary" key="20.IBAttributePlaceholdersKey">
 					<object class="IBAccessibilityAttribute" key="AccessibilityHelp">
 						<string key="name">AccessibilityHelp</string>

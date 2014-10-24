@@ -43,6 +43,7 @@ namespace Shortcutter
 		#endregion
 
 		AddEntryController aAddEntryController;
+		SettingsController aSettingsController;
 
 		//strongly typed window accessor
 		public new MainWindow Window {
@@ -88,6 +89,14 @@ namespace Shortcutter
 						tm.addNewShortcut(result);
 					}
 				}
+			};
+
+			SettingsButton.Activated += (object sender, EventArgs e) => {
+				if(aSettingsController == null)
+				{
+					aSettingsController = new SettingsController();
+				}
+				aSettingsController.editSettings(this);
 			};
 
 			tm = new ShortcutTableModel (ShortcutTable, this);

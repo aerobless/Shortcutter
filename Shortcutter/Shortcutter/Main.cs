@@ -46,7 +46,7 @@ namespace Shortcutter
 
 		private static void readFromDisk()
 		{
-			System.Xml.Serialization.XmlSerializer reader = new System.Xml.Serialization.XmlSerializer(typeof(List<Shortcut>));
+			System.Xml.Serialization.XmlSerializer reader = new System.Xml.Serialization.XmlSerializer(typeof(ApplicationSettings));
 			System.IO.StreamReader file = new System.IO.StreamReader(getStoragePath());
 			settings =(ApplicationSettings)reader.Deserialize(file);
 		}
@@ -117,6 +117,13 @@ namespace Shortcutter
 		public static int getWaittimeBeforeNextNotification()
 		{
 			return settings.WaittimeBeforeNextNotification;
+		}
+
+		public static void UpdateSettings(bool notificationEnabled, int waittimeAfterContextSwitch, int waittimeBeforeNextNotification)
+		{
+			settings.NotificationsEnabled = notificationEnabled;
+			settings.WaittimeAfterContextSwitch = waittimeAfterContextSwitch;
+			settings.WaittimeBeforeNextNotification = waittimeBeforeNextNotification;
 		}
 	}
 }	

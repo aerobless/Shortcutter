@@ -25,6 +25,9 @@ namespace Shortcutter
 		MonoMac.AppKit.NSSearchField SearchField { get; set; }
 
 		[Outlet]
+		MonoMac.AppKit.NSToolbarItem SettingsButton { get; set; }
+
+		[Outlet]
 		MonoMac.AppKit.NSTableView ShortcutTable { get; set; }
 		
 		void ReleaseDesignerOutlets ()
@@ -32,6 +35,11 @@ namespace Shortcutter
 			if (ClickMeToolbar != null) {
 				ClickMeToolbar.Dispose ();
 				ClickMeToolbar = null;
+			}
+
+			if (EditButton != null) {
+				EditButton.Dispose ();
+				EditButton = null;
 			}
 
 			if (RemoveButton != null) {
@@ -49,9 +57,9 @@ namespace Shortcutter
 				ShortcutTable = null;
 			}
 
-			if (EditButton != null) {
-				EditButton.Dispose ();
-				EditButton = null;
+			if (SettingsButton != null) {
+				SettingsButton.Dispose ();
+				SettingsButton = null;
 			}
 		}
 	}

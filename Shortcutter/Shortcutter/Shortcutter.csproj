@@ -99,7 +99,7 @@
     <Compile Include="View\Settings.designer.cs">
       <DependentUpon>Settings.cs</DependentUpon>
     </Compile>
-    <Compile Include="DataObjects\SettingsController.cs" />
+    <Compile Include="Controller\SettingsController.cs" />
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="View\MainWindow.xib" />
@@ -118,5 +118,6 @@
     <BundleResource Include="Resources\add_ICON.png" />
     <BundleResource Include="Resources\minus_ICON.png" />
     <BundleResource Include="Resources\edit_ICON.png" />
+    <BundleResource Include="Resources\settings_ICON.png" />
   </ItemGroup>
 </Project>

@@ -71,7 +71,6 @@ namespace Shortcutter
 		{
 
 			NSWindow window = this.Window;
-
 			cancelled = false;
 
 			if (editingAShortcut != null)

@@ -24,7 +24,6 @@ namespace Shortcutter
 			Console.WriteLine ("Add the sleep/wake observers");
 			NSWorkspace.Notifications.ObserveDidActivateApplication ((object sender, NSWorkspaceApplicationEventArgs e) => {
 				currentlyActiveApp = workspace.ActiveApplication.ValueForKey(new NSString("NSApplicationName")).ToString();
-
 				//We set a new timer every time a context switch occures.. so only if a user stays x minutes in an app he gets notified
 				applicationTimer.Change(TimeSpan.FromSeconds(MainClass.getWaittimeAfterContextSwitch()), TimeSpan.Zero);
 			});
@@ -43,7 +42,7 @@ namespace Shortcutter
 
 		private void findShortcut(string applicationName)
 		{
-			IEnumerable<Shortcut> query = MainClass.getShortcutList(selectedApplication).Where(s => (s.getApplicationName().ToLower().Contains(applicationName.ToLower())));
+			IEnumerable<Shortcut> query = MainClass.getShortcutList(selectedApplication).Where(s => (s.getApplicationIdentifier().ToLower().Contains(applicationName.ToLower())));
 			List<Shortcut> filteredShorcuts = query.ToList();
 
 			if(filteredShorcuts.Count>0){

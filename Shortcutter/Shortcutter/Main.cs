@@ -24,6 +24,8 @@ namespace Shortcutter
 		{
 			NSApplication.Init ();
 
+			
+
 			if (File.Exists (getStoragePath ()))
 			{
 				Console.Out.WriteLine (STORAGE_FILENAME+" found, loading existing data..");
@@ -61,11 +63,6 @@ namespace Shortcutter
 
 			Console.Out.WriteLine (settings.appDict["Google Chrome"].Description);
 			Console.Out.WriteLine (settings.appDict["Google Chrome"].ShortcutList[1].Description);
-			/*
-			System.Xml.Serialization.XmlSerializer reader = new System.Xml.Serialization.XmlSerializer(typeof(ApplicationSettings));
-			System.IO.StreamReader file = new System.IO.StreamReader(getStoragePath());
-			settings =(ApplicationSettings)reader.Deserialize(file);
-			*/
 		}
 
 		private static String getStoragePath()

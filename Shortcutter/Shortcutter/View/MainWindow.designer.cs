@@ -29,6 +29,9 @@ namespace Shortcutter
 
 		[Outlet]
 		MonoMac.AppKit.NSTableView ShortcutTable { get; set; }
+
+		[Outlet]
+		MonoMac.AppKit.NSOutlineView SidebarOutlineView { get; set; }
 		
 		void ReleaseDesignerOutlets ()
 		{
@@ -52,14 +55,19 @@ namespace Shortcutter
 				SearchField = null;
 			}
 
+			if (SettingsButton != null) {
+				SettingsButton.Dispose ();
+				SettingsButton = null;
+			}
+
 			if (ShortcutTable != null) {
 				ShortcutTable.Dispose ();
 				ShortcutTable = null;
 			}
 
-			if (SettingsButton != null) {
-				SettingsButton.Dispose ();
-				SettingsButton = null;
+			if (SidebarOutlineView != null) {
+				SidebarOutlineView.Dispose ();
+				SidebarOutlineView = null;
 			}
 		}
 	}

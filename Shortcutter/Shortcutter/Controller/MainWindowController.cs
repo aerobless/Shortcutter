@@ -101,6 +101,11 @@ namespace Shortcutter
 
 			tm = new ShortcutTableModel (ShortcutTable, this);
 			ShortcutTable.DataSource = tm;
+
+			//Test
+			SidebarModel test = new SidebarModel ();
+			SidebarOutlineView.DataSource = test;
+
 			SearchField.Changed += searchEvent;
 		}
 

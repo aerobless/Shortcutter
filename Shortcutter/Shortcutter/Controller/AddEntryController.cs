@@ -42,6 +42,7 @@ namespace Shortcutter
 		private bool cancelled{ get; set;}
 		private Shortcut savedValues;
 		private NSApplication NSApp = NSApplication.SharedApplication;
+		private MainWindowController mainWindow;
 
 		public override void AwakeFromNib ()
 		{
@@ -71,15 +72,14 @@ namespace Shortcutter
 		{
 			applicationMenu.RemoveAllItems ();
 			MainClass.getApplicationList().ForEach(app => applicationMenu.AddItem (new NSMenuItem (app.Identifier)));
-			NSMenuItem newAppMenuEntry = new NSMenuItem ("New application ...");
-			newAppMenuEntry.Activated += (sender, e) => {Console.Out.WriteLine("dddd");};
-			applicationMenu.AddItem (newAppMenuEntry);
+			applicationMenu.AddItem (new NSMenuItem ("New application ..."));
 		}
 
-		public Shortcut edit(Shortcut editingAShortcut, MainWindowController sender)
+		public ShortcutResponse edit(Shortcut editingAShortcut, MainWindowController sender)
 		{
 
 			NSWindow window = this.Window;
+			mainWindow = sender;
 			cancelled = false;
 			createAppMenu ();
 			if (editingAShortcut != null)
@@ -108,7 +108,10 @@ namespace Shortcutter
 			if (cancelled) {
 				return null;
 			} else {
-				return savedValues;
+				string selected = applicationMenuSwitcher.SelectedItem.Title;
+				bool newAppModal = false;
+				if(selected.Equals("New application ...")){newAppModal = true;}
+				return new ShortcutResponse(savedValues, newAppModal, selected);
 			}
 		}
 	}

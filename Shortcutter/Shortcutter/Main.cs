@@ -10,7 +10,6 @@ using System.Collections;
 using System.Runtime.Serialization;
 using System.Xml;
 
-
 namespace Shortcutter
 {
 	class MainClass
@@ -23,8 +22,6 @@ namespace Shortcutter
 		static void Main (string[] args)
 		{
 			NSApplication.Init ();
-
-			
 
 			if (File.Exists (getStoragePath ()))
 			{
@@ -143,5 +140,9 @@ namespace Shortcutter
 		public static List<Application> getApplicationList(){
 			return settings.getApplicationList ();
 		}
+
+		public static void addApplication(Application application){
+			settings.addApplication (application);
+		}
 	}
-}	
+}

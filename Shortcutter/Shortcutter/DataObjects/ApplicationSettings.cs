@@ -70,5 +70,10 @@ namespace Shortcutter
 		{
 			return appDict.Values.ToList();
 		}
+
+		public void addApplication(Application application)
+		{
+			appDict.Add (application.Identifier, application);
+		}
 	}
 }

@@ -108,6 +108,7 @@
       <DependentUpon>AddApplication.cs</DependentUpon>
     </Compile>
     <Compile Include="Controller\AddApplicationController.cs" />
+    <Compile Include="DataObjects\ShortcutResponse.cs" />
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="View\MainWindow.xib" />

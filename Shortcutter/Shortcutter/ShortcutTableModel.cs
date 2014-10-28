@@ -60,9 +60,9 @@ namespace Shortcutter
 			}
 		}
 
-		public void addNewShortcut(Shortcut shortcut)
+		public void addNewShortcut(string selectedApp, Shortcut shortcut)
 		{
-			MainClass.addShortcut(selectedApplication, shortcut);
+			MainClass.addShortcut(selectedApp, shortcut);
 			filter (currentFilter);
 		}
 

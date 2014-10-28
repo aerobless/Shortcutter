@@ -43,6 +43,7 @@ namespace Shortcutter
 		#endregion
 
 		AddEntryController aAddEntryController;
+		AddApplicationController aAddApplicationController;
 		SettingsController aSettingsController;
 
 		//strongly typed window accessor
@@ -69,9 +70,11 @@ namespace Shortcutter
 				{
 					aAddEntryController = new AddEntryController();
 				}
-				Shortcut result = aAddEntryController.edit(null, this);
-				if(result != null){
-					tm.addNewShortcut(result);
+				ShortcutResponse result = aAddEntryController.edit(null, this);
+				if((result != null) && (result.NewAppModal==false)){
+					tm.addNewShortcut(result.ApplicationIdentifier, result.Shortcut);
+				} else if((result != null) && (result.NewAppModal==true)){
+					addNewApplicationAndShortcut (result.Shortcut);
 				}
 			};
 
@@ -83,10 +86,12 @@ namespace Shortcutter
 					{
 						aAddEntryController = new AddEntryController();
 					}
-					Shortcut result = aAddEntryController.edit(tm.getFilteredShortcut(selectedRow), this);
-					if(result != null){
+					ShortcutResponse result = aAddEntryController.edit(tm.getFilteredShortcut(selectedRow), this);
+					if(result != null && (result.NewAppModal==false)){
 						tm.removeShortcut(selectedRow);
-						tm.addNewShortcut(result);
+						tm.addNewShortcut(result.ApplicationIdentifier, result.Shortcut);
+					} else if((result != null) && (result.NewAppModal==true)){
+						addNewApplicationAndShortcut (result.Shortcut);
 					}
 				}
 			};
@@ -111,6 +116,16 @@ namespace Shortcutter
 			Console.Out.WriteLine ("observer set");
 
 			SearchField.Changed += searchEvent;
+		}
+
+		void addNewApplicationAndShortcut (Shortcut shortcut)
+		{
+			if (aAddApplicationController == null) {
+				aAddApplicationController = new AddApplicationController ();
+			}
+			Application newlyCreatedAndSelctedApp = aAddApplicationController.edit (this);
+			MainClass.addApplication (newlyCreatedAndSelctedApp);
+			tm.addNewShortcut (newlyCreatedAndSelctedApp.Identifier, shortcut);
 		}
 
 		void searchEvent(object sender, EventArgs e)

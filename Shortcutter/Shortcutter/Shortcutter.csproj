@@ -23,14 +23,17 @@
     <PlatformTarget>x86</PlatformTarget>
     <ConsolePause>false</ConsolePause>
     <UseSGen>false</UseSGen>
-    <IncludeMonoRuntime>false</IncludeMonoRuntime>
+    <IncludeMonoRuntime>true</IncludeMonoRuntime>
     <EnablePackageSigning>false</EnablePackageSigning>
-    <EnableCodeSigning>false</EnableCodeSigning>
-    <CreatePackage>false</CreatePackage>
+    <EnableCodeSigning>true</EnableCodeSigning>
+    <CreatePackage>true</CreatePackage>
     <CodeSignEntitlements>Entitlements.plist</CodeSignEntitlements>
+    <CodeSigningKey>Mac Developer</CodeSigningKey>
+    <PackageSigningKey>Developer ID Installer</PackageSigningKey>
+    <LinkMode>SdkOnly</LinkMode>
+    <MacOSXSdkVersion>10.10</MacOSXSdkVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
-    <DebugType>full</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release</OutputPath>
     <ErrorReport>prompt</ErrorReport>
@@ -40,8 +43,10 @@
     <UseSGen>false</UseSGen>
     <IncludeMonoRuntime>false</IncludeMonoRuntime>
     <CreatePackage>false</CreatePackage>
-    <EnableCodeSigning>false</EnableCodeSigning>
-    <EnablePackageSigning>false</EnablePackageSigning>
+    <EnableCodeSigning>true</EnableCodeSigning>
+    <EnablePackageSigning>true</EnablePackageSigning>
+    <CodeSigningKey>Developer ID Application: Theo Winter (JHY3H53Y8U)</CodeSigningKey>
+    <PackageSigningKey>Developer ID Installer</PackageSigningKey>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'AppStore|x86' ">
     <DebugType>full</DebugType>

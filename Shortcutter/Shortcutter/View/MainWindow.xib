@@ -47,7 +47,7 @@
 				<int key="NSWindowStyleMask">4111</int>
 				<int key="NSWindowBacking">2</int>
 				<string key="NSWindowRect">{{651, 324}, {606, 354}}</string>
-				<int key="NSWTFlags">-1535638528</int>
+				<int key="NSWTFlags">611845120</int>
 				<string key="NSWindowTitle">Shortcutter</string>
 				<string key="NSWindowClass">MainWindow</string>
 				<object class="NSToolbar" key="NSViewClass" id="783360983">
@@ -485,7 +485,7 @@
 															<string key="NSFrameSize">{460, 336}</string>
 															<reference key="NSSuperview" ref="129213710"/>
 															<reference key="NSWindow"/>
-															<reference key="NSNextKeyView" ref="343960500"/>
+															<reference key="NSNextKeyView" ref="960500638"/>
 															<string key="NSReuseIdentifierKey">_NS:13</string>
 															<bool key="NSEnabled">YES</bool>
 															<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
@@ -647,7 +647,6 @@
 													<string key="NSFrame">{{1, 349}, {282.5, 16}}</string>
 													<reference key="NSSuperview" ref="822882292"/>
 													<reference key="NSWindow"/>
-													<reference key="NSNextKeyView"/>
 													<string key="NSReuseIdentifierKey">_NS:61</string>
 													<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
 													<string key="NSControlAction">_doScroller:</string>
@@ -661,7 +660,7 @@
 											<string key="NSFrame">{{144, 0}, {462, 354}}</string>
 											<reference key="NSSuperview" ref="928288463"/>
 											<reference key="NSWindow"/>
-											<reference key="NSNextKeyView" ref="960500638"/>
+											<reference key="NSNextKeyView" ref="129213710"/>
 											<string key="NSReuseIdentifierKey">_NS:9</string>
 											<bool key="NSDoNotTranslateAutoresizingMask">YES</bool>
 											<int key="NSsFlags">133682</int>

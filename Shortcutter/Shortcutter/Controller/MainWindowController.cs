@@ -105,7 +105,7 @@ namespace Shortcutter
 			//Adding a model to the sidebar and setting a delegate for notifications
 			SidebarModel sm = new SidebarModel ();
 			SidebarOutlineView.DataSource = sm;
-			SidebarOutlineView.Delegate = new OutlineDelegate ();
+			SidebarOutlineView.Delegate = new OutlineDelegate (tm, SidebarOutlineView);
 
 
 			Console.Out.WriteLine ("observer set");
@@ -131,10 +131,18 @@ namespace Shortcutter
 
 	class OutlineDelegate : NSOutlineViewDelegate
 	{
+		private ShortcutTableModel tm;
+		private NSOutlineView outlineView;
+
+		public OutlineDelegate(ShortcutTableModel tm, NSOutlineView outlineView)
+		{
+			this.tm = tm;
+			this.outlineView = outlineView;
+		}
+
 		public override void SelectionDidChange (NSNotification notification)
 		{
-			Console.WriteLine ("Selection Changed (delegate)");
+			tm.setSelectedApplication (outlineView.SelectedRow);
 		}
-			
 	}
 }

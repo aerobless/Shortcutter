@@ -21,7 +21,6 @@ namespace Shortcutter
 
 		public override NSObject GetObjectValue (NSOutlineView outlineView, NSTableColumn forTableColumn, NSObject byItem)
 		{
-
 			return byItem;
 		}
 

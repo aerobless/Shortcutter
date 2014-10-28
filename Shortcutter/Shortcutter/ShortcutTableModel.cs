@@ -75,5 +75,11 @@ namespace Shortcutter
 		{
 			return filteredShorcuts [filteredRowNr];
 		}
+
+		public void setSelectedApplication(int id)
+		{
+			selectedApplication = MainClass.getApplicationList () [id].Identifier;
+			filter (currentFilter);
+		}
 	}
 }

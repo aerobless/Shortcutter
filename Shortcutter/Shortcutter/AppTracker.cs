@@ -40,12 +40,21 @@ namespace Shortcutter
 
 		private void findShortcut(string applicationName)
 		{
-			List<Shortcut> filteredShorcuts = MainClass.getShortcutList (currentlyActiveApp);
+			List<Shortcut> shortcutList = MainClass.getShortcutList (currentlyActiveApp);
 
-			if(filteredShorcuts != null && filteredShorcuts.Count>0){
-				Shortcut randomShortcut = filteredShorcuts [randomInRange (0, filteredShorcuts.Count - 1)];
-				MainClass.SendNotification ("Try: "+randomShortcut.Description,"Press: "+randomShortcut.ShortcutAction);
+			if (validList (shortcutList)) {
+				//Filter shortcuts that are already learned
+				List<Shortcut> filteredShorcuts = shortcutList.Where((shortcut) => (shortcut.learnedShortcut==false)).ToList();
+				if(filteredShorcuts.Count > 0){
+					Shortcut randomShortcut = filteredShorcuts [randomInRange (0, filteredShorcuts.Count - 1)];
+					MainClass.SendNotification ("Try: " + randomShortcut.Description, "Press: " + randomShortcut.ShortcutAction);
+				}
 			}
+		}
+
+		private bool validList (List<Shortcut> filteredShorcuts)
+		{
+			return filteredShorcuts != null && filteredShorcuts.Count > 0;
 		}
 
 		private int randomInRange(int start, int end)

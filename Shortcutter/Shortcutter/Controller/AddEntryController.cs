@@ -1,5 +1,4 @@
-﻿
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using MonoMac.Foundation;
@@ -72,6 +71,9 @@ namespace Shortcutter
 		{
 			applicationMenu.RemoveAllItems ();
 			MainClass.getApplicationList().ForEach(app => applicationMenu.AddItem (new NSMenuItem (app.Identifier)));
+			NSMenuItem newAppMenuEntry = new NSMenuItem ("New application ...");
+			newAppMenuEntry.Activated += (sender, e) => {Console.Out.WriteLine("dddd");};
+			applicationMenu.AddItem (newAppMenuEntry);
 		}
 
 		public Shortcut edit(Shortcut editingAShortcut, MainWindowController sender)

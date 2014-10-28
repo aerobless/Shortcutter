@@ -103,12 +103,18 @@
     <Compile Include="Controller\SettingsController.cs" />
     <Compile Include="DataObjects\Application.cs" />
     <Compile Include="SidebarModel.cs" />
+    <Compile Include="View\AddApplication.cs" />
+    <Compile Include="View\AddApplication.designer.cs">
+      <DependentUpon>AddApplication.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controller\AddApplicationController.cs" />
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="View\MainWindow.xib" />
     <InterfaceDefinition Include="View\AddEntry.xib" />
     <InterfaceDefinition Include="View\MainMenu.xib" />
     <InterfaceDefinition Include="View\Settings.xib" />
+    <InterfaceDefinition Include="View\AddApplication.xib" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Info.plist" />

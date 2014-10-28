@@ -19,12 +19,14 @@ namespace Shortcutter
 
 		public AppTracker ()
 		{
-			applicationTimer = new Timer(TimerCallback, null, TimeSpan.FromSeconds(MainClass.getWaittimeAfterContextSwitch()), TimeSpan.Zero);
+			applicationTimer = new Timer(TimerCallback, null, TimeSpan.FromSeconds(0), TimeSpan.Zero);
 			Console.WriteLine ("Add the sleep/wake observers");
 			NSWorkspace.Notifications.ObserveDidActivateApplication ((object sender, NSWorkspaceApplicationEventArgs e) => {
-				currentlyActiveApp = workspace.ActiveApplication.ValueForKey(new NSString("NSApplicationName")).ToString();
-				//We set a new timer every time a context switch occures.. so only if a user stays x minutes in an app he gets notified
-				applicationTimer.Change(TimeSpan.FromSeconds(MainClass.getWaittimeAfterContextSwitch()), TimeSpan.Zero);
+				if(MainClass.isNotificationEnabled()){
+					currentlyActiveApp = workspace.ActiveApplication.ValueForKey(new NSString("NSApplicationName")).ToString();
+					//We set a new timer every time a context switch occures.. so only if a user stays x minutes in an app he gets notified
+					applicationTimer.Change(TimeSpan.FromSeconds(MainClass.getWaittimeAfterContextSwitch()), TimeSpan.Zero);
+				}
 			});
 		}
 

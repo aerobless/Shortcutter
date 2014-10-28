@@ -47,7 +47,7 @@ namespace Shortcutter
 			base.AwakeFromNib ();
 
 			ButtonSave.Activated += (object sender, EventArgs e) => {
-				bool enabled = CheckEnableNotifications.Enabled;
+				bool enabled = Convert.ToBoolean(CheckEnableNotifications.IntValue);
 				int waitCon;
 				int.TryParse(FieldContextSwitchWaittime.StringValue, out waitCon);
 				int waitNext;
@@ -73,7 +73,7 @@ namespace Shortcutter
 		{
 			NSWindow window = this.Window;
 		
-			CheckEnableNotifications.Enabled = MainClass.isNotificationEnabled();
+			CheckEnableNotifications.IntValue = Convert.ToInt32(MainClass.isNotificationEnabled());
 			FieldContextSwitchWaittime.StringValue = ""+MainClass.getWaittimeAfterContextSwitch();
 			FieldNextNotificationWaitTime.StringValue = ""+MainClass.getWaittimeBeforeNextNotification();
 

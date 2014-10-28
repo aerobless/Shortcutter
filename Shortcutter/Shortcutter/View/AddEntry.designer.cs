@@ -25,6 +25,9 @@ namespace Shortcutter
 		MonoMac.AppKit.NSForm editForm { get; set; }
 
 		[Outlet]
+		MonoMac.AppKit.NSButton learnedCheckbox { get; set; }
+
+		[Outlet]
 		MonoMac.AppKit.NSButton okButton { get; set; }
 
 		[Outlet]
@@ -32,9 +35,19 @@ namespace Shortcutter
 		
 		void ReleaseDesignerOutlets ()
 		{
+			if (applicationField != null) {
+				applicationField.Dispose ();
+				applicationField = null;
+			}
+
 			if (cancelButton != null) {
 				cancelButton.Dispose ();
 				cancelButton = null;
+			}
+
+			if (descriptionField != null) {
+				descriptionField.Dispose ();
+				descriptionField = null;
 			}
 
 			if (editForm != null) {
@@ -47,19 +60,14 @@ namespace Shortcutter
 				okButton = null;
 			}
 
-			if (applicationField != null) {
-				applicationField.Dispose ();
-				applicationField = null;
-			}
-
-			if (descriptionField != null) {
-				descriptionField.Dispose ();
-				descriptionField = null;
-			}
-
 			if (shortcutField != null) {
 				shortcutField.Dispose ();
 				shortcutField = null;
+			}
+
+			if (learnedCheckbox != null) {
+				learnedCheckbox.Dispose ();
+				learnedCheckbox = null;
 			}
 		}
 	}

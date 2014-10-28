@@ -33,7 +33,6 @@ namespace Shortcutter
 			findShortcut(currentlyActiveApp);
 		}
 
-
 		public string GetActiveApp()
 		{
 			return currentlyActiveApp;

@@ -50,7 +50,8 @@ namespace Shortcutter
 
 			okButton.Activated += (object sender, EventArgs e) => {
 				// save the values for later
-				savedValues = new Shortcut(null, descriptionField.StringValue, shortcutField.StringValue);
+				savedValues = new Shortcut(descriptionField.StringValue, shortcutField.StringValue);
+				savedValues.learnedShortcut = Convert.ToBoolean(learnedCheckbox.IntValue); 
 				NSApp.StopModal();
 			};
 
@@ -78,6 +79,7 @@ namespace Shortcutter
 				applicationField.StringValue = editingAShortcut.getApplicationName();//TODO FIX
 				descriptionField.StringValue = editingAShortcut.Description;
 				shortcutField.StringValue = editingAShortcut.ShortcutAction;
+				learnedCheckbox.IntValue = Convert.ToInt32(editingAShortcut.learnedShortcut);
 			}
 			else
 			{
@@ -87,6 +89,7 @@ namespace Shortcutter
 				applicationField.StringValue = string.Empty;
 				descriptionField.StringValue = string.Empty;
 				shortcutField.StringValue = string.Empty;
+				learnedCheckbox.IntValue = 0;
 			}
 
 			NSApp.BeginSheet(window,sender.Window);

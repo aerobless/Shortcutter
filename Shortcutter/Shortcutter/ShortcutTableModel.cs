@@ -50,6 +50,7 @@ namespace Shortcutter
 			currentFilter = filter;
 			IEnumerable<Shortcut> query = MainClass.getShortcutList(selectedApplication).Where(s => (s.getApplicationName().ToLower().Contains(filter.ToLower())||s.Description.ToLower().Contains(filter.ToLower())));
 			filteredShorcuts = query.ToList();
+			filteredShorcuts.Sort ();
 			tableView.ReloadData ();
 
 			if (filteredShorcuts.Count > 0) {
@@ -59,9 +60,9 @@ namespace Shortcutter
 			}
 		}
 
-		public void addNewShortcut(string description, string shortcutText)
+		public void addNewShortcut(Shortcut shortcut)
 		{
-			MainClass.addShortcut(selectedApplication, description, shortcutText);
+			MainClass.addShortcut(selectedApplication, shortcut);
 			filter (currentFilter);
 		}
 

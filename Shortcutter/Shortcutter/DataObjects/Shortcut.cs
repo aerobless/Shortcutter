@@ -3,7 +3,7 @@ using System.Runtime.Serialization;
 
 namespace Shortcutter
 {
-	public class Shortcut
+	public class Shortcut:IComparable<Shortcut>
 	{
 		[DataMember()]
 		public Application parentApplication{ get; set;}
@@ -24,13 +24,16 @@ namespace Shortcutter
 		{
 		}
 
-		public Shortcut (Application parentApplication, string Description, string Shortcut)
+		public Shortcut (string Description, string Shortcut)
 		{
-			this.parentApplication = parentApplication;
 			this.Description = Description;
 			this.ShortcutAction = Shortcut;
 			this.nofShowed = 0;
 			this.learnedShortcut = false;
+		}
+
+		public void setParentApplication(Application parentApplication){
+			this.parentApplication = parentApplication;
 		}
 
 		public void IncrementNofShowed()
@@ -49,6 +52,9 @@ namespace Shortcutter
 
 		public string getApplicationIdentifier(){
 			return parentApplication.Identifier;
+		}
+		public int CompareTo(Shortcut shortcut) {
+			return String.Compare (this.Description, shortcut.Description);
 		}
 	}
 }

@@ -23,9 +23,10 @@ namespace Shortcutter
 			ShortcutList = new List<Shortcut>();
 		}
 
-		public void addShortcut(string description, string shortcutText)
+		public void addShortcut(Shortcut shortcut)
 		{
-			ShortcutList.Add (new Shortcut(this, description, shortcutText));
+			shortcut.setParentApplication (this);
+			ShortcutList.Add (shortcut);
 		}
 
 		public void removeShortcut(Shortcut AShortcut)

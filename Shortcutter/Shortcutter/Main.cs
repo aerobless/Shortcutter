@@ -106,9 +106,9 @@ namespace Shortcutter
 			return settings.getShortcutsFor (application);
 		}
 
-		public static void addShortcut(string application, string description, string shortcutText)
+		public static void addShortcut(string application, Shortcut shortcut)
 		{
-			settings.addShortcut(application, description, shortcutText);
+			settings.addShortcut(application, shortcut);
 			SaveToDisk ();
 		}
 

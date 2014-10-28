@@ -27,21 +27,21 @@ namespace Shortcutter
 
 			appDict.Add ("Path Finder", new Application ("Path Finder", "A finder replacement"));
 
-			addShortcut("Google Chrome", "New tab.","CMD+T");
-			addShortcut("Google Chrome", "New window.","CMD+N");
-			addShortcut("Google Chrome", "New incognito window.","CMD+Shift-N");
-			addShortcut("Google Chrome", "Close Tab","CMD+W");
+			addShortcut("Google Chrome", new Shortcut("New tab.","CMD+T"));
+			addShortcut("Google Chrome", new Shortcut("New window.","CMD+N"));
+			addShortcut("Google Chrome", new Shortcut("New incognito window.","CMD+Shift-N"));
+			addShortcut("Google Chrome", new Shortcut("Close Tab","CMD+W"));
 
-			addShortcut ("Path Finder", "Go to the next higher level in the folder hierarchy.", "CMD+↑");
-			addShortcut ("Path Finder", "Go to the next lower level in the folder hierarchy.", "CMD+↓");
+			addShortcut ("Path Finder", new Shortcut("Go to the next higher level in the folder hierarchy.", "CMD+↑"));
+			addShortcut ("Path Finder", new Shortcut("Go to the next lower level in the folder hierarchy.", "CMD+↓"));
 
 			Console.Out.WriteLine ("Demo-Content loaded..");
 		}
 
-		public void addShortcut(string applicationIdentifier, string shortcutDescription, string shortcutText)
+		public void addShortcut(string applicationIdentifier, Shortcut shortcut)
 		{
 			if (appDict.ContainsKey (applicationIdentifier)) {
-				appDict [applicationIdentifier].addShortcut (shortcutDescription, shortcutText);
+				appDict [applicationIdentifier].addShortcut (shortcut);
 			} else {
 				Console.Out.WriteLine ("Error: "+applicationIdentifier+" does not exist in AppDict.");
 			}

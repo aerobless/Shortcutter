@@ -68,15 +68,20 @@ namespace Shortcutter
 			}
 		}
 
+		private void createAppMenu()
+		{
+			applicationMenu.RemoveAllItems ();
+			MainClass.getApplicationList().ForEach(app => applicationMenu.AddItem (new NSMenuItem (app.Identifier)));
+		}
+
 		public Shortcut edit(Shortcut editingAShortcut, MainWindowController sender)
 		{
 
 			NSWindow window = this.Window;
 			cancelled = false;
-
+			createAppMenu ();
 			if (editingAShortcut != null)
 			{
-				applicationField.StringValue = editingAShortcut.getApplicationName();//TODO FIX
 				descriptionField.StringValue = editingAShortcut.Description;
 				shortcutField.StringValue = editingAShortcut.ShortcutAction;
 				learnedCheckbox.IntValue = Convert.ToInt32(editingAShortcut.learnedShortcut);
@@ -86,7 +91,6 @@ namespace Shortcutter
 				// we are adding a new entry,
 				// make sure the form fields are empty due to the fact that this controller is recycled
 				// each time the user opens the sheet -				
-				applicationField.StringValue = string.Empty;
 				descriptionField.StringValue = string.Empty;
 				shortcutField.StringValue = string.Empty;
 				learnedCheckbox.IntValue = 0;

@@ -13,16 +13,16 @@ namespace Shortcutter
 	partial class AddEntryController
 	{
 		[Outlet]
-		MonoMac.AppKit.NSTextField applicationField { get; set; }
+		MonoMac.AppKit.NSMenu applicationMenu { get; set; }
+
+		[Outlet]
+		MonoMac.AppKit.NSPopUpButton applicationMenuSwitcher { get; set; }
 
 		[Outlet]
 		MonoMac.AppKit.NSButton cancelButton { get; set; }
 
 		[Outlet]
 		MonoMac.AppKit.NSTextField descriptionField { get; set; }
-
-		[Outlet]
-		MonoMac.AppKit.NSForm editForm { get; set; }
 
 		[Outlet]
 		MonoMac.AppKit.NSButton learnedCheckbox { get; set; }
@@ -35,11 +35,6 @@ namespace Shortcutter
 		
 		void ReleaseDesignerOutlets ()
 		{
-			if (applicationField != null) {
-				applicationField.Dispose ();
-				applicationField = null;
-			}
-
 			if (cancelButton != null) {
 				cancelButton.Dispose ();
 				cancelButton = null;
@@ -50,9 +45,9 @@ namespace Shortcutter
 				descriptionField = null;
 			}
 
-			if (editForm != null) {
-				editForm.Dispose ();
-				editForm = null;
+			if (learnedCheckbox != null) {
+				learnedCheckbox.Dispose ();
+				learnedCheckbox = null;
 			}
 
 			if (okButton != null) {
@@ -65,9 +60,14 @@ namespace Shortcutter
 				shortcutField = null;
 			}
 
-			if (learnedCheckbox != null) {
-				learnedCheckbox.Dispose ();
-				learnedCheckbox = null;
+			if (applicationMenu != null) {
+				applicationMenu.Dispose ();
+				applicationMenu = null;
+			}
+
+			if (applicationMenuSwitcher != null) {
+				applicationMenuSwitcher.Dispose ();
+				applicationMenuSwitcher = null;
 			}
 		}
 	}

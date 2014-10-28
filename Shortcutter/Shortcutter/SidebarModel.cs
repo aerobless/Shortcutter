@@ -16,17 +16,18 @@ namespace Shortcutter
 
 		public override int GetChildrenCount (NSOutlineView outlineView, NSObject item)
 		{
-			return 3;
+			return MainClass.getApplicationList().Count;
 		}
 
 		public override NSObject GetObjectValue (NSOutlineView outlineView, NSTableColumn forTableColumn, NSObject byItem)
 		{
-			return (NSString)"TEST";
+
+			return byItem;
 		}
 
 		public override NSObject GetChild (NSOutlineView outlineView, int childIndex, NSObject ofItem)
 		{
-			return (NSString)"TEST";
+			return (NSString)MainClass.getApplicationList()[childIndex].Identifier;
 		}
 
 		public override bool ItemExpandable (NSOutlineView outlineView, NSObject item)

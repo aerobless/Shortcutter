@@ -139,5 +139,9 @@ namespace Shortcutter
 			settings.WaittimeAfterContextSwitch = waittimeAfterContextSwitch;
 			settings.WaittimeBeforeNextNotification = waittimeBeforeNextNotification;
 		}
+
+		public static List<Application> getApplicationList(){
+			return settings.getApplicationList ();
+		}
 	}
 }	

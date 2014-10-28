@@ -8,8 +8,6 @@ namespace Shortcutter
 	public class Application
 	{
 		[DataMember()]
-		public string DisplayName{ get; set; }
-		[DataMember()]
 		public string Identifier{ get; set; }
 		[DataMember()]
 		public string Description{ get; set; }
@@ -18,9 +16,8 @@ namespace Shortcutter
 
 		public Application (){}
 		 
-		public Application (string DisplayName, string Identifier, string Description)
+		public Application (string Identifier, string Description)
 		{
-			this.DisplayName = DisplayName;
 			this.Identifier = Identifier;
 			this.Description = Description;
 			ShortcutList = new List<Shortcut>();

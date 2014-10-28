@@ -102,9 +102,13 @@ namespace Shortcutter
 			tm = new ShortcutTableModel (ShortcutTable, this);
 			ShortcutTable.DataSource = tm;
 
-			//Test
-			SidebarModel test = new SidebarModel ();
-			SidebarOutlineView.DataSource = test;
+			//Adding a model to the sidebar and setting a delegate for notifications
+			SidebarModel sm = new SidebarModel ();
+			SidebarOutlineView.DataSource = sm;
+			SidebarOutlineView.Delegate = new OutlineDelegate ();
+
+
+			Console.Out.WriteLine ("observer set");
 
 			SearchField.Changed += searchEvent;
 		}
@@ -123,5 +127,14 @@ namespace Shortcutter
 				EditButton.Validate ();
 			}
 		}
+	}
+
+	class OutlineDelegate : NSOutlineViewDelegate
+	{
+		public override void SelectionDidChange (NSNotification notification)
+		{
+			Console.WriteLine ("Selection Changed (delegate)");
+		}
+			
 	}
 }

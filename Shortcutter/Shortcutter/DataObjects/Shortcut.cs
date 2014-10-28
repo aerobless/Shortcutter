@@ -44,7 +44,7 @@ namespace Shortcutter
 		}
 
 		public string getApplicationName(){
-			return parentApplication.DisplayName;
+			return parentApplication.Identifier;
 		}
 
 		public string getApplicationIdentifier(){

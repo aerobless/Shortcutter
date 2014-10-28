@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Shortcutter
 {
@@ -22,12 +23,17 @@ namespace Shortcutter
 			WaittimeBeforeNextNotification = 3600;
 
 			appDict = new Dictionary<string,Application> ();
-			appDict.Add("Google Chrome", new Application ("Chrome", "Google Chrome", "A webbrowser."));
+			appDict.Add("Google Chrome", new Application ("Google Chrome", "A webbrowser."));
+
+			appDict.Add ("Path Finder", new Application ("Path Finder", "A finder replacement"));
 
 			addShortcut("Google Chrome", "New tab.","CMD+T");
 			addShortcut("Google Chrome", "New window.","CMD+N");
 			addShortcut("Google Chrome", "New incognito window.","CMD+Shift-N");
 			addShortcut("Google Chrome", "Close Tab","CMD+W");
+
+			addShortcut ("Path Finder", "Go to the next higher level in the folder hierarchy.", "CMD+↑");
+			addShortcut ("Path Finder", "Go to the next lower level in the folder hierarchy.", "CMD+↓");
 
 			Console.Out.WriteLine ("Demo-Content loaded..");
 		}
@@ -58,6 +64,11 @@ namespace Shortcutter
 				Console.Out.WriteLine ("Error: "+applicationIdentifier+" does not exist in AppDict.");
 				return null;
 			}
+		}
+
+		public List<Application> getApplicationList()
+		{
+			return appDict.Values.ToList();
 		}
 	}
 }

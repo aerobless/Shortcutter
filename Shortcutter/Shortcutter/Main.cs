@@ -144,5 +144,9 @@ namespace Shortcutter
 		public static void addApplication(Application application){
 			settings.addApplication (application);
 		}
+
+		public static void removeApplication(string applicationIdentifier){
+			settings.removeApplication (applicationIdentifier);
+		}
 	}
 }

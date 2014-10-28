@@ -66,10 +66,11 @@ namespace Shortcutter
 			filter (currentFilter);
 		}
 
-		public void removeShortcut(int idInFilteredList)
+		public string removeShortcut(int idInFilteredList)
 		{
 			MainClass.removeShortcut(selectedApplication, filteredShorcuts [idInFilteredList]);
 			filter (currentFilter);
+			return selectedApplication;
 		}
 
 		public Shortcut getFilteredShortcut(int filteredRowNr)
@@ -79,6 +80,10 @@ namespace Shortcutter
 
 		public void setSelectedApplication(int id)
 		{
+			//Sorta ugly hack to prevent this from going to -1 when removing a category
+			if (id < 0) {
+				id = 0;
+			}
 			selectedApplication = MainClass.getApplicationList () [id].Identifier;
 			filter (currentFilter);
 		}

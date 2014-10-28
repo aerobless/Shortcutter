@@ -61,7 +61,11 @@ namespace Shortcutter
 				int selectedRow = ShortcutTable.SelectedRow;
 				if(selectedRow>=0)
 				{
-					tm.removeShortcut(selectedRow);
+					string selectedApplication = tm.removeShortcut(selectedRow);
+					if(ShortcutTable.RowCount==0){
+						MainClass.removeApplication(selectedApplication);
+						SidebarOutlineView.ReloadData ();
+					}
 				}
 			};
 
@@ -126,6 +130,7 @@ namespace Shortcutter
 			Application newlyCreatedAndSelctedApp = aAddApplicationController.edit (this);
 			MainClass.addApplication (newlyCreatedAndSelctedApp);
 			tm.addNewShortcut (newlyCreatedAndSelctedApp.Identifier, shortcut);
+			SidebarOutlineView.ReloadData ();
 		}
 
 		void searchEvent(object sender, EventArgs e)

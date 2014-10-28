@@ -75,5 +75,10 @@ namespace Shortcutter
 		{
 			appDict.Add (application.Identifier, application);
 		}
+
+		public void removeApplication(string applicationIdentifier)
+		{
+			appDict.Remove (applicationIdentifier);
+		}
 	}
 }

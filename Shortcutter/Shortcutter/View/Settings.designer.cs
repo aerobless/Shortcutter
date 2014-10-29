@@ -26,9 +26,22 @@ namespace Shortcutter
 
 		[Outlet]
 		MonoMac.AppKit.NSTextField FieldNextNotificationWaitTime { get; set; }
+
+		[Outlet]
+		MonoMac.AppKit.NSButton storageLocationButton { get; set; }
 		
 		void ReleaseDesignerOutlets ()
 		{
+			if (ButtonCancel != null) {
+				ButtonCancel.Dispose ();
+				ButtonCancel = null;
+			}
+
+			if (ButtonSave != null) {
+				ButtonSave.Dispose ();
+				ButtonSave = null;
+			}
+
 			if (CheckEnableNotifications != null) {
 				CheckEnableNotifications.Dispose ();
 				CheckEnableNotifications = null;
@@ -44,14 +57,9 @@ namespace Shortcutter
 				FieldNextNotificationWaitTime = null;
 			}
 
-			if (ButtonSave != null) {
-				ButtonSave.Dispose ();
-				ButtonSave = null;
-			}
-
-			if (ButtonCancel != null) {
-				ButtonCancel.Dispose ();
-				ButtonCancel = null;
+			if (storageLocationButton != null) {
+				storageLocationButton.Dispose ();
+				storageLocationButton = null;
 			}
 		}
 	}

@@ -46,6 +46,21 @@ namespace Shortcutter
 		{
 			base.AwakeFromNib ();
 
+			storageLocationButton.Activated += (object sender, EventArgs e) => {
+				Console.Out.WriteLine("storage location choser");
+				var panel = NSOpenPanel.OpenPanel;
+				panel.FloatingPanel = true;
+				panel.CanCreateDirectories = true;
+				panel.CanChooseDirectories = true;
+
+				//TODO: working on storing file
+				int i = panel.RunModal ();
+				if (i == 1 && panel.Urls != null) {
+					Console.Out.WriteLine(panel.Url);
+				}
+
+			};
+
 			ButtonSave.Activated += (object sender, EventArgs e) => {
 				bool enabled = Convert.ToBoolean(CheckEnableNotifications.IntValue);
 				int waitCon;

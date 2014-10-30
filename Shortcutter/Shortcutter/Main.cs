@@ -9,13 +9,14 @@ using System.Xml.Serialization;
 using System.Collections;
 using System.Runtime.Serialization;
 using System.Xml;
+using System.Runtime.InteropServices;
 
 namespace Shortcutter
 {
 	class MainClass
 	{
 		private const string STORAGE_FILENAME = "shortcutter.xml";
-		private static ApplicationSettings settings = new ApplicationSettings();
+		private static ApplicationSettings settings = new ApplicationSettings ();
 
 		private static AppTracker apptracker;
 
@@ -23,13 +24,11 @@ namespace Shortcutter
 		{
 			NSApplication.Init ();
 
-			if (File.Exists (getStoragePath ()))
-			{
-				Console.Out.WriteLine (STORAGE_FILENAME+" found, loading existing data..");
+			if (File.Exists (getStoragePath ())) {
+				Console.Out.WriteLine (STORAGE_FILENAME + " found, loading existing data..");
 				readFromDisk ();
-			} else 
-			{
-				Console.Out.WriteLine (STORAGE_FILENAME+" not found, loading demo data..");
+			} else {
+				Console.Out.WriteLine (STORAGE_FILENAME + " not found, loading demo data..");
 				settings.loadDemoContent ();
 				SaveToDisk ();
 			}
@@ -38,40 +37,39 @@ namespace Shortcutter
 			NSApplication.Main (args);
 		}
 
-		public static void SaveToDisk()
+		public static void SaveToDisk ()
 		{
-			string savePath = Path.Combine(Directory.GetCurrentDirectory(), getStoragePath());
+			string savePath = Path.Combine (Directory.GetCurrentDirectory (), getStoragePath ());
 
-			var ds = new DataContractSerializer(typeof(ApplicationSettings));
+			var ds = new DataContractSerializer (typeof(ApplicationSettings));
 			var xmlsettings = new XmlWriterSettings { Indent = true };
-			using (var w = XmlWriter.Create(savePath, xmlsettings))
-				ds.WriteObject(w, settings);
+			using (var w = XmlWriter.Create (savePath, xmlsettings))
+				ds.WriteObject (w, settings);
 		}
 
-		private static void readFromDisk()
+		private static void readFromDisk ()
 		{
-			DataContractSerializer ds = new DataContractSerializer(typeof(ApplicationSettings));
-			FileStream fs = new FileStream(getStoragePath(), FileMode.Open);
-			XmlDictionaryReader reader = XmlDictionaryReader.CreateTextReader(fs, new XmlDictionaryReaderQuotas());
+			DataContractSerializer ds = new DataContractSerializer (typeof(ApplicationSettings));
+			FileStream fs = new FileStream (getStoragePath (), FileMode.Open);
+			XmlDictionaryReader reader = XmlDictionaryReader.CreateTextReader (fs, new XmlDictionaryReaderQuotas ());
 
-			settings = (ApplicationSettings)ds.ReadObject(reader);
-			reader.Close();
-			fs.Close();
+			settings = (ApplicationSettings)ds.ReadObject (reader);
+			reader.Close ();
+			fs.Close ();
 
-			Console.Out.WriteLine (settings.appDict["Google Chrome"].Description);
-			Console.Out.WriteLine (settings.appDict["Google Chrome"].ShortcutList[1].Description);
+			Console.Out.WriteLine (settings.appDict ["Google Chrome"].Description);
+			Console.Out.WriteLine (settings.appDict ["Google Chrome"].ShortcutList [1].Description);
 		}
 
-		private static String getStoragePath()
+		private static String getStoragePath ()
 		{
-			var documents = Environment.GetFolderPath (Environment.SpecialFolder.MyDocuments);
-			Console.Out.WriteLine ("Storage-Location: "+Path.Combine (documents, STORAGE_FILENAME));
-			return Path.Combine (documents, STORAGE_FILENAME);
+			Console.Out.WriteLine ("Storage-Location: " + Path.Combine (ContainerDirectory, STORAGE_FILENAME));
+			return Path.Combine (ContainerDirectory, STORAGE_FILENAME);
 		}
 
 		public static void SendNotification (string title, string text)
 		{
-			NSUserNotification not = new NSUserNotification();
+			NSUserNotification not = new NSUserNotification ();
 
 			not.Title = title;
 			not.InformativeText = text;
@@ -82,71 +80,84 @@ namespace Shortcutter
 			// We get the Default notification Center
 			NSUserNotificationCenter center = NSUserNotificationCenter.DefaultUserNotificationCenter;
 
-			center.DidDeliverNotification += (s, e) => 
-			{
+			center.DidDeliverNotification += (s, e) => {
 				//DeliveredColorWell.Color = NSColor.Green;
 			};
 
-			center.DidActivateNotification += (s, e) => 
-			{
+			center.DidActivateNotification += (s, e) => {
 				//TouchedColorWell.Color = NSColor.Green;
 			};
 
 			// If we return true here, Notification will show up even if your app is TopMost.
-			center.ShouldPresentNotification = (c, n) => { return true; };
+			center.ShouldPresentNotification = (c, n) => {
+				return true;
+			};
 
-			center.ScheduleNotification(not);
+			center.ScheduleNotification (not);
 		}
 
-		public static List<Shortcut> getShortcutList(string application)
+		public static List<Shortcut> getShortcutList (string application)
 		{
 			return settings.getShortcutsFor (application);
 		}
 
-		public static void addShortcut(string application, Shortcut shortcut)
+		public static void addShortcut (string application, Shortcut shortcut)
 		{
-			settings.addShortcut(application, shortcut);
+			settings.addShortcut (application, shortcut);
 			SaveToDisk ();
 		}
 
-		public static void removeShortcut(string application,Shortcut shortcut)
+		public static void removeShortcut (string application, Shortcut shortcut)
 		{
-			settings.removeShortcut(application, shortcut);
+			settings.removeShortcut (application, shortcut);
 			SaveToDisk ();
 		}
 
-		public static bool isNotificationEnabled()
+		public static bool isNotificationEnabled ()
 		{
 			return settings.NotificationsEnabled;
 		}
 
-		public static int getWaittimeAfterContextSwitch()
+		public static int getWaittimeAfterContextSwitch ()
 		{
 			return settings.WaittimeAfterContextSwitch;
 		}
 
-		public static int getWaittimeBeforeNextNotification()
+		public static int getWaittimeBeforeNextNotification ()
 		{
 			return settings.WaittimeBeforeNextNotification;
 		}
 
-		public static void UpdateSettings(bool notificationEnabled, int waittimeAfterContextSwitch, int waittimeBeforeNextNotification)
+		public static void UpdateSettings (bool notificationEnabled, int waittimeAfterContextSwitch, int waittimeBeforeNextNotification)
 		{
 			settings.NotificationsEnabled = notificationEnabled;
 			settings.WaittimeAfterContextSwitch = waittimeAfterContextSwitch;
 			settings.WaittimeBeforeNextNotification = waittimeBeforeNextNotification;
 		}
 
-		public static List<Application> getApplicationList(){
+		public static List<Application> getApplicationList ()
+		{
 			return settings.getApplicationList ();
 		}
 
-		public static void addApplication(Application application){
+		public static void addApplication (Application application)
+		{
 			settings.addApplication (application);
 		}
 
-		public static void removeApplication(string applicationIdentifier){
+		public static void removeApplication (string applicationIdentifier)
+		{
 			settings.removeApplication (applicationIdentifier);
+		}
+
+		//Needs: "using System.Runtime.InteropServices;" to work!
+		[DllImport (MonoMac.Constants.FoundationLibrary)]
+		public static extern IntPtr NSHomeDirectory ();
+
+		public static string ContainerDirectory {
+			get {
+				return ((NSString)Runtime.GetNSObject (NSHomeDirectory ())).ToString ();
+			}
 		}
 	}
 }

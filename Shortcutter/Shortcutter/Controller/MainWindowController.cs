@@ -12,14 +12,15 @@ namespace Shortcutter
 		protected int numberOfTimesClicked = 0;
 		ShortcutTableModel tm;
 
-		internal static NSString APPLICATION = new NSString("applicationColumn");
-		internal static NSString SHORTCUT = new NSString("shortcutColumn");
+		internal static NSString APPLICATION = new NSString ("applicationColumn");
+		internal static NSString SHORTCUT = new NSString ("shortcutColumn");
 
-		internal static List<NSString> Keys = new List<NSString> { APPLICATION, SHORTCUT};			
+		internal static List<NSString> Keys = new List<NSString> { APPLICATION, SHORTCUT };
 		internal const int APPLICATION_IDX = 0;
 		internal const int SHORTCUT_IDX = 1;
 
 		#region Constructors
+
 		// Called when created from unmanaged code
 		public MainWindowController (IntPtr handle) : base (handle)
 		{
@@ -40,6 +41,7 @@ namespace Shortcutter
 		void Initialize ()
 		{
 		}
+
 		#endregion
 
 		AddEntryController aAddEntryController;
@@ -59,53 +61,48 @@ namespace Shortcutter
 
 			RemoveButton.Activated += (object sender, EventArgs e) => {
 				int selectedRow = ShortcutTable.SelectedRow;
-				if(selectedRow>=0)
-				{
-					string selectedApplication = tm.removeShortcut(selectedRow);
-					if(ShortcutTable.RowCount==0){
-						MainClass.removeApplication(selectedApplication);
+				if (selectedRow >= 0) {
+					string selectedApplication = tm.removeShortcut (selectedRow);
+					if (ShortcutTable.RowCount == 0) {
+						MainClass.removeApplication (selectedApplication);
 						SidebarOutlineView.ReloadData ();
 					}
 				}
 			};
 
 			ClickMeToolbar.Activated += (object sender, EventArgs e) => {
-				if(aAddEntryController == null)
-				{
-					aAddEntryController = new AddEntryController();
+				if (aAddEntryController == null) {
+					aAddEntryController = new AddEntryController ();
 				}
-				ShortcutResponse result = aAddEntryController.edit(null, this);
-				if((result != null) && (result.NewAppModal==false)){
-					tm.addNewShortcut(result.ApplicationIdentifier, result.Shortcut);
-				} else if((result != null) && (result.NewAppModal==true)){
+				ShortcutResponse result = aAddEntryController.edit (null, this);
+				if ((result != null) && (result.NewAppModal == false)) {
+					tm.addNewShortcut (result.ApplicationIdentifier, result.Shortcut);
+				} else if ((result != null) && (result.NewAppModal == true)) {
 					addNewApplicationAndShortcut (result.Shortcut);
 				}
 			};
 
 			EditButton.Activated += (object sender, EventArgs e) => {
 				int selectedRow = ShortcutTable.SelectedRow;
-				if(selectedRow>=0)
-				{
-					if(aAddEntryController == null)
-					{
-						aAddEntryController = new AddEntryController();
+				if (selectedRow >= 0) {
+					if (aAddEntryController == null) {
+						aAddEntryController = new AddEntryController ();
 					}
-					ShortcutResponse result = aAddEntryController.edit(tm.getFilteredShortcut(selectedRow), this);
-					if(result != null && (result.NewAppModal==false)){
-						tm.removeShortcut(selectedRow);
-						tm.addNewShortcut(result.ApplicationIdentifier, result.Shortcut);
-					} else if((result != null) && (result.NewAppModal==true)){
+					ShortcutResponse result = aAddEntryController.edit (tm.getFilteredShortcut (selectedRow), this);
+					if (result != null && (result.NewAppModal == false)) {
+						tm.removeShortcut (selectedRow);
+						tm.addNewShortcut (result.ApplicationIdentifier, result.Shortcut);
+					} else if ((result != null) && (result.NewAppModal == true)) {
 						addNewApplicationAndShortcut (result.Shortcut);
 					}
 				}
 			};
 
 			SettingsButton.Activated += (object sender, EventArgs e) => {
-				if(aSettingsController == null)
-				{
-					aSettingsController = new SettingsController();
+				if (aSettingsController == null) {
+					aSettingsController = new SettingsController ();
 				}
-				aSettingsController.editSettings(this);
+				aSettingsController.editSettings (this);
 			};
 
 			tm = new ShortcutTableModel (ShortcutTable, this);
@@ -133,16 +130,16 @@ namespace Shortcutter
 			SidebarOutlineView.ReloadData ();
 		}
 
-		void searchEvent(object sender, EventArgs e)
+		void searchEvent (object sender, EventArgs e)
 		{
 			tm.filter (SearchField.StringValue);
 		}
 
-		public void enableButtons(bool shouldEnable)
+		public void enableButtons (bool shouldEnable)
 		{
 			EditButton.Enabled = shouldEnable;
 			RemoveButton.Enabled = shouldEnable;
-			if(shouldEnable){
+			if (shouldEnable) {
 				RemoveButton.Validate ();
 				EditButton.Validate ();
 			}
@@ -154,7 +151,7 @@ namespace Shortcutter
 		private ShortcutTableModel tm;
 		private NSOutlineView outlineView;
 
-		public OutlineDelegate(ShortcutTableModel tm, NSOutlineView outlineView)
+		public OutlineDelegate (ShortcutTableModel tm, NSOutlineView outlineView)
 		{
 			this.tm = tm;
 			this.outlineView = outlineView;

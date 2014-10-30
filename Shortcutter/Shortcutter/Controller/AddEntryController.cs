@@ -37,9 +37,11 @@ namespace Shortcutter
 		void Initialize ()
 		{
 		}
+
 		#endregion
 
-		private bool cancelled{ get; set;}
+		private bool cancelled{ get; set; }
+
 		private Shortcut savedValues;
 		private NSApplication NSApp = NSApplication.SharedApplication;
 		private MainWindowController mainWindow;
@@ -50,13 +52,13 @@ namespace Shortcutter
 
 			okButton.Activated += (object sender, EventArgs e) => {
 				// save the values for later
-				savedValues = new Shortcut(descriptionField.StringValue, shortcutField.StringValue);
-				savedValues.learnedShortcut = Convert.ToBoolean(learnedCheckbox.IntValue); 
-				NSApp.StopModal();
+				savedValues = new Shortcut (descriptionField.StringValue, shortcutField.StringValue);
+				savedValues.learnedShortcut = Convert.ToBoolean (learnedCheckbox.IntValue); 
+				NSApp.StopModal ();
 			};
 
 			cancelButton.Activated += (object sender, EventArgs e) => {
-				NSApp.StopModal();
+				NSApp.StopModal ();
 				cancelled = true;
 			};
 		}
@@ -68,28 +70,29 @@ namespace Shortcutter
 			}
 		}
 
-		private void createAppMenu()
+		private void createAppMenu ()
 		{
 			applicationMenu.RemoveAllItems ();
-			MainClass.getApplicationList().ForEach(app => applicationMenu.AddItem (new NSMenuItem (app.Identifier)));
+			MainClass.getApplicationList ().ForEach (app => applicationMenu.AddItem (new NSMenuItem (app.Identifier)));
 			applicationMenu.AddItem (new NSMenuItem ("New application ..."));
 		}
 
-		public ShortcutResponse edit(Shortcut editingAShortcut, MainWindowController sender)
+		public ShortcutResponse edit (Shortcut editingAShortcut, MainWindowController sender)
 		{
 
 			NSWindow window = this.Window;
 			mainWindow = sender;
 			cancelled = false;
 			createAppMenu ();
-			if (editingAShortcut != null)
-			{
+			if (editingAShortcut != null) {
+				int idOfApplicationInMenu = MainClass.getApplicationList ().FindIndex (delegate(Application app) {
+					return app.Identifier.Equals (editingAShortcut.getApplicationIdentifier ());
+				});
+				applicationMenuSwitcher.SelectItem (idOfApplicationInMenu);
 				descriptionField.StringValue = editingAShortcut.Description;
 				shortcutField.StringValue = editingAShortcut.ShortcutAction;
-				learnedCheckbox.IntValue = Convert.ToInt32(editingAShortcut.learnedShortcut);
-			}
-			else
-			{
+				learnedCheckbox.IntValue = Convert.ToInt32 (editingAShortcut.learnedShortcut);
+			} else {
 				// we are adding a new entry,
 				// make sure the form fields are empty due to the fact that this controller is recycled
 				// each time the user opens the sheet -				
@@ -98,20 +101,22 @@ namespace Shortcutter
 				learnedCheckbox.IntValue = 0;
 			}
 
-			NSApp.BeginSheet(window,sender.Window);
-			NSApp.RunModalForWindow(window);
+			NSApp.BeginSheet (window, sender.Window);
+			NSApp.RunModalForWindow (window);
 			// sheet is up here.....
 
 			// when StopModal is called will continue here ....
-			NSApp.EndSheet(window);
-			window.OrderOut(this);
+			NSApp.EndSheet (window);
+			window.OrderOut (this);
 			if (cancelled) {
 				return null;
 			} else {
 				string selected = applicationMenuSwitcher.SelectedItem.Title;
 				bool newAppModal = false;
-				if(selected.Equals("New application ...")){newAppModal = true;}
-				return new ShortcutResponse(savedValues, newAppModal, selected);
+				if (selected.Equals ("New application ...")) {
+					newAppModal = true;
+				}
+				return new ShortcutResponse (savedValues, newAppModal, selected);
 			}
 		}
 	}

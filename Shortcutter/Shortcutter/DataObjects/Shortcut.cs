@@ -5,19 +5,19 @@ namespace Shortcutter
 {
 	public class Shortcut:IComparable<Shortcut>
 	{
-		[DataMember()]
-		public Application parentApplication{ get; set;}
+		[DataMember ()]
+		public Application parentApplication{ get; set; }
 
-		[DataMember()]
+		[DataMember ()]
 		public string Description{ get; set; }
 
-		[DataMember()]
+		[DataMember ()]
 		public string ShortcutAction{ get; set; }
 
-		[DataMember()]
-		public Boolean learnedShortcut{ get; set;}
+		[DataMember ()]
+		public Boolean learnedShortcut{ get; set; }
 
-		[DataMember()]
+		[DataMember ()]
 		public int nofShowed;
 
 		public Shortcut ()
@@ -32,28 +32,33 @@ namespace Shortcutter
 			this.learnedShortcut = false;
 		}
 
-		public void setParentApplication(Application parentApplication){
+		public void SetParentApplication (Application parentApplication)
+		{
 			this.parentApplication = parentApplication;
 		}
 
-		public void IncrementNofShowed()
+		public void IncrementNofShowed ()
 		{
 			++nofShowed;
 		}
 
-		public void ResetNofShowed()
+		public void ResetNofShowed ()
 		{
 			nofShowed = 0;
 		}
 
-		public string getApplicationName(){
+		public string GetApplicationName ()
+		{
 			return parentApplication.Identifier;
 		}
 
-		public string getApplicationIdentifier(){
+		public string GetApplicationIdentifier ()
+		{
 			return parentApplication.Identifier;
 		}
-		public int CompareTo(Shortcut shortcut) {
+
+		public int CompareTo (Shortcut shortcut)
+		{
 			return String.Compare (this.Description, shortcut.Description);
 		}
 	}

@@ -56,9 +56,6 @@ namespace Shortcutter
 			settings = (ApplicationSettings)ds.ReadObject (reader);
 			reader.Close ();
 			fs.Close ();
-
-			Console.Out.WriteLine (settings.appDict ["Google Chrome"].Description);
-			Console.Out.WriteLine (settings.appDict ["Google Chrome"].ShortcutList [1].Description);
 		}
 
 		private static String getStoragePath ()

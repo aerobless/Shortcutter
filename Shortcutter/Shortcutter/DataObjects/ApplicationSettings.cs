@@ -6,77 +6,103 @@ namespace Shortcutter
 {
 	public class ApplicationSettings
 	{
-		public Boolean NotificationsEnabled{ get; set;}
-		public int WaittimeAfterContextSwitch{ get; set;}
-		public int WaittimeBeforeNextNotification{ get; set;}
+		public Boolean NotificationsEnabled{ get; set; }
+
+		public int WaittimeAfterContextSwitch{ get; set; }
+
+		public int WaittimeBeforeNextNotification{ get; set; }
 		//public List<Shortcut> Shortcuts { get; set;}
-		public Dictionary<string,Application> appDict { get; set;}
+		public Dictionary<string,Application> appDict { get; set; }
 
 		public ApplicationSettings ()
 		{
 		}
-			
-		public void loadDemoContent()
+
+		public void LoadDemoContent ()
 		{
 			NotificationsEnabled = true;
 			WaittimeAfterContextSwitch = 30;
 			WaittimeBeforeNextNotification = 3600;
 
 			appDict = new Dictionary<string,Application> ();
-			appDict.Add("Google Chrome", new Application ("Google Chrome", "A webbrowser."));
+			appDict.Add ("Google Chrome", new Application ("Google Chrome", "A webbrowser."));
+			AddShortcut ("Google Chrome", new Shortcut ("New tab.", "⌘+T"));
+			AddShortcut ("Google Chrome", new Shortcut ("New window.", "⌘+N"));
+			AddShortcut ("Google Chrome", new Shortcut ("New incognito window.", "⌘+Shift-N"));
+			AddShortcut ("Google Chrome", new Shortcut ("Open a file from your computer in Google Chrome.", "⌘-O"));
+			AddShortcut ("Google Chrome", new Shortcut ("Open a link in a new tab in the background.", "⌘-[Click link]"));
+			AddShortcut ("Google Chrome", new Shortcut ("Open a link in a new tab and switch to the newly opened tab.", "⌘-Shift-[Click link]"));
+			AddShortcut ("Google Chrome", new Shortcut ("Open the link in a new window.", "Shift-[Click link]"));
+			AddShortcut ("Google Chrome", new Shortcut ("Reopen the last tab you've closed.", "⌘-Shift-T"));
+			AddShortcut ("Google Chrome", new Shortcut ("Switch to the next tab.", "⌘-Option ->"));
+			AddShortcut ("Google Chrome", new Shortcut ("Switches to the previous tab.", "⌘-Option <-"));
+			AddShortcut ("Google Chrome", new Shortcut ("Closes the current tab or pop-up.", "⌘-W"));
+			AddShortcut ("Google Chrome", new Shortcut ("Closes the current window.", "⌘-Shift-W"));
+			AddShortcut ("Google Chrome", new Shortcut ("Goes to the previous page in your browsing history for the tab.", "Backspace"));
+			AddShortcut ("Google Chrome", new Shortcut ("Goes to the next page in your browsing history for the tab.", "SHIFT-Backspace"));
+			AddShortcut ("Google Chrome", new Shortcut ("Minimizes the window.", "⌘-M"));
+			AddShortcut ("Google Chrome", new Shortcut ("Hides Google Chrome.", "⌘-H"));
+			AddShortcut ("Google Chrome", new Shortcut ("Hides all other windows.", "⌘-ALT-H"));
+			AddShortcut ("Google Chrome", new Shortcut ("Closes Google Chrome.", "⌘-Q"));
+
+			AddShortcut ("Google Chrome", new Shortcut ("Toggles the bookmarks bar on and off.", "⌘-Shift-B"));
+			AddShortcut ("Google Chrome", new Shortcut ("Opens the bookmark manager.", "⌘-ALT-B"));
+			AddShortcut ("Google Chrome", new Shortcut ("Opens the Settings page.", "⌘-,"));
+			AddShortcut ("Google Chrome", new Shortcut ("Opens the History page.", "⌘-Y"));
+			AddShortcut ("Google Chrome", new Shortcut ("Opens the Downloads page.", "⌘-Shift-J"));
+			AddShortcut ("Google Chrome", new Shortcut ("Opens the Clear Browsing Data dialog.", "⌘-Shift-Delete"));
+			AddShortcut ("Google Chrome", new Shortcut ("Switch between multiple users.", "⌘-Shift-M"));
 
 			appDict.Add ("Path Finder", new Application ("Path Finder", "A finder replacement"));
+			AddShortcut ("Path Finder", new Shortcut ("Go to the next higher level in the folder hierarchy.", "CMD+↑"));
+			AddShortcut ("Path Finder", new Shortcut ("Go to the next lower level in the folder hierarchy.", "CMD+↓"));
 
-			addShortcut("Google Chrome", new Shortcut("New tab.","CMD+T"));
-			addShortcut("Google Chrome", new Shortcut("New window.","CMD+N"));
-			addShortcut("Google Chrome", new Shortcut("New incognito window.","CMD+Shift-N"));
-			addShortcut("Google Chrome", new Shortcut("Close Tab","CMD+W"));
-
-			addShortcut ("Path Finder", new Shortcut("Go to the next higher level in the folder hierarchy.", "CMD+↑"));
-			addShortcut ("Path Finder", new Shortcut("Go to the next lower level in the folder hierarchy.", "CMD+↓"));
+			appDict.Add ("Xamarin Studio", new Application ("Xamarin Studio", "IDE"));
+			AddShortcut ("Xamarin Studio", new Shortcut ("Rename method, variable etc.", "CMD+R"));
+			AddShortcut ("Xamarin Studio", new Shortcut ("Refactoring menu", "ALT-Enter"));
 
 			Console.Out.WriteLine ("Demo-Content loaded..");
 		}
 
-		public void addShortcut(string applicationIdentifier, Shortcut shortcut)
+		public void AddShortcut (string applicationIdentifier, Shortcut shortcut)
 		{
 			if (appDict.ContainsKey (applicationIdentifier)) {
-				appDict [applicationIdentifier].addShortcut (shortcut);
+				appDict [applicationIdentifier].AddShortcut (shortcut);
 			} else {
-				Console.Out.WriteLine ("Error: "+applicationIdentifier+" does not exist in AppDict.");
+				Console.Out.WriteLine ("Error: " + applicationIdentifier + " does not exist in AppDict.");
 			}
 		}
 
-		public void removeShortcut(string applicationIdentifier, Shortcut shortcut)
+		public void RemoveShortcut (string applicationIdentifier, Shortcut shortcut)
 		{
 			if (appDict.ContainsKey (applicationIdentifier)) {
-				appDict [applicationIdentifier].removeShortcut (shortcut);
+				appDict [applicationIdentifier].RemoveShortcut (shortcut);
 			} else {
-				Console.Out.WriteLine ("Error: "+applicationIdentifier+" does not exist in AppDict.");
+				Console.Out.WriteLine ("Error: " + applicationIdentifier + " does not exist in AppDict.");
 			}
 		}
 
-		public List<Shortcut> getShortcutsFor(string applicationIdentifier)
+		public List<Shortcut> GetShortcutsFor (string applicationIdentifier)
 		{
 			if (appDict.ContainsKey (applicationIdentifier)) {
-				return appDict [applicationIdentifier].getShortcutList();
+				return appDict [applicationIdentifier].GetShortcutList ();
 			} else {
-				Console.Out.WriteLine ("Error: "+applicationIdentifier+" does not exist in AppDict.");
+				Console.Out.WriteLine ("Error: " + applicationIdentifier + " does not exist in AppDict.");
 				return null;
 			}
 		}
 
-		public List<Application> getApplicationList()
+		public List<Application> GetApplicationList ()
 		{
-			return appDict.Values.ToList();
+			return appDict.Values.ToList ();
 		}
 
-		public void addApplication(Application application)
+		public void AddApplication (Application application)
 		{
 			appDict.Add (application.Identifier, application);
 		}
 
-		public void removeApplication(string applicationIdentifier)
+		public void RemoveApplication (string applicationIdentifier)
 		{
 			appDict.Remove (applicationIdentifier);
 		}

@@ -1,5 +1,4 @@
-﻿
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using MonoMac.Foundation;
@@ -54,28 +53,28 @@ namespace Shortcutter
 
 			okButton.Activated += (object sender, EventArgs e) => {
 				// save the values for later
-				savedValue = new Application(nameField.StringValue, descriptionField.StringValue);
-				NSApp.StopModal();
+				savedValue = new Application (nameField.StringValue, descriptionField.StringValue);
+				NSApp.StopModal ();
 			};
 
 			cancelButton.Activated += (object sender, EventArgs e) => {
-				NSApp.StopModal();
+				NSApp.StopModal ();
 				cancelled = true;
 			};
 		}
 
-		public Application edit(MainWindowController sender)
+		public Application Edit (MainWindowController sender)
 		{
 
 			NSWindow window = this.Window;
 
-			NSApp.BeginSheet(window,sender.Window);
-			NSApp.RunModalForWindow(window);
+			NSApp.BeginSheet (window, sender.Window);
+			NSApp.RunModalForWindow (window);
 			// sheet is up here.....
 
 			// when StopModal is called will continue here ....
-			NSApp.EndSheet(window);
-			window.OrderOut(this);
+			NSApp.EndSheet (window);
+			window.OrderOut (this);
 			if (cancelled) {
 				return null;
 			} else {
@@ -84,4 +83,3 @@ namespace Shortcutter
 		}
 	}
 }
-

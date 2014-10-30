@@ -33,6 +33,7 @@ namespace Shortcutter
 			}
 				
 			apptracker = new AppTracker ();
+			apptracker.Run ();
 			NSApplication.Main (args);
 		}
 
@@ -95,34 +96,34 @@ namespace Shortcutter
 			center.ScheduleNotification (not);
 		}
 
-		public static List<Shortcut> getShortcutList (string application)
+		public static List<Shortcut> GetShortcutList (string application)
 		{
 			return settings.getShortcutsFor (application);
 		}
 
-		public static void addShortcut (string application, Shortcut shortcut)
+		public static void AddShortcut (string application, Shortcut shortcut)
 		{
 			settings.addShortcut (application, shortcut);
 			SaveToDisk ();
 		}
 
-		public static void removeShortcut (string application, Shortcut shortcut)
+		public static void RemoveShortcut (string application, Shortcut shortcut)
 		{
 			settings.removeShortcut (application, shortcut);
 			SaveToDisk ();
 		}
 
-		public static bool isNotificationEnabled ()
+		public static bool IsNotificationEnabled ()
 		{
 			return settings.NotificationsEnabled;
 		}
 
-		public static int getWaittimeAfterContextSwitch ()
+		public static int GetWaittimeAfterContextSwitch ()
 		{
 			return settings.WaittimeAfterContextSwitch;
 		}
 
-		public static int getWaittimeBeforeNextNotification ()
+		public static int GetWaittimeBeforeNextNotification ()
 		{
 			return settings.WaittimeBeforeNextNotification;
 		}
@@ -134,17 +135,17 @@ namespace Shortcutter
 			settings.WaittimeBeforeNextNotification = waittimeBeforeNextNotification;
 		}
 
-		public static List<Application> getApplicationList ()
+		public static List<Application> GetApplicationList ()
 		{
 			return settings.getApplicationList ();
 		}
 
-		public static void addApplication (Application application)
+		public static void AddApplication (Application application)
 		{
 			settings.addApplication (application);
 		}
 
-		public static void removeApplication (string applicationIdentifier)
+		public static void RemoveApplication (string applicationIdentifier)
 		{
 			settings.removeApplication (applicationIdentifier);
 		}

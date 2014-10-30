@@ -1,5 +1,4 @@
-﻿
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using MonoMac.Foundation;
@@ -40,6 +39,7 @@ namespace Shortcutter
 		}
 
 		#endregion
+
 		private NSApplication NSApp = NSApplication.SharedApplication;
 
 		public override void AwakeFromNib ()
@@ -47,7 +47,7 @@ namespace Shortcutter
 			base.AwakeFromNib ();
 
 			storageLocationButton.Activated += (object sender, EventArgs e) => {
-				Console.Out.WriteLine("storage location choser");
+				Console.Out.WriteLine ("storage location choser");
 				var panel = NSOpenPanel.OpenPanel;
 				panel.FloatingPanel = true;
 				panel.CanCreateDirectories = true;
@@ -56,24 +56,24 @@ namespace Shortcutter
 				//TODO: working on storing file
 				int i = panel.RunModal ();
 				if (i == 1 && panel.Urls != null) {
-					Console.Out.WriteLine(panel.Url);
+					Console.Out.WriteLine (panel.Url);
 				}
 
 			};
 
 			ButtonSave.Activated += (object sender, EventArgs e) => {
-				bool enabled = Convert.ToBoolean(CheckEnableNotifications.IntValue);
+				bool enabled = Convert.ToBoolean (CheckEnableNotifications.IntValue);
 				int waitCon;
-				int.TryParse(FieldContextSwitchWaittime.StringValue, out waitCon);
+				int.TryParse (FieldContextSwitchWaittime.StringValue, out waitCon);
 				int waitNext;
-				int.TryParse(FieldNextNotificationWaitTime.StringValue,out waitNext);
+				int.TryParse (FieldNextNotificationWaitTime.StringValue, out waitNext);
 
-				MainClass.UpdateSettings(enabled, waitCon, waitNext);
-				NSApp.StopModal();
+				MainClass.UpdateSettings (enabled, waitCon, waitNext);
+				NSApp.StopModal ();
 			};
 
 			ButtonCancel.Activated += (object sender, EventArgs e) => {
-				NSApp.StopModal();
+				NSApp.StopModal ();
 			};
 		}
 
@@ -84,22 +84,21 @@ namespace Shortcutter
 			}
 		}
 
-		public void editSettings(MainWindowController sender)
+		public void EditSettings (MainWindowController sender)
 		{
 			NSWindow window = this.Window;
 		
-			CheckEnableNotifications.IntValue = Convert.ToInt32(MainClass.isNotificationEnabled());
-			FieldContextSwitchWaittime.StringValue = ""+MainClass.getWaittimeAfterContextSwitch();
-			FieldNextNotificationWaitTime.StringValue = ""+MainClass.getWaittimeBeforeNextNotification();
+			CheckEnableNotifications.IntValue = Convert.ToInt32 (MainClass.IsNotificationEnabled ());
+			FieldContextSwitchWaittime.StringValue = "" + MainClass.GetWaittimeAfterContextSwitch ();
+			FieldNextNotificationWaitTime.StringValue = "" + MainClass.GetWaittimeBeforeNextNotification ();
 
-			NSApp.BeginSheet(window,sender.Window);
-			NSApp.RunModalForWindow(window);
+			NSApp.BeginSheet (window, sender.Window);
+			NSApp.RunModalForWindow (window);
 			// sheet is up here.....
 
 			// when StopModal is called will continue here ....
-			NSApp.EndSheet(window);
-			window.OrderOut(this);
+			NSApp.EndSheet (window);
+			window.OrderOut (this);
 		}
 	}
 }
-

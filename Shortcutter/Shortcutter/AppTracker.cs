@@ -10,8 +10,8 @@ namespace Shortcutter
 {
 	public class AppTracker
 	{
-		NSWorkspace workspace = NSWorkspace.SharedWorkspace;
-		String currentlyActiveApp = "";
+		private NSWorkspace workspace = NSWorkspace.SharedWorkspace;
+		private String currentlyActiveApp = "";
 
 		//Check how long an application was open. We only send notifications when a user
 		//has been using his chosen application for a set period.
@@ -19,35 +19,40 @@ namespace Shortcutter
 
 		public AppTracker ()
 		{
-			applicationTimer = new Timer(TimerCallback, null, TimeSpan.FromSeconds(0), TimeSpan.Zero);
+		}
+
+		public void Run ()
+		{
+			applicationTimer = new Timer (timerCallback, null, TimeSpan.FromSeconds (0), TimeSpan.Zero);
 			Console.WriteLine ("Add the sleep/wake observers");
 			NSWorkspace.Notifications.ObserveDidActivateApplication ((object sender, NSWorkspaceApplicationEventArgs e) => {
-				if(MainClass.isNotificationEnabled()){
-					currentlyActiveApp = workspace.ActiveApplication.ValueForKey(new NSString("NSApplicationName")).ToString();
+				if (MainClass.IsNotificationEnabled ()) {
+					currentlyActiveApp = workspace.ActiveApplication.ValueForKey (new NSString ("NSApplicationName")).ToString ();
 					//We set a new timer every time a context switch occures.. so only if a user stays x minutes in an app he gets notified
-					applicationTimer.Change(TimeSpan.FromSeconds(MainClass.getWaittimeAfterContextSwitch()), TimeSpan.Zero);
+					applicationTimer.Change (TimeSpan.FromSeconds (MainClass.GetWaittimeAfterContextSwitch ()), TimeSpan.Zero);
 				}
 			});
 		}
 
-		private void TimerCallback(object state) {
-			Console.WriteLine("{0}: Completed timer for: "+currentlyActiveApp, DateTime.Now);
-			findShortcut(currentlyActiveApp);
+		private void timerCallback (object state)
+		{
+			Console.WriteLine ("{0}: Completed timer for: " + currentlyActiveApp, DateTime.Now);
+			findShortcut (currentlyActiveApp);
 		}
 
-		public string GetActiveApp()
+		public string GetActiveApp ()
 		{
 			return currentlyActiveApp;
 		}
 
-		private void findShortcut(string applicationName)
+		private void findShortcut (string applicationName)
 		{
-			List<Shortcut> shortcutList = MainClass.getShortcutList (currentlyActiveApp);
+			List<Shortcut> shortcutList = MainClass.GetShortcutList (currentlyActiveApp);
 
 			if (validList (shortcutList)) {
 				//Filter shortcuts that are already learned
-				List<Shortcut> filteredShorcuts = shortcutList.Where((shortcut) => (shortcut.learnedShortcut==false)).ToList();
-				if(filteredShorcuts.Count > 0){
+				List<Shortcut> filteredShorcuts = shortcutList.Where ((shortcut) => (shortcut.learnedShortcut == false)).ToList ();
+				if (filteredShorcuts.Count > 0) {
 					Shortcut randomShortcut = filteredShorcuts [randomInRange (0, filteredShorcuts.Count - 1)];
 					MainClass.SendNotification ("Try: " + randomShortcut.Description, "Press: " + randomShortcut.ShortcutAction);
 				}
@@ -59,10 +64,10 @@ namespace Shortcutter
 			return filteredShorcuts != null && filteredShorcuts.Count > 0;
 		}
 
-		private int randomInRange(int start, int end)
+		private int randomInRange (int start, int end)
 		{
-			Random r = new Random();
-			return r.Next(start, end); //for ints
+			Random r = new Random ();
+			return r.Next (start, end); //for ints
 		}
 	}
 }

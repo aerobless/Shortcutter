@@ -12,11 +12,10 @@ namespace Shortcutter
 		public SidebarModel ()
 		{
 		}
-			
 
 		public override int GetChildrenCount (NSOutlineView outlineView, NSObject item)
 		{
-			return MainClass.getApplicationList().Count;
+			return MainClass.GetApplicationList ().Count;
 		}
 
 		public override NSObject GetObjectValue (NSOutlineView outlineView, NSTableColumn forTableColumn, NSObject byItem)
@@ -26,7 +25,7 @@ namespace Shortcutter
 
 		public override NSObject GetChild (NSOutlineView outlineView, int childIndex, NSObject ofItem)
 		{
-			return (NSString)MainClass.getApplicationList()[childIndex].Identifier;
+			return (NSString)MainClass.GetApplicationList () [childIndex].Identifier;
 		}
 
 		public override bool ItemExpandable (NSOutlineView outlineView, NSObject item)

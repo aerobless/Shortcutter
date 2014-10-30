@@ -62,9 +62,9 @@ namespace Shortcutter
 			RemoveButton.Activated += (object sender, EventArgs e) => {
 				int selectedRow = ShortcutTable.SelectedRow;
 				if (selectedRow >= 0) {
-					string selectedApplication = tm.removeShortcut (selectedRow);
+					string selectedApplication = tm.RemoveShortcut (selectedRow);
 					if (ShortcutTable.RowCount == 0) {
-						MainClass.removeApplication (selectedApplication);
+						MainClass.RemoveApplication (selectedApplication);
 						SidebarOutlineView.ReloadData ();
 					}
 				}
@@ -74,9 +74,9 @@ namespace Shortcutter
 				if (aAddEntryController == null) {
 					aAddEntryController = new AddEntryController ();
 				}
-				ShortcutResponse result = aAddEntryController.edit (null, this);
+				ShortcutResponse result = aAddEntryController.Edit (null, this);
 				if ((result != null) && (result.NewAppModal == false)) {
-					tm.addNewShortcut (result.ApplicationIdentifier, result.Shortcut);
+					tm.AddNewShortcut (result.ApplicationIdentifier, result.Shortcut);
 				} else if ((result != null) && (result.NewAppModal == true)) {
 					addNewApplicationAndShortcut (result.Shortcut);
 				}
@@ -88,10 +88,10 @@ namespace Shortcutter
 					if (aAddEntryController == null) {
 						aAddEntryController = new AddEntryController ();
 					}
-					ShortcutResponse result = aAddEntryController.edit (tm.getFilteredShortcut (selectedRow), this);
+					ShortcutResponse result = aAddEntryController.Edit (tm.GetFilteredShortcut (selectedRow), this);
 					if (result != null && (result.NewAppModal == false)) {
-						tm.removeShortcut (selectedRow);
-						tm.addNewShortcut (result.ApplicationIdentifier, result.Shortcut);
+						tm.RemoveShortcut (selectedRow);
+						tm.AddNewShortcut (result.ApplicationIdentifier, result.Shortcut);
 					} else if ((result != null) && (result.NewAppModal == true)) {
 						addNewApplicationAndShortcut (result.Shortcut);
 					}
@@ -102,7 +102,7 @@ namespace Shortcutter
 				if (aSettingsController == null) {
 					aSettingsController = new SettingsController ();
 				}
-				aSettingsController.editSettings (this);
+				aSettingsController.EditSettings (this);
 			};
 
 			tm = new ShortcutTableModel (ShortcutTable, this);
@@ -119,23 +119,23 @@ namespace Shortcutter
 			SearchField.Changed += searchEvent;
 		}
 
-		void addNewApplicationAndShortcut (Shortcut shortcut)
+		private void addNewApplicationAndShortcut (Shortcut shortcut)
 		{
 			if (aAddApplicationController == null) {
 				aAddApplicationController = new AddApplicationController ();
 			}
-			Application newlyCreatedAndSelctedApp = aAddApplicationController.edit (this);
-			MainClass.addApplication (newlyCreatedAndSelctedApp);
-			tm.addNewShortcut (newlyCreatedAndSelctedApp.Identifier, shortcut);
+			Application newlyCreatedAndSelctedApp = aAddApplicationController.Edit (this);
+			MainClass.AddApplication (newlyCreatedAndSelctedApp);
+			tm.AddNewShortcut (newlyCreatedAndSelctedApp.Identifier, shortcut);
 			SidebarOutlineView.ReloadData ();
 		}
 
-		void searchEvent (object sender, EventArgs e)
+		private void searchEvent (object sender, EventArgs e)
 		{
-			tm.filter (SearchField.StringValue);
+			tm.Filter (SearchField.StringValue);
 		}
 
-		public void enableButtons (bool shouldEnable)
+		public void EnableButtons (bool shouldEnable)
 		{
 			EditButton.Enabled = shouldEnable;
 			RemoveButton.Enabled = shouldEnable;
@@ -159,7 +159,7 @@ namespace Shortcutter
 
 		public override void SelectionDidChange (NSNotification notification)
 		{
-			tm.setSelectedApplication (outlineView.SelectedRow);
+			tm.SetSelectedApplication (outlineView.SelectedRow);
 		}
 	}
 }

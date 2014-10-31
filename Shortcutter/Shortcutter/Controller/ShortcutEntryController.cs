@@ -110,7 +110,11 @@ namespace Shortcutter
 				int idOfApplicationInMenu = MainClass.GetApplicationList ().FindIndex (delegate(Application app) {
 					return app.Identifier.Equals (selectedApp);
 				});
-				applicationMenuSwitcher.SelectItem (idOfApplicationInMenu);
+				if (applicationMenuSwitcher.ItemCount == 1) {
+					applicationMenuSwitcher.SelectItem (0);
+				} else {
+					applicationMenuSwitcher.SelectItem (idOfApplicationInMenu);
+				}
 			}
 
 			NSApp.BeginSheet (window, sender.Window);

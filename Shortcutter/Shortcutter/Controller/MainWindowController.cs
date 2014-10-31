@@ -77,13 +77,7 @@ namespace Shortcutter
 				EnableButtons (!empty);
 			};
 
-			//Select the first entry
-			if (SidebarOutlineView.RowCount >= 1) {
-				SidebarOutlineView.SelectRow (0, false);
-			} else {
-				//Trigger the empty events right away.
-				shortcutTableModel.Filter ();
-			}
+			selectFirstApplicationIfPossible ();
 
 			AddShortcutButton.Activated += (object sender, EventArgs e) => {
 				if (shortcutEntryController == null) {
@@ -104,6 +98,7 @@ namespace Shortcutter
 					if (ShortcutTable.RowCount == 0) {
 						MainClass.RemoveApplication (selectedApplication);
 						SidebarOutlineView.ReloadData ();
+						selectFirstApplicationIfPossible ();
 					}
 				}
 			};
@@ -152,6 +147,16 @@ namespace Shortcutter
 			};
 
 			SearchField.Changed += searchEvent;
+		}
+
+		private void selectFirstApplicationIfPossible ()
+		{
+			if (SidebarOutlineView.RowCount >= 1) {
+				SidebarOutlineView.SelectRow (0, false);
+			} else {
+				//Trigger the empty events right away.
+				shortcutTableModel.Filter ();
+			}
 		}
 
 		private void addNewApplicationAndShortcut (Shortcut shortcut)

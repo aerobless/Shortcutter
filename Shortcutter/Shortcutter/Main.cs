@@ -15,8 +15,8 @@ namespace Shortcutter
 	class MainClass
 	{
 		private const string STORAGE_FILENAME = "shortcutter.xml";
-		private static ApplicationSettings settings = new ApplicationSettings ();
-
+		private static ApplicationSettings settings;
+		private static object syncLock = new object ();
 		private static AppTracker apptracker;
 
 		static void Main (string[] args)
@@ -25,15 +25,17 @@ namespace Shortcutter
 
 			if (File.Exists (getStoragePath ())) {
 				Console.Out.WriteLine (STORAGE_FILENAME + " found, loading existing data..");
-				readFromDisk ();
+				settings = readFromDisk ();
 			} else {
 				Console.Out.WriteLine (STORAGE_FILENAME + " not found, loading demo data..");
+				settings = new ApplicationSettings ();
 				settings.LoadDemoContent ();
 				SaveToDisk ();
 			}
-				
+
 			apptracker = new AppTracker ();
 			apptracker.Run ();
+
 			NSApplication.Main (args);
 		}
 
@@ -43,19 +45,21 @@ namespace Shortcutter
 
 			var ds = new DataContractSerializer (typeof(ApplicationSettings));
 			var xmlsettings = new XmlWriterSettings { Indent = true };
-			using (var w = XmlWriter.Create (savePath, xmlsettings))
-				ds.WriteObject (w, settings);
+			lock (syncLock) {
+				using (var w = XmlWriter.Create (savePath, xmlsettings))
+					ds.WriteObject (w, settings);
+			}
 		}
 
-		private static void readFromDisk ()
+		private static ApplicationSettings readFromDisk ()
 		{
 			DataContractSerializer ds = new DataContractSerializer (typeof(ApplicationSettings));
 			FileStream fs = new FileStream (getStoragePath (), FileMode.Open);
 			XmlDictionaryReader reader = XmlDictionaryReader.CreateTextReader (fs, new XmlDictionaryReaderQuotas ());
-
-			settings = (ApplicationSettings)ds.ReadObject (reader);
+			ApplicationSettings readSettings = (ApplicationSettings)ds.ReadObject (reader);
 			reader.Close ();
 			fs.Close ();
+			return readSettings;
 		}
 
 		private static String getStoragePath ()
@@ -95,18 +99,24 @@ namespace Shortcutter
 
 		public static List<Shortcut> GetShortcutList (string application)
 		{
-			return settings.GetShortcutsFor (application);
+			lock (syncLock) {
+				return settings.GetShortcutsFor (application);
+			}
 		}
 
 		public static void AddShortcut (string application, Shortcut shortcut)
 		{
-			settings.AddShortcut (application, shortcut);
+			lock (syncLock) {
+				settings.AddShortcut (application, shortcut);
+			}
 			SaveToDisk ();
 		}
 
 		public static void RemoveShortcut (string application, Shortcut shortcut)
 		{
-			settings.RemoveShortcut (application, shortcut);
+			lock (syncLock) {
+				settings.RemoveShortcut (application, shortcut);
+			}
 			SaveToDisk ();
 		}
 
@@ -127,24 +137,32 @@ namespace Shortcutter
 
 		public static void UpdateSettings (bool notificationEnabled, int waittimeAfterContextSwitch, int waittimeBeforeNextNotification)
 		{
-			settings.NotificationsEnabled = notificationEnabled;
-			settings.WaittimeAfterContextSwitch = waittimeAfterContextSwitch;
-			settings.WaittimeBeforeNextNotification = waittimeBeforeNextNotification;
+			lock (syncLock) {
+				settings.NotificationsEnabled = notificationEnabled;
+				settings.WaittimeAfterContextSwitch = waittimeAfterContextSwitch;
+				settings.WaittimeBeforeNextNotification = waittimeBeforeNextNotification;
+			}
 		}
 
 		public static List<Application> GetApplicationList ()
 		{
-			return settings.GetApplicationList ();
+			lock (syncLock) {
+				return settings.GetApplicationList ();
+			}
 		}
 
 		public static void AddApplication (Application application)
 		{
-			settings.AddApplication (application);
+			lock (syncLock) {
+				settings.AddApplication (application);
+			}
 		}
 
 		public static void RemoveApplication (string applicationIdentifier)
 		{
-			settings.RemoveApplication (applicationIdentifier);
+			lock (syncLock) {
+				settings.RemoveApplication (applicationIdentifier);
+			}
 		}
 
 		//Needs: "using System.Runtime.InteropServices;" to work!

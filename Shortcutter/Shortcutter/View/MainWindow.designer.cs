@@ -13,7 +13,7 @@ namespace Shortcutter
 	partial class MainWindowController
 	{
 		[Outlet]
-		MonoMac.AppKit.NSToolbarItem ClickMeToolbar { get; set; }
+		MonoMac.AppKit.NSToolbarItem AddShortcutButton { get; set; }
 
 		[Outlet]
 		MonoMac.AppKit.NSToolbarItem EditButton { get; set; }
@@ -47,9 +47,9 @@ namespace Shortcutter
 		
 		void ReleaseDesignerOutlets ()
 		{
-			if (ClickMeToolbar != null) {
-				ClickMeToolbar.Dispose ();
-				ClickMeToolbar = null;
+			if (AddShortcutButton != null) {
+				AddShortcutButton.Dispose ();
+				AddShortcutButton = null;
 			}
 
 			if (EditButton != null) {
@@ -70,6 +70,11 @@ namespace Shortcutter
 			if (SettingsButton != null) {
 				SettingsButton.Dispose ();
 				SettingsButton = null;
+			}
+
+			if (shareButton != null) {
+				shareButton.Dispose ();
+				shareButton = null;
 			}
 
 			if (ShortcutTable != null) {
@@ -95,11 +100,6 @@ namespace Shortcutter
 			if (SidebarScroller != null) {
 				SidebarScroller.Dispose ();
 				SidebarScroller = null;
-			}
-
-			if (shareButton != null) {
-				shareButton.Dispose ();
-				shareButton = null;
 			}
 		}
 	}

@@ -11,7 +11,7 @@ namespace Shortcutter
 		public int WaittimeAfterContextSwitch{ get; set; }
 
 		public int WaittimeBeforeNextNotification{ get; set; }
-		//public List<Shortcut> Shortcuts { get; set;}
+
 		public Dictionary<string,Application> appDict { get; set; }
 
 		public ApplicationSettings ()

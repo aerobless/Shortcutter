@@ -10,25 +10,25 @@ namespace Shortcutter
 	 * Not2FutureSelf: Modal Window: Be sure to set the UI.xib's "Visible At Start" to false! Otherwise
 	 * it won't appear modal but rather disconnected from the main window.
 	 */
-	public partial class AddEntryController : MonoMac.AppKit.NSWindowController
+	public partial class ShortcutEntryController : MonoMac.AppKit.NSWindowController
 	{
 		#region Constructors
 
 		// Called when created from unmanaged code
-		public AddEntryController (IntPtr handle) : base (handle)
+		public ShortcutEntryController (IntPtr handle) : base (handle)
 		{
 			Initialize ();
 		}
 		
 		// Called when created directly from a XIB file
 		[Export ("initWithCoder:")]
-		public AddEntryController (NSCoder coder) : base (coder)
+		public ShortcutEntryController (NSCoder coder) : base (coder)
 		{
 			Initialize ();
 		}
 		
 		// Call to load from the XIB/NIB file
-		public AddEntryController () : base ("AddEntry")
+		public ShortcutEntryController () : base ("AddEntry")
 		{
 			Initialize ();
 		}

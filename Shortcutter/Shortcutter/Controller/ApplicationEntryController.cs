@@ -6,25 +6,25 @@ using MonoMac.AppKit;
 
 namespace Shortcutter
 {
-	public partial class AddApplicationController : MonoMac.AppKit.NSWindowController
+	public partial class ApplicationEntryController : MonoMac.AppKit.NSWindowController
 	{
 		#region Constructors
 
 		// Called when created from unmanaged code
-		public AddApplicationController (IntPtr handle) : base (handle)
+		public ApplicationEntryController (IntPtr handle) : base (handle)
 		{
 			Initialize ();
 		}
 		
 		// Called when created directly from a XIB file
 		[Export ("initWithCoder:")]
-		public AddApplicationController (NSCoder coder) : base (coder)
+		public ApplicationEntryController (NSCoder coder) : base (coder)
 		{
 			Initialize ();
 		}
 		
 		// Call to load from the XIB/NIB file
-		public AddApplicationController () : base ("AddApplication")
+		public ApplicationEntryController () : base ("AddApplication")
 		{
 			Initialize ();
 		}

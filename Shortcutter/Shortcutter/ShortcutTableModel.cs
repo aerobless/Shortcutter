@@ -10,16 +10,17 @@ namespace Shortcutter
 	public class ShortcutTableModel : NSTableViewDataSource
 	{
 		List<Shortcut> filteredShorcuts;
-		NSTableView tableView;
-		MainWindowController mainWindow;
-		String currentFilter = "";
-		String selectedApplication = "Google Chrome";
 
-		public ShortcutTableModel (NSTableView tableView, MainWindowController mainWindow)
+		private String currentFilter = "";
+		private String selectedApplication = "Google Chrome";
+
+		//Events
+		public event Action ModelChanged;
+		public event Action<bool> EmptyModel;
+
+		public ShortcutTableModel ()
 		{
 			this.filteredShorcuts = MainClass.GetShortcutList (selectedApplication);
-			this.tableView = tableView;
-			this.mainWindow = mainWindow;
 		}
 	
 		// how many rows are in the table
@@ -52,12 +53,11 @@ namespace Shortcutter
 			IEnumerable<Shortcut> query = MainClass.GetShortcutList (selectedApplication).Where (s => (s.GetApplicationName ().ToLower ().Contains (filter.ToLower ()) || s.Description.ToLower ().Contains (filter.ToLower ())));
 			filteredShorcuts = query.ToList ();
 			filteredShorcuts.Sort ();
-			tableView.ReloadData ();
-
+			ModelChanged ();
 			if (filteredShorcuts.Count > 0) {
-				mainWindow.EnableButtons (true);
+				EmptyModel (false);
 			} else {
-				mainWindow.EnableButtons (false);
+				EmptyModel (true);
 			}
 		}
 

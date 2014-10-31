@@ -10,7 +10,7 @@ using System.CodeDom.Compiler;
 namespace Shortcutter
 {
 	[Register ("AddApplicationController")]
-	partial class AddApplicationController
+	partial class ApplicationEntryController
 	{
 		[Outlet]
 		MonoMac.AppKit.NSButton cancelButton { get; set; }

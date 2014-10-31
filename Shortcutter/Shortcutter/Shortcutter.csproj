@@ -95,15 +95,11 @@
     <Compile Include="AppTracker.cs" />
     <Compile Include="DataObjects\ApplicationSettings.cs" />
     <Compile Include="Controller\MainWindowController.cs" />
-    <Compile Include="Controller\AddEntryController.cs" />
     <Compile Include="View\MainWindow.cs" />
     <Compile Include="View\MainWindow.designer.cs">
       <DependentUpon>MainWindow.cs</DependentUpon>
     </Compile>
     <Compile Include="View\AddEntry.cs" />
-    <Compile Include="View\AddEntry.designer.cs">
-      <DependentUpon>AddEntry.cs</DependentUpon>
-    </Compile>
     <Compile Include="View\Settings.cs" />
     <Compile Include="View\Settings.designer.cs">
       <DependentUpon>Settings.cs</DependentUpon>
@@ -112,11 +108,15 @@
     <Compile Include="DataObjects\Application.cs" />
     <Compile Include="SidebarModel.cs" />
     <Compile Include="View\AddApplication.cs" />
-    <Compile Include="View\AddApplication.designer.cs">
+    <Compile Include="DataObjects\ShortcutResponse.cs" />
+    <Compile Include="Controller\ShortcutEntryController.cs" />
+    <Compile Include="View\ShortcutEntryController.cs">
+      <DependentUpon>AddEntry.cs</DependentUpon>
+    </Compile>
+    <Compile Include="View\ApplicationEntryController.cs">
       <DependentUpon>AddApplication.cs</DependentUpon>
     </Compile>
-    <Compile Include="Controller\AddApplicationController.cs" />
-    <Compile Include="DataObjects\ShortcutResponse.cs" />
+    <Compile Include="Controller\ApplicationEntryController.cs" />
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="View\MainWindow.xib" />

@@ -10,7 +10,7 @@ using System.CodeDom.Compiler;
 namespace Shortcutter
 {
 	[Register ("AddEntryController")]
-	partial class AddEntryController
+	partial class ShortcutEntryController
 	{
 		[Outlet]
 		MonoMac.AppKit.NSMenu applicationMenu { get; set; }

@@ -9,16 +9,6 @@ namespace Shortcutter
 {
 	public partial class MainWindowController : MonoMac.AppKit.NSWindowController
 	{
-		protected int numberOfTimesClicked = 0;
-		ShortcutTableModel tm;
-
-		internal static NSString APPLICATION = new NSString ("applicationColumn");
-		internal static NSString SHORTCUT = new NSString ("shortcutColumn");
-
-		internal static List<NSString> Keys = new List<NSString> { APPLICATION, SHORTCUT };
-		internal const int APPLICATION_IDX = 0;
-		internal const int SHORTCUT_IDX = 1;
-
 		#region Constructors
 
 		// Called when created from unmanaged code
@@ -40,13 +30,21 @@ namespace Shortcutter
 		// Shared initialization code
 		void Initialize ()
 		{
+			Console.Out.WriteLine ("Initialized MainWindowController");
+			sidebarModel = new SidebarModel ();
+			shortcutTableModel = new ShortcutTableModel ();
 		}
 
 		#endregion
 
-		AddEntryController aAddEntryController;
-		AddApplicationController aAddApplicationController;
-		SettingsController aSettingsController;
+		//Models
+		private SidebarModel sidebarModel;
+		private ShortcutTableModel shortcutTableModel;
+
+		//Controllers
+		private ShortcutEntryController shortcutEntryController;
+		private ApplicationEntryController applicationEntryController;
+		private SettingsController settingsController;
 
 		//strongly typed window accessor
 		public new MainWindow Window {
@@ -58,11 +56,37 @@ namespace Shortcutter
 		public override void AwakeFromNib ()
 		{
 			base.AwakeFromNib ();
+	
+			ShortcutTable.DataSource = shortcutTableModel;
+
+			shortcutTableModel.ModelChanged += () => {
+				ShortcutTable.ReloadData ();
+			};
+
+			shortcutTableModel.EmptyModel += (empty) => {
+				EnableButtons (!empty);
+			};
+
+			//Adding a model to the sidebar and setting a delegate for notifications
+			SidebarOutlineView.DataSource = sidebarModel;
+			SidebarOutlineView.Delegate = new OutlineDelegate (shortcutTableModel, SidebarOutlineView);
+
+			AddShortcutButton.Activated += (object sender, EventArgs e) => {
+				if (shortcutEntryController == null) {
+					shortcutEntryController = new ShortcutEntryController ();
+				}
+				ShortcutResponse result = shortcutEntryController.Edit (null, this);
+				if ((result != null) && (result.NewAppModal == false)) {
+					shortcutTableModel.AddNewShortcut (result.ApplicationIdentifier, result.Shortcut);
+				} else if ((result != null) && (result.NewAppModal == true)) {
+					addNewApplicationAndShortcut (result.Shortcut);
+				}
+			};
 
 			RemoveButton.Activated += (object sender, EventArgs e) => {
 				int selectedRow = ShortcutTable.SelectedRow;
 				if (selectedRow >= 0) {
-					string selectedApplication = tm.RemoveShortcut (selectedRow);
+					string selectedApplication = shortcutTableModel.RemoveShortcut (selectedRow);
 					if (ShortcutTable.RowCount == 0) {
 						MainClass.RemoveApplication (selectedApplication);
 						SidebarOutlineView.ReloadData ();
@@ -70,28 +94,16 @@ namespace Shortcutter
 				}
 			};
 
-			ClickMeToolbar.Activated += (object sender, EventArgs e) => {
-				if (aAddEntryController == null) {
-					aAddEntryController = new AddEntryController ();
-				}
-				ShortcutResponse result = aAddEntryController.Edit (null, this);
-				if ((result != null) && (result.NewAppModal == false)) {
-					tm.AddNewShortcut (result.ApplicationIdentifier, result.Shortcut);
-				} else if ((result != null) && (result.NewAppModal == true)) {
-					addNewApplicationAndShortcut (result.Shortcut);
-				}
-			};
-
 			EditButton.Activated += (object sender, EventArgs e) => {
 				int selectedRow = ShortcutTable.SelectedRow;
 				if (selectedRow >= 0) {
-					if (aAddEntryController == null) {
-						aAddEntryController = new AddEntryController ();
+					if (shortcutEntryController == null) {
+						shortcutEntryController = new ShortcutEntryController ();
 					}
-					ShortcutResponse result = aAddEntryController.Edit (tm.GetFilteredShortcut (selectedRow), this);
+					ShortcutResponse result = shortcutEntryController.Edit (shortcutTableModel.GetFilteredShortcut (selectedRow), this);
 					if (result != null && (result.NewAppModal == false)) {
-						tm.RemoveShortcut (selectedRow);
-						tm.AddNewShortcut (result.ApplicationIdentifier, result.Shortcut);
+						shortcutTableModel.RemoveShortcut (selectedRow);
+						shortcutTableModel.AddNewShortcut (result.ApplicationIdentifier, result.Shortcut);
 					} else if ((result != null) && (result.NewAppModal == true)) {
 						addNewApplicationAndShortcut (result.Shortcut);
 					}
@@ -109,44 +121,39 @@ namespace Shortcutter
 				 * I hope other devs having the same problem will find my code on github.
 				 */
 				NSSavePanel savePanel = new NSSavePanel ();
-				int result = savePanel.RunModal ();
+				//savePanel.Message = .;
+				//int result = savePanel.RunModal ();
+				NSSavePanelComplete complete = new NSSavePanelComplete (r => Console.Out.WriteLine ("DDD"));
+				savePanel.BeginSheet (this.Window, complete);
+
+				//NSApp.BeginSheet (window, sender.Window);
+				//NSApp.RunModalForWindow (window);
 			};
 
 			SettingsButton.Activated += (object sender, EventArgs e) => {
-				if (aSettingsController == null) {
-					aSettingsController = new SettingsController ();
+				if (settingsController == null) {
+					settingsController = new SettingsController ();
 				}
-				aSettingsController.EditSettings (this);
+				settingsController.EditSettings (this);
 			};
-
-			tm = new ShortcutTableModel (ShortcutTable, this);
-			ShortcutTable.DataSource = tm;
-
-			//Adding a model to the sidebar and setting a delegate for notifications
-			SidebarModel sm = new SidebarModel ();
-			SidebarOutlineView.DataSource = sm;
-			SidebarOutlineView.Delegate = new OutlineDelegate (tm, SidebarOutlineView);
-
-
-			Console.Out.WriteLine ("observer set");
 
 			SearchField.Changed += searchEvent;
 		}
 
 		private void addNewApplicationAndShortcut (Shortcut shortcut)
 		{
-			if (aAddApplicationController == null) {
-				aAddApplicationController = new AddApplicationController ();
+			if (applicationEntryController == null) {
+				applicationEntryController = new ApplicationEntryController ();
 			}
-			Application newlyCreatedAndSelctedApp = aAddApplicationController.Edit (this);
+			Application newlyCreatedAndSelctedApp = applicationEntryController.Edit (this);
 			MainClass.AddApplication (newlyCreatedAndSelctedApp);
-			tm.AddNewShortcut (newlyCreatedAndSelctedApp.Identifier, shortcut);
+			shortcutTableModel.AddNewShortcut (newlyCreatedAndSelctedApp.Identifier, shortcut);
 			SidebarOutlineView.ReloadData ();
 		}
 
 		private void searchEvent (object sender, EventArgs e)
 		{
-			tm.Filter (SearchField.StringValue);
+			shortcutTableModel.Filter (SearchField.StringValue);
 		}
 
 		public void EnableButtons (bool shouldEnable)

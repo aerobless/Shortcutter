@@ -98,6 +98,20 @@ namespace Shortcutter
 				}
 			};
 
+			shareButton.Activated += (object sender, EventArgs e) => {
+				/* 
+				 * NSSavePanel HowTo Sandbox properly:
+				 * In order for NSSavePanel to work in OS X Sandbox / AppStore-Mode
+				 * we need to instantiate a new NSSavePanel() instead of just
+				 * using NSSavePanel.SavePanel. (<-- which works in debug mode, but not sandboxed)
+				 * 
+				 * The lack of documentation of xamarin.mac is seriously annoying.
+				 * I hope other devs having the same problem will find my code on github.
+				 */
+				NSSavePanel savePanel = new NSSavePanel ();
+				int result = savePanel.RunModal ();
+			};
+
 			SettingsButton.Activated += (object sender, EventArgs e) => {
 				if (aSettingsController == null) {
 					aSettingsController = new SettingsController ();

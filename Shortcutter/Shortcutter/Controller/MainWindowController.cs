@@ -63,8 +63,7 @@ namespace Shortcutter
 			SidebarOutlineView.Delegate = sidebarDelegate;
 
 			sidebarDelegate.SelectionChanged += () => {
-				string applicationIdentifier = sidebarModel.GetApplicationForPos (SidebarOutlineView.SelectedRow);
-				List<Shortcut> updatedShortcutList = MainClass.GetShortcutList (applicationIdentifier);
+				List<Shortcut> updatedShortcutList = MainClass.GetShortcutList (getSelectedApplicationInSidebar ());
 				shortcutTableModel.updateShortcutSource (updatedShortcutList);
 			};
 	
@@ -90,7 +89,7 @@ namespace Shortcutter
 				if (shortcutEntryController == null) {
 					shortcutEntryController = new ShortcutEntryController ();
 				}
-				ShortcutResponse result = shortcutEntryController.Edit (null, this);
+				ShortcutResponse result = shortcutEntryController.Edit (getSelectedApplicationInSidebar (), this);
 				if ((result != null) && (result.NewAppModal == false)) {
 					shortcutTableModel.AddNewShortcut (result.ApplicationIdentifier, result.Shortcut);
 				} else if ((result != null) && (result.NewAppModal == true)) {
@@ -176,6 +175,11 @@ namespace Shortcutter
 			EditButton.Enabled = shouldEnable;
 			RemoveButton.Enabled = shouldEnable;
 			shareButton.Enabled = shouldEnable;
+		}
+
+		public string getSelectedApplicationInSidebar ()
+		{
+			return sidebarModel.GetApplicationForPos (SidebarOutlineView.SelectedRow);
 		}
 	}
 

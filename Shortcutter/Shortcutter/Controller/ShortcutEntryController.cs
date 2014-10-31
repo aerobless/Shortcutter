@@ -78,6 +78,16 @@ namespace Shortcutter
 
 		public ShortcutResponse Edit (Shortcut editingAShortcut, MainWindowController sender)
 		{
+			return Edit (editingAShortcut, null, sender);
+		}
+
+		public ShortcutResponse Edit (string selectedApp, MainWindowController sender)
+		{
+			return Edit (null, selectedApp, sender);
+		}
+
+		public ShortcutResponse Edit (Shortcut editingAShortcut, string selectedApp, MainWindowController sender)
+		{
 
 			NSWindow window = this.Window;
 			cancelled = false;
@@ -91,12 +101,16 @@ namespace Shortcutter
 				shortcutField.StringValue = editingAShortcut.ShortcutAction;
 				learnedCheckbox.IntValue = Convert.ToInt32 (editingAShortcut.learnedShortcut);
 			} else {
-				// we are adding a new entry,
-				// make sure the form fields are empty due to the fact that this controller is recycled
-				// each time the user opens the sheet -				
+				// empty controller for new entry
 				descriptionField.StringValue = string.Empty;
 				shortcutField.StringValue = string.Empty;
 				learnedCheckbox.IntValue = 0;
+
+				//setting the menu-item to the selected application in the sidebar
+				int idOfApplicationInMenu = MainClass.GetApplicationList ().FindIndex (delegate(Application app) {
+					return app.Identifier.Equals (selectedApp);
+				});
+				applicationMenuSwitcher.SelectItem (idOfApplicationInMenu);
 			}
 
 			NSApp.BeginSheet (window, sender.Window);

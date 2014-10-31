@@ -60,26 +60,6 @@
 					<int key="NSToolbarDisplayMode">2</int>
 					<int key="NSToolbarSizeMode">1</int>
 					<dictionary class="NSMutableDictionary" key="NSToolbarIBIdentifiedItems">
-						<object class="NSToolbarItem" key="25C72759-24FE-465A-B3FE-B070900F4863" id="664284117">
-							<string key="NSToolbarItemIdentifier">25C72759-24FE-465A-B3FE-B070900F4863</string>
-							<string key="NSToolbarItemLabel">Share</string>
-							<string key="NSToolbarItemPaletteLabel">Share</string>
-							<string key="NSToolbarItemToolTip"/>
-							<nil key="NSToolbarItemView"/>
-							<object class="NSCustomResource" key="NSToolbarItemImage">
-								<string key="NSClassName">NSImage</string>
-								<string key="NSResourceName">share_ICON</string>
-							</object>
-							<nil key="NSToolbarItemTarget"/>
-							<nil key="NSToolbarItemAction"/>
-							<string key="NSToolbarItemMinSize">{0, 0}</string>
-							<string key="NSToolbarItemMaxSize">{0, 0}</string>
-							<bool key="NSToolbarItemEnabled">YES</bool>
-							<bool key="NSToolbarItemAutovalidates">YES</bool>
-							<int key="NSToolbarItemTag">-1</int>
-							<bool key="NSToolbarIsUserRemovable">YES</bool>
-							<int key="NSToolbarItemVisibilityPriority">0</int>
-						</object>
 						<object class="NSToolbarItem" key="45A927FA-C4EE-47AE-AE22-4BEF906A52BB" id="29127432">
 							<string key="NSToolbarItemIdentifier">45A927FA-C4EE-47AE-AE22-4BEF906A52BB</string>
 							<string key="NSToolbarItemLabel">Edit</string>
@@ -89,46 +69,6 @@
 							<object class="NSCustomResource" key="NSToolbarItemImage">
 								<string key="NSClassName">NSImage</string>
 								<string key="NSResourceName">edit_ICON</string>
-							</object>
-							<nil key="NSToolbarItemTarget"/>
-							<nil key="NSToolbarItemAction"/>
-							<string key="NSToolbarItemMinSize">{0, 0}</string>
-							<string key="NSToolbarItemMaxSize">{0, 0}</string>
-							<bool key="NSToolbarItemEnabled">YES</bool>
-							<bool key="NSToolbarItemAutovalidates">NO</bool>
-							<int key="NSToolbarItemTag">-1</int>
-							<bool key="NSToolbarIsUserRemovable">YES</bool>
-							<int key="NSToolbarItemVisibilityPriority">0</int>
-						</object>
-						<object class="NSToolbarItem" key="4BC5883F-0882-436C-A024-2641FC7DC41D" id="561511242">
-							<string key="NSToolbarItemIdentifier">4BC5883F-0882-436C-A024-2641FC7DC41D</string>
-							<string key="NSToolbarItemLabel">Remove Shortcut</string>
-							<string key="NSToolbarItemPaletteLabel">Remove Shortcut</string>
-							<string key="NSToolbarItemToolTip"/>
-							<nil key="NSToolbarItemView"/>
-							<object class="NSCustomResource" key="NSToolbarItemImage">
-								<string key="NSClassName">NSImage</string>
-								<string key="NSResourceName">minus_ICON</string>
-							</object>
-							<nil key="NSToolbarItemTarget"/>
-							<nil key="NSToolbarItemAction"/>
-							<string key="NSToolbarItemMinSize">{0, 0}</string>
-							<string key="NSToolbarItemMaxSize">{0, 0}</string>
-							<bool key="NSToolbarItemEnabled">YES</bool>
-							<bool key="NSToolbarItemAutovalidates">NO</bool>
-							<int key="NSToolbarItemTag">-1</int>
-							<bool key="NSToolbarIsUserRemovable">YES</bool>
-							<int key="NSToolbarItemVisibilityPriority">0</int>
-						</object>
-						<object class="NSToolbarItem" key="4E2715B0-863B-4DFE-A638-8D435DE6A664" id="849404312">
-							<string key="NSToolbarItemIdentifier">4E2715B0-863B-4DFE-A638-8D435DE6A664</string>
-							<string key="NSToolbarItemLabel">Add Shortcut</string>
-							<string key="NSToolbarItemPaletteLabel">Add Shortcut</string>
-							<string key="NSToolbarItemToolTip"/>
-							<nil key="NSToolbarItemView"/>
-							<object class="NSCustomResource" key="NSToolbarItemImage">
-								<string key="NSClassName">NSImage</string>
-								<string key="NSResourceName">add_ICON</string>
 							</object>
 							<nil key="NSToolbarItemTarget"/>
 							<nil key="NSToolbarItemAction"/>
@@ -166,9 +106,11 @@
 							<string key="NSToolbarItemPaletteLabel">Search</string>
 							<nil key="NSToolbarItemToolTip"/>
 							<object class="NSSearchField" key="NSToolbarItemView" id="732383587">
-								<nil key="NSNextResponder"/>
+								<reference key="NSNextResponder"/>
 								<int key="NSvFlags">268</int>
 								<string key="NSFrame">{{0, 14}, {96, 22}}</string>
+								<reference key="NSSuperview"/>
+								<reference key="NSWindow"/>
 								<bool key="NSViewIsLayerTreeHost">YES</bool>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<bool key="NSEnabled">YES</bool>
@@ -253,6 +195,66 @@
 							<bool key="NSToolbarIsUserRemovable">YES</bool>
 							<int key="NSToolbarItemVisibilityPriority">0</int>
 						</object>
+						<object class="NSToolbarItem" key="9AAD47D8-D544-4B0B-B29A-13FA82E38693" id="561511242">
+							<string key="NSToolbarItemIdentifier">9AAD47D8-D544-4B0B-B29A-13FA82E38693</string>
+							<string key="NSToolbarItemLabel">Remove Shortcut</string>
+							<string key="NSToolbarItemPaletteLabel">Remove Shortcut</string>
+							<string key="NSToolbarItemToolTip"/>
+							<nil key="NSToolbarItemView"/>
+							<object class="NSCustomResource" key="NSToolbarItemImage">
+								<string key="NSClassName">NSImage</string>
+								<string key="NSResourceName">minus_ICON</string>
+							</object>
+							<nil key="NSToolbarItemTarget"/>
+							<nil key="NSToolbarItemAction"/>
+							<string key="NSToolbarItemMinSize">{0, 0}</string>
+							<string key="NSToolbarItemMaxSize">{0, 0}</string>
+							<bool key="NSToolbarItemEnabled">YES</bool>
+							<bool key="NSToolbarItemAutovalidates">NO</bool>
+							<int key="NSToolbarItemTag">-1</int>
+							<bool key="NSToolbarIsUserRemovable">YES</bool>
+							<int key="NSToolbarItemVisibilityPriority">0</int>
+						</object>
+						<object class="NSToolbarItem" key="D8B8C15A-D9B4-40DE-8CAE-2232CAF849F4" id="664284117">
+							<string key="NSToolbarItemIdentifier">D8B8C15A-D9B4-40DE-8CAE-2232CAF849F4</string>
+							<string key="NSToolbarItemLabel">Share</string>
+							<string key="NSToolbarItemPaletteLabel">Share</string>
+							<string key="NSToolbarItemToolTip"/>
+							<nil key="NSToolbarItemView"/>
+							<object class="NSCustomResource" key="NSToolbarItemImage">
+								<string key="NSClassName">NSImage</string>
+								<string key="NSResourceName">share_ICON</string>
+							</object>
+							<nil key="NSToolbarItemTarget"/>
+							<nil key="NSToolbarItemAction"/>
+							<string key="NSToolbarItemMinSize">{0, 0}</string>
+							<string key="NSToolbarItemMaxSize">{0, 0}</string>
+							<bool key="NSToolbarItemEnabled">YES</bool>
+							<bool key="NSToolbarItemAutovalidates">NO</bool>
+							<int key="NSToolbarItemTag">-1</int>
+							<bool key="NSToolbarIsUserRemovable">YES</bool>
+							<int key="NSToolbarItemVisibilityPriority">0</int>
+						</object>
+						<object class="NSToolbarItem" key="D9DAB585-661C-4191-8677-613132EB9EF5" id="849404312">
+							<string key="NSToolbarItemIdentifier">D9DAB585-661C-4191-8677-613132EB9EF5</string>
+							<string key="NSToolbarItemLabel">Add Shortcut</string>
+							<string key="NSToolbarItemPaletteLabel">Add Shortcut</string>
+							<string key="NSToolbarItemToolTip"/>
+							<nil key="NSToolbarItemView"/>
+							<object class="NSCustomResource" key="NSToolbarItemImage">
+								<string key="NSClassName">NSImage</string>
+								<string key="NSResourceName">add_ICON</string>
+							</object>
+							<nil key="NSToolbarItemTarget"/>
+							<nil key="NSToolbarItemAction"/>
+							<string key="NSToolbarItemMinSize">{0, 0}</string>
+							<string key="NSToolbarItemMaxSize">{0, 0}</string>
+							<bool key="NSToolbarItemEnabled">YES</bool>
+							<bool key="NSToolbarItemAutovalidates">NO</bool>
+							<int key="NSToolbarItemTag">-1</int>
+							<bool key="NSToolbarIsUserRemovable">YES</bool>
+							<int key="NSToolbarItemVisibilityPriority">0</int>
+						</object>
 						<object class="NSToolbarFlexibleSpaceItem" key="NSToolbarFlexibleSpaceItem" id="605208996">
 							<string key="NSToolbarItemIdentifier">NSToolbarFlexibleSpaceItem</string>
 							<string key="NSToolbarItemLabel"/>
@@ -287,16 +289,16 @@
 							</object>
 						</object>
 					</dictionary>
-					<array key="NSToolbarIBAllowedItems">
+					<array class="NSMutableArray" key="NSToolbarIBAllowedItems">
+						<reference ref="849404312"/>
+						<reference ref="561511242"/>
 						<reference ref="29127432"/>
 						<reference ref="605208996"/>
-						<reference ref="849404312"/>
+						<reference ref="664284117"/>
 						<reference ref="173559560"/>
 						<reference ref="202526828"/>
-						<reference ref="561511242"/>
-						<reference ref="664284117"/>
 					</array>
-					<array key="NSToolbarIBDefaultItems">
+					<array class="NSMutableArray" key="NSToolbarIBDefaultItems">
 						<reference ref="849404312"/>
 						<reference ref="561511242"/>
 						<reference ref="29127432"/>
@@ -887,11 +889,11 @@
 						<reference key="object" ref="783360983"/>
 						<array class="NSMutableArray" key="children">
 							<reference ref="605208996"/>
-							<reference ref="849404312"/>
 							<reference ref="202526828"/>
-							<reference ref="561511242"/>
 							<reference ref="29127432"/>
 							<reference ref="173559560"/>
+							<reference ref="849404312"/>
+							<reference ref="561511242"/>
 							<reference ref="664284117"/>
 						</array>
 						<reference key="parent" ref="748157544"/>

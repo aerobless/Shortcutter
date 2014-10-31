@@ -9,10 +9,10 @@ namespace Shortcutter
 {
 	public class ShortcutTableModel : NSTableViewDataSource
 	{
-		List<Shortcut> filteredShorcuts;
+		private List<Shortcut> shortcutSourceList;
+		private List<Shortcut> filteredShorcuts;
 
 		private String currentFilter = "";
-		private String selectedApplication = "Google Chrome";
 
 		//Events
 		public event Action ModelChanged;
@@ -20,13 +20,16 @@ namespace Shortcutter
 
 		public ShortcutTableModel ()
 		{
-			this.filteredShorcuts = MainClass.GetShortcutList (selectedApplication);
 		}
 	
 		// how many rows are in the table
 		public override int GetRowCount (NSTableView tableView)
 		{
-			return filteredShorcuts.Count;
+			if (filteredShorcuts == null) {
+				return 0;
+			} else {
+				return filteredShorcuts.Count ();
+			}
 		}
 
 		// what to draw in the table
@@ -47,31 +50,39 @@ namespace Shortcutter
 				tableColumn.Identifier));
 		}
 
+		public void Filter ()
+		{
+			Filter (currentFilter);
+		}
+
 		public void Filter (string filter)
 		{
 			currentFilter = filter;
-			IEnumerable<Shortcut> query = MainClass.GetShortcutList (selectedApplication).Where (s => (s.GetApplicationName ().ToLower ().Contains (filter.ToLower ()) || s.Description.ToLower ().Contains (filter.ToLower ())));
-			filteredShorcuts = query.ToList ();
-			filteredShorcuts.Sort ();
-			ModelChanged ();
-			if (filteredShorcuts.Count > 0) {
-				EmptyModel (false);
-			} else {
-				EmptyModel (true);
+			if (shortcutSourceList != null) {
+				IEnumerable<Shortcut> query = shortcutSourceList.Where (s => s.Description.ToLower ().Contains (filter.ToLower ()));
+				filteredShorcuts = query.ToList ();
+				filteredShorcuts.Sort ();
+				ModelChanged ();
+				if (filteredShorcuts.Count () > 0) {
+					EmptyModel (false);
+				} else {
+					EmptyModel (true);
+				}
 			}
 		}
 
 		public void AddNewShortcut (string selectedApp, Shortcut shortcut)
 		{
 			MainClass.AddShortcut (selectedApp, shortcut);
-			Filter (currentFilter);
+			Filter ();
 		}
 
 		public string RemoveShortcut (int idInFilteredList)
 		{
-			MainClass.RemoveShortcut (selectedApplication, filteredShorcuts [idInFilteredList]);
-			Filter (currentFilter);
-			return selectedApplication;
+			string appID = filteredShorcuts [idInFilteredList].parentApplication.Identifier;
+			MainClass.RemoveShortcut (appID, filteredShorcuts [idInFilteredList]);
+			Filter ();
+			return appID;
 		}
 
 		public Shortcut GetFilteredShortcut (int filteredRowNr)
@@ -79,14 +90,10 @@ namespace Shortcutter
 			return filteredShorcuts [filteredRowNr];
 		}
 
-		public void SetSelectedApplication (int id)
+		public void updateShortcutSource (List<Shortcut> shortcutSourceList)
 		{
-			//Sorta ugly hack to prevent this from going to -1 when removing a category
-			if (id < 0) {
-				id = 0;
-			}
-			selectedApplication = MainClass.GetApplicationList () [id].Identifier;
-			Filter (currentFilter);
+			this.shortcutSourceList = shortcutSourceList;
+			Filter ();
 		}
 	}
 }

@@ -56,9 +56,20 @@ namespace Shortcutter
 		public override void AwakeFromNib ()
 		{
 			base.AwakeFromNib ();
-	
-			ShortcutTable.DataSource = shortcutTableModel;
 
+			//Adding a model to the sidebar and setting a delegate for notifications
+			SidebarOutlineView.DataSource = sidebarModel;
+			OutlineDelegate sidebarDelegate = new OutlineDelegate ();
+			SidebarOutlineView.Delegate = sidebarDelegate;
+
+			sidebarDelegate.SelectionChanged += () => {
+				string applicationIdentifier = sidebarModel.GetApplicationForPos (SidebarOutlineView.SelectedRow);
+				List<Shortcut> updatedShortcutList = MainClass.GetShortcutList (applicationIdentifier);
+				shortcutTableModel.updateShortcutSource (updatedShortcutList);
+			};
+	
+			//Adding the model for the shortcut-table
+			ShortcutTable.DataSource = shortcutTableModel;
 			shortcutTableModel.ModelChanged += () => {
 				ShortcutTable.ReloadData ();
 			};
@@ -67,9 +78,13 @@ namespace Shortcutter
 				EnableButtons (!empty);
 			};
 
-			//Adding a model to the sidebar and setting a delegate for notifications
-			SidebarOutlineView.DataSource = sidebarModel;
-			SidebarOutlineView.Delegate = new OutlineDelegate (shortcutTableModel, SidebarOutlineView);
+			//Select the first entry
+			if (SidebarOutlineView.RowCount >= 1) {
+				SidebarOutlineView.SelectRow (0, false);
+			} else {
+				//Trigger the empty events right away.
+				shortcutTableModel.Filter ();
+			}
 
 			AddShortcutButton.Activated += (object sender, EventArgs e) => {
 				if (shortcutEntryController == null) {
@@ -160,27 +175,26 @@ namespace Shortcutter
 		{
 			EditButton.Enabled = shouldEnable;
 			RemoveButton.Enabled = shouldEnable;
+			shareButton.Enabled = shouldEnable;
 			if (shouldEnable) {
 				RemoveButton.Validate ();
 				EditButton.Validate ();
+				shareButton.Validate ();
 			}
 		}
 	}
 
 	class OutlineDelegate : NSOutlineViewDelegate
 	{
-		private ShortcutTableModel tm;
-		private NSOutlineView outlineView;
+		public event Action SelectionChanged;
 
-		public OutlineDelegate (ShortcutTableModel tm, NSOutlineView outlineView)
+		public OutlineDelegate ()
 		{
-			this.tm = tm;
-			this.outlineView = outlineView;
 		}
 
 		public override void SelectionDidChange (NSNotification notification)
 		{
-			tm.SetSelectedApplication (outlineView.SelectedRow);
+			SelectionChanged ();
 		}
 	}
 }

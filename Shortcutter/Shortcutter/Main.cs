@@ -19,6 +19,8 @@ namespace Shortcutter
 		private static object syncLock = new object ();
 		private static AppTracker apptracker;
 
+		public static event Action ApplicationListChanged;
+
 		static void Main (string[] args)
 		{
 			NSApplication.Init ();
@@ -156,6 +158,7 @@ namespace Shortcutter
 			lock (syncLock) {
 				settings.AddApplication (application);
 			}
+			ApplicationListChanged ();
 		}
 
 		public static void RemoveApplication (string applicationIdentifier)
@@ -163,6 +166,8 @@ namespace Shortcutter
 			lock (syncLock) {
 				settings.RemoveApplication (applicationIdentifier);
 			}
+			ApplicationListChanged ();
+			SaveToDisk ();
 		}
 
 		//Needs: "using System.Runtime.InteropServices;" to work!

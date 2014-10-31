@@ -28,6 +28,9 @@ namespace Shortcutter
 		MonoMac.AppKit.NSToolbarItem SettingsButton { get; set; }
 
 		[Outlet]
+		MonoMac.AppKit.NSToolbarItem shareButton { get; set; }
+
+		[Outlet]
 		MonoMac.AppKit.NSTableView ShortcutTable { get; set; }
 
 		[Outlet]
@@ -74,6 +77,11 @@ namespace Shortcutter
 				ShortcutTable = null;
 			}
 
+			if (SidebarCell != null) {
+				SidebarCell.Dispose ();
+				SidebarCell = null;
+			}
+
 			if (SidebarColumn != null) {
 				SidebarColumn.Dispose ();
 				SidebarColumn = null;
@@ -84,14 +92,14 @@ namespace Shortcutter
 				SidebarOutlineView = null;
 			}
 
-			if (SidebarCell != null) {
-				SidebarCell.Dispose ();
-				SidebarCell = null;
-			}
-
 			if (SidebarScroller != null) {
 				SidebarScroller.Dispose ();
 				SidebarScroller = null;
+			}
+
+			if (shareButton != null) {
+				shareButton.Dispose ();
+				shareButton = null;
 			}
 		}
 	}

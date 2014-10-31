@@ -71,8 +71,6 @@ namespace Shortcutter
 			AddShortcut ("Google Chrome", new Shortcut ("Opens the find bar.", "⌘-F"));
 			AddShortcut ("Google Chrome", new Shortcut ("Opens the find bar.", "⌘-F"));
 
-
-
 			appDict.Add ("Path Finder", new Application ("Path Finder", "A finder replacement"));
 			AddShortcut ("Path Finder", new Shortcut ("Go to the next higher level in the folder hierarchy.", "CMD+↑"));
 			AddShortcut ("Path Finder", new Shortcut ("Go to the next lower level in the folder hierarchy.", "CMD+↓"));

@@ -137,5 +137,6 @@
     <BundleResource Include="Resources\minus_ICON.png" />
     <BundleResource Include="Resources\edit_ICON.png" />
     <BundleResource Include="Resources\settings_ICON.png" />
+    <BundleResource Include="Resources\share_ICON.png" />
   </ItemGroup>
 </Project>

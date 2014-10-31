@@ -70,6 +70,8 @@ namespace Shortcutter
 
 			NSApp.BeginSheet (window, sender.Window);
 			NSApp.RunModalForWindow (window);
+			nameField.StringValue = "";
+			descriptionField.StringValue = "";
 			// sheet is up here.....
 
 			// when StopModal is called will continue here ....

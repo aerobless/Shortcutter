@@ -84,7 +84,7 @@ namespace Shortcutter
 			createAppMenu ();
 			if (editingAShortcut != null) {
 				int idOfApplicationInMenu = MainClass.GetApplicationList ().FindIndex (delegate(Application app) {
-					return app.Identifier.Equals (editingAShortcut.getApplicationIdentifier ());
+					return app.Identifier.Equals (editingAShortcut.GetApplicationIdentifier ());
 				});
 				applicationMenuSwitcher.SelectItem (idOfApplicationInMenu);
 				descriptionField.StringValue = editingAShortcut.Description;

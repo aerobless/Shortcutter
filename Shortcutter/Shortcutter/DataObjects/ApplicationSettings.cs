@@ -53,6 +53,26 @@ namespace Shortcutter
 			AddShortcut ("Google Chrome", new Shortcut ("Opens the Clear Browsing Data dialog.", "⌘-Shift-Delete"));
 			AddShortcut ("Google Chrome", new Shortcut ("Switch between multiple users.", "⌘-Shift-M"));
 
+			AddShortcut ("Google Chrome", new Shortcut ("Highlights the URL.", "⌘-L"));
+			AddShortcut ("Google Chrome", new Shortcut ("Deletes the key term that precedes your cursor in the address bar", "⌘-Backspace"));
+
+			AddShortcut ("Google Chrome", new Shortcut ("Prints your current page.", "⌘-P"));
+			AddShortcut ("Google Chrome", new Shortcut ("Saves your current page.", "⌘-S"));
+			AddShortcut ("Google Chrome", new Shortcut ("Reloads your current page.", "⌘-R"));
+			AddShortcut ("Google Chrome", new Shortcut ("Stops loading of your current page.", "ESC"));
+			AddShortcut ("Google Chrome", new Shortcut ("Opens the find bar.", "⌘-F"));
+			AddShortcut ("Google Chrome", new Shortcut ("Finds the next match for your input in the find bar.", "⌘-G"));
+			AddShortcut ("Google Chrome", new Shortcut ("Finds the previous match for your input in the find bar.", "⌘-Shift-G"));
+			AddShortcut ("Google Chrome", new Shortcut ("Use selection for find", "⌘-F"));
+			AddShortcut ("Google Chrome", new Shortcut ("Opens the find bar.", "⌘-E"));
+			AddShortcut ("Google Chrome", new Shortcut ("Opens the find bar.", "⌘-F"));
+			AddShortcut ("Google Chrome", new Shortcut ("Opens the find bar.", "⌘-F"));
+			AddShortcut ("Google Chrome", new Shortcut ("Opens the find bar.", "⌘-F"));
+			AddShortcut ("Google Chrome", new Shortcut ("Opens the find bar.", "⌘-F"));
+			AddShortcut ("Google Chrome", new Shortcut ("Opens the find bar.", "⌘-F"));
+
+
+
 			appDict.Add ("Path Finder", new Application ("Path Finder", "A finder replacement"));
 			AddShortcut ("Path Finder", new Shortcut ("Go to the next higher level in the folder hierarchy.", "CMD+↑"));
 			AddShortcut ("Path Finder", new Shortcut ("Go to the next lower level in the folder hierarchy.", "CMD+↓"));

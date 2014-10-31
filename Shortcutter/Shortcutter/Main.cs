@@ -28,7 +28,7 @@ namespace Shortcutter
 				readFromDisk ();
 			} else {
 				Console.Out.WriteLine (STORAGE_FILENAME + " not found, loading demo data..");
-				settings.loadDemoContent ();
+				settings.LoadDemoContent ();
 				SaveToDisk ();
 			}
 				
@@ -95,18 +95,18 @@ namespace Shortcutter
 
 		public static List<Shortcut> GetShortcutList (string application)
 		{
-			return settings.getShortcutsFor (application);
+			return settings.GetShortcutsFor (application);
 		}
 
 		public static void AddShortcut (string application, Shortcut shortcut)
 		{
-			settings.addShortcut (application, shortcut);
+			settings.AddShortcut (application, shortcut);
 			SaveToDisk ();
 		}
 
 		public static void RemoveShortcut (string application, Shortcut shortcut)
 		{
-			settings.removeShortcut (application, shortcut);
+			settings.RemoveShortcut (application, shortcut);
 			SaveToDisk ();
 		}
 
@@ -134,17 +134,17 @@ namespace Shortcutter
 
 		public static List<Application> GetApplicationList ()
 		{
-			return settings.getApplicationList ();
+			return settings.GetApplicationList ();
 		}
 
 		public static void AddApplication (Application application)
 		{
-			settings.addApplication (application);
+			settings.AddApplication (application);
 		}
 
 		public static void RemoveApplication (string applicationIdentifier)
 		{
-			settings.removeApplication (applicationIdentifier);
+			settings.RemoveApplication (applicationIdentifier);
 		}
 
 		//Needs: "using System.Runtime.InteropServices;" to work!

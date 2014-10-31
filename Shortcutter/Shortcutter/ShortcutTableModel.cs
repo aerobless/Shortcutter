@@ -34,7 +34,7 @@ namespace Shortcutter
 		                                         int row)
 		{
 			if (tableColumn.Identifier == "applicationColumn")
-				return new NSString (filteredShorcuts [row].getApplicationName ());
+				return new NSString (filteredShorcuts [row].GetApplicationName ());
 
 			if (tableColumn.Identifier == "descriptionColumn")
 				return new NSString (filteredShorcuts [row].Description);
@@ -49,7 +49,7 @@ namespace Shortcutter
 		public void Filter (string filter)
 		{
 			currentFilter = filter;
-			IEnumerable<Shortcut> query = MainClass.GetShortcutList (selectedApplication).Where (s => (s.getApplicationName ().ToLower ().Contains (filter.ToLower ()) || s.Description.ToLower ().Contains (filter.ToLower ())));
+			IEnumerable<Shortcut> query = MainClass.GetShortcutList (selectedApplication).Where (s => (s.GetApplicationName ().ToLower ().Contains (filter.ToLower ()) || s.Description.ToLower ().Contains (filter.ToLower ())));
 			filteredShorcuts = query.ToList ();
 			filteredShorcuts.Sort ();
 			tableView.ReloadData ();

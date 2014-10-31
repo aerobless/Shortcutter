@@ -176,11 +176,6 @@ namespace Shortcutter
 			EditButton.Enabled = shouldEnable;
 			RemoveButton.Enabled = shouldEnable;
 			shareButton.Enabled = shouldEnable;
-			if (shouldEnable) {
-				RemoveButton.Validate ();
-				EditButton.Validate ();
-				shareButton.Validate ();
-			}
 		}
 	}
 

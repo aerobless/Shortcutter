@@ -117,7 +117,11 @@ namespace Shortcutter
 
 		public void AddApplication (Application application)
 		{
-			appDict.Add (application.Identifier, application);
+			//If the application key already exists we just ignore this
+			//and add the shortcut to the existing application
+			if (!appDict.ContainsKey (application.Identifier)) {
+				appDict.Add (application.Identifier, application);
+			}
 		}
 
 		public void RemoveApplication (string applicationIdentifier)

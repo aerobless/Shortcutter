@@ -68,6 +68,8 @@ namespace Shortcutter
 				} else {
 					EmptyModel (true);
 				}
+			} else {
+				EmptyModel (true);
 			}
 		}
 

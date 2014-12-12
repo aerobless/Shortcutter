@@ -64,7 +64,9 @@ namespace Shortcutter
 
 			sidebarDelegate.SelectionChanged += () => {
 				string selectedApp = sidebarModel.UpdateSelection (SidebarOutlineView.SelectedRow);
-				shortcutTableModel.updateShortcutSource (selectedApp);
+				shortcutTableModel.UpdateSelectedApp (selectedApp);
+				shortcutTableModel.UpdateShortcutSource ();
+				Console.WriteLine ("ddd");
 			};
 
 			sidebarModel.SidebarChanged += () => {
@@ -89,9 +91,6 @@ namespace Shortcutter
 			tableDelegate.SelectionChanged += () => {
 				shortcutTableModel.UpdateSelection (ShortcutTable.SelectedRow);
 			};
-				
-			//Select "All" on application start:
-			SidebarOutlineView.SelectRow (0, false);
 
 			AddShortcutButton.Activated += (object sender, EventArgs e) => {
 				if (shortcutEntryController == null) {
@@ -151,6 +150,9 @@ namespace Shortcutter
 			};
 
 			SearchField.Changed += searchEvent;
+
+			//Select "All" on application start:
+			SidebarOutlineView.SelectRow (0, false);
 		}
 
 		private void addNewApplicationAndShortcut (Shortcut shortcut)
@@ -175,6 +177,7 @@ namespace Shortcutter
 			RemoveButton.Enabled = shouldEnable;
 			shareButton.Enabled = shouldEnable;
 		}
+
 	}
 
 	class OutlineDelegate : NSOutlineViewDelegate

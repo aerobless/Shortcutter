@@ -115,6 +115,13 @@ namespace Shortcutter
 				int idOfApplicationInMenu = MainClass.GetApplicationList ().FindIndex (delegate(Application app) {
 					return app.Identifier.Equals (selectedApp);
 				});
+
+				//Cheap fix because of "All"
+				--idOfApplicationInMenu;
+				if (idOfApplicationInMenu <= 0) {
+					idOfApplicationInMenu = 0;
+				}
+
 				if (applicationMenuSwitcher.ItemCount == 1) {
 					applicationMenuSwitcher.SelectItem (0);
 				} else {

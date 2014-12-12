@@ -10,8 +10,10 @@ namespace Shortcutter
 	//HowTo: http://stackoverflow.com/questions/12465528/creating-a-simple-nsoutlineview-datasource-with-monomac
 	public class SidebarModel  : NSOutlineViewDataSource
 	{
-		List<Application> appList;
-		String selectedApp = "All";
+		private List<Application> appList;
+		private String selectedApp = "All";
+
+		public event Action SidebarChanged;
 
 		public SidebarModel ()
 		{
@@ -19,6 +21,7 @@ namespace Shortcutter
 
 			MainClass.ApplicationListChanged += () => {
 				refreshAppList ();
+				SidebarChanged ();
 			};
 		}
 
@@ -50,7 +53,6 @@ namespace Shortcutter
 
 		public string UpdateSelection (int pos)
 		{
-			selectedApp = appList [pos].Identifier;
 			if (pos >= 0 && pos <= appList.Count ()) {
 				selectedApp = appList [pos].Identifier;
 			} else {

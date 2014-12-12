@@ -66,9 +66,18 @@ namespace Shortcutter
 				string selectedApp = sidebarModel.UpdateSelection (SidebarOutlineView.SelectedRow);
 				shortcutTableModel.updateShortcutSource (selectedApp);
 			};
-	
+
+			sidebarModel.SidebarChanged += () => {
+				SidebarOutlineView.ReloadData ();
+				//TODO: check if removed or added.. in case of added do not select 0.
+				SidebarOutlineView.SelectRow (0, false);
+			};
+
 			//Adding the model for the shortcut-table
 			ShortcutTable.DataSource = shortcutTableModel;
+			TableDelegate tableDelegate = new TableDelegate ();
+			ShortcutTable.Delegate = tableDelegate;
+
 			shortcutTableModel.ModelChanged += () => {
 				ShortcutTable.ReloadData ();
 			};
@@ -76,8 +85,13 @@ namespace Shortcutter
 			shortcutTableModel.EmptyModel += (empty) => {
 				EnableButtons (!empty);
 			};
-
-			selectFirstApplicationIfPossible ();
+				
+			tableDelegate.SelectionChanged += () => {
+				shortcutTableModel.UpdateSelection (ShortcutTable.SelectedRow);
+			};
+				
+			//Select "All" on application start:
+			SidebarOutlineView.SelectRow (0, false);
 
 			AddShortcutButton.Activated += (object sender, EventArgs e) => {
 				if (shortcutEntryController == null) {
@@ -92,30 +106,20 @@ namespace Shortcutter
 			};
 
 			RemoveButton.Activated += (object sender, EventArgs e) => {
-				int selectedRow = ShortcutTable.SelectedRow;
-				if (selectedRow >= 0) {
-					string selectedApplication = shortcutTableModel.RemoveShortcut (selectedRow);
-					if (ShortcutTable.RowCount == 0) {
-						MainClass.RemoveApplication (selectedApplication);
-						SidebarOutlineView.ReloadData ();
-						selectFirstApplicationIfPossible ();
-					}
-				}
+				shortcutTableModel.RemoveShortcut ();
 			};
 
 			EditButton.Activated += (object sender, EventArgs e) => {
-				int selectedRow = ShortcutTable.SelectedRow;
-				if (selectedRow >= 0) {
-					if (shortcutEntryController == null) {
-						shortcutEntryController = new ShortcutEntryController ();
-					}
-					ShortcutResponse result = shortcutEntryController.Edit (shortcutTableModel.GetFilteredShortcut (selectedRow), this);
-					if (result != null && (result.NewAppModal == false)) {
-						shortcutTableModel.RemoveShortcut (selectedRow);
-						shortcutTableModel.AddNewShortcut (result.ApplicationIdentifier, result.Shortcut);
-					} else if ((result != null) && (result.NewAppModal == true)) {
-						addNewApplicationAndShortcut (result.Shortcut);
-					}
+				if (shortcutEntryController == null) {
+					shortcutEntryController = new ShortcutEntryController ();
+				}
+
+				ShortcutResponse result = shortcutEntryController.Edit (shortcutTableModel.GetFilteredShortcut (), this);
+				if (result != null && (result.NewAppModal == false)) {
+					shortcutTableModel.RemoveShortcut ();
+					shortcutTableModel.AddNewShortcut (result.ApplicationIdentifier, result.Shortcut);
+				} else if ((result != null) && (result.NewAppModal == true)) {
+					addNewApplicationAndShortcut (result.Shortcut);
 				}
 			};
 
@@ -149,16 +153,6 @@ namespace Shortcutter
 			SearchField.Changed += searchEvent;
 		}
 
-		private void selectFirstApplicationIfPossible ()
-		{
-			if (SidebarOutlineView.RowCount >= 1) {
-				SidebarOutlineView.SelectRow (0, false);
-			} else {
-				//Trigger the empty events right away.
-				shortcutTableModel.Filter ();
-			}
-		}
-
 		private void addNewApplicationAndShortcut (Shortcut shortcut)
 		{
 			if (applicationEntryController == null) {
@@ -188,6 +182,20 @@ namespace Shortcutter
 		public event Action SelectionChanged;
 
 		public OutlineDelegate ()
+		{
+		}
+
+		public override void SelectionDidChange (NSNotification notification)
+		{
+			SelectionChanged ();
+		}
+	}
+
+	class TableDelegate : NSTableViewDelegate
+	{
+		public event Action SelectionChanged;
+
+		public TableDelegate ()
 		{
 		}
 

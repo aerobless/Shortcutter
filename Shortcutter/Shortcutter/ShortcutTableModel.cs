@@ -11,6 +11,7 @@ namespace Shortcutter
 	{
 		private List<Shortcut> shortcutSourceList;
 		private List<Shortcut> filteredShorcuts;
+		private int selectedPosition = 0;
 
 		private String currentFilter = "";
 
@@ -79,23 +80,44 @@ namespace Shortcutter
 			Filter ();
 		}
 
-		public string RemoveShortcut (int idInFilteredList)
+		public void RemoveShortcut ()
 		{
-			string appID = filteredShorcuts [idInFilteredList].parentApplication.Identifier;
-			MainClass.RemoveShortcut (appID, filteredShorcuts [idInFilteredList]);
-			Filter ();
-			return appID;
+			if (selectedPosition >= 0 && selectedPosition <= filteredShorcuts.Count ()) {
+				string application = filteredShorcuts [selectedPosition].parentApplication.Identifier;
+				MainClass.RemoveShortcut (application, filteredShorcuts [selectedPosition]);
+				Filter ();
+
+				if (shortcutSourceList.Count () == 0) {
+					MainClass.RemoveApplication (application);
+				}
+			}
+				
+			/*
+			if (selectedRow >= 0) {
+				string selectedApplication = shortcutTableModel.RemoveShortcut (selectedRow);
+				if (ShortcutTable.RowCount == 0) {
+					MainClass.RemoveApplication (selectedApplication);
+					SidebarOutlineView.ReloadData ();
+					selectFirstApplicationIfPossible ();
+				}
+
+			return appID;*/
 		}
 
-		public Shortcut GetFilteredShortcut (int filteredRowNr)
+		public Shortcut GetFilteredShortcut ()
 		{
-			return filteredShorcuts [filteredRowNr];
+			return filteredShorcuts [selectedPosition];
 		}
 
 		public void updateShortcutSource (string selectedApp)
 		{
 			this.shortcutSourceList = MainClass.GetShortcutList (selectedApp);
 			Filter ();
+		}
+
+		public void UpdateSelection (int pos)
+		{
+			selectedPosition = pos;
 		}
 	}
 }

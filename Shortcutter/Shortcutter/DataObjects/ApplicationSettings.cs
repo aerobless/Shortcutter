@@ -25,6 +25,11 @@ namespace Shortcutter
 			WaittimeBeforeNextNotification = 3600;
 
 			appDict = new Dictionary<string,Application> ();
+
+			//Cannot be removed, is empty.
+			appDict.Add ("All", new Application ("All", "All shortcuts"));
+
+			//Adding demo content.
 			appDict.Add ("Google Chrome", new Application ("Google Chrome", "A webbrowser."));
 			AddShortcut ("Google Chrome", new Shortcut ("New tab.", "⌘+T"));
 			AddShortcut ("Google Chrome", new Shortcut ("New window.", "⌘+N"));
@@ -102,7 +107,13 @@ namespace Shortcutter
 
 		public List<Shortcut> GetShortcutsFor (string applicationIdentifier)
 		{
-			if (appDict.ContainsKey (applicationIdentifier)) {
+			if (applicationIdentifier.Equals ("All")) {
+				List<Shortcut> allShortcuts = new List<Shortcut> ();
+				foreach (KeyValuePair<string, Application> entry in appDict) {
+					entry.Value.GetShortcutList ().ForEach (aShortcut => allShortcuts.Add (aShortcut));
+				}
+				return allShortcuts;
+			} else if (appDict.ContainsKey (applicationIdentifier)) {
 				return appDict [applicationIdentifier].GetShortcutList ();
 			} else {
 				Console.Out.WriteLine ("Error: " + applicationIdentifier + " does not exist in AppDict.");
@@ -126,7 +137,9 @@ namespace Shortcutter
 
 		public void RemoveApplication (string applicationIdentifier)
 		{
-			appDict.Remove (applicationIdentifier);
+			if (!applicationIdentifier.Equals ("All")) {
+				appDict.Remove (applicationIdentifier);
+			}
 		}
 	}
 }

@@ -92,9 +92,9 @@ namespace Shortcutter
 			return filteredShorcuts [filteredRowNr];
 		}
 
-		public void updateShortcutSource (List<Shortcut> shortcutSourceList)
+		public void updateShortcutSource (string selectedApp)
 		{
-			this.shortcutSourceList = shortcutSourceList;
+			this.shortcutSourceList = MainClass.GetShortcutList (selectedApp);
 			Filter ();
 		}
 	}

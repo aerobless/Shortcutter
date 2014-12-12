@@ -72,7 +72,12 @@ namespace Shortcutter
 		private void createAppMenu ()
 		{
 			applicationMenu.RemoveAllItems ();
-			MainClass.GetApplicationList ().ForEach (app => applicationMenu.AddItem (new NSMenuItem (app.Identifier)));
+			List<Application> appList = MainClass.GetApplicationList ();
+
+			//Remove the "All"-category
+			appList.RemoveAt (0);
+
+			appList.ForEach (app => applicationMenu.AddItem (new NSMenuItem (app.Identifier)));
 			applicationMenu.AddItem (new NSMenuItem ("New application ..."));
 		}
 

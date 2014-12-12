@@ -11,6 +11,7 @@ namespace Shortcutter
 	public class SidebarModel  : NSOutlineViewDataSource
 	{
 		List<Application> appList;
+		String selectedApp = "All";
 
 		public SidebarModel ()
 		{
@@ -47,23 +48,25 @@ namespace Shortcutter
 			return false;
 		}
 
-		public string GetApplicationForPos (int pos)
+		public string UpdateSelection (int pos)
 		{
-			try {
-				return appList [pos].Identifier;
-			} catch (ArgumentOutOfRangeException) {
-				return "";
+			selectedApp = appList [pos].Identifier;
+			if (pos >= 0 && pos <= appList.Count ()) {
+				selectedApp = appList [pos].Identifier;
+			} else {
+				selectedApp = "All";
 			}
+			return selectedApp;
+		}
+
+		public string GetSelectedApp ()
+		{
+			return selectedApp;
 		}
 
 		public void refreshAppList ()
 		{
-			List<Application> updatedAppList = MainClass.GetApplicationList ();
-			if (updatedAppList != null) {
-				appList = updatedAppList;
-			} else {
-				Console.Out.WriteLine ("AppList is null.. error");
-			}
+			appList = MainClass.GetApplicationList ();
 		}
 	}
 }

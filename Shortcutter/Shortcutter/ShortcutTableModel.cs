@@ -64,14 +64,22 @@ namespace Shortcutter
 				IEnumerable<Shortcut> query = shortcutSourceList.Where (s => s.Description.ToLower ().Contains (filter.ToLower ()));
 				filteredShorcuts = query.ToList ();
 				filteredShorcuts.Sort ();
-				ModelChanged ();
+				if (ModelChanged != null) {
+					ModelChanged ();
+				}
 				if (filteredShorcuts.Count () > 0) {
-					EmptyModel (false);
+					if (EmptyModel != null) {
+						EmptyModel (false);
+					}
 				} else {
-					EmptyModel (true);
+					if (EmptyModel != null) {
+						EmptyModel (true);
+					}
 				}
 			} else {
-				EmptyModel (true);
+				if (EmptyModel != null) {
+					EmptyModel (true);
+				}
 			}
 		}
 

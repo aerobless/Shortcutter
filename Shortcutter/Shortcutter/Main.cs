@@ -158,7 +158,9 @@ namespace Shortcutter
 			lock (syncLock) {
 				settings.AddApplication (application);
 			}
-			ApplicationListChanged ();
+			if (ApplicationListChanged != null) {
+				ApplicationListChanged ();
+			}
 		}
 
 		public static void RemoveApplication (string applicationIdentifier)
@@ -166,7 +168,9 @@ namespace Shortcutter
 			lock (syncLock) {
 				settings.RemoveApplication (applicationIdentifier);
 			}
-			ApplicationListChanged ();
+			if (ApplicationListChanged != null) {
+				ApplicationListChanged ();
+			}
 			SaveToDisk ();
 		}
 

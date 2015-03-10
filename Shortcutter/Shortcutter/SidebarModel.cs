@@ -21,7 +21,9 @@ namespace Shortcutter
 
 			MainClass.ApplicationListChanged += () => {
 				refreshAppList ();
-				SidebarChanged ();
+				if (SidebarChanged != null) {
+					SidebarChanged ();
+				}
 			};
 		}
 

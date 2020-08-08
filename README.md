@@ -4,14 +4,14 @@ Not everyone is born as a shortcut-wizard. But everyone can learn to be one. Tha
 
 ![Screenshot Shortcutter](https://raw.githubusercontent.com/aerobless/Shortcutter/master/screenshots/sc_02.png)
 
-##Features
+## Features
 + Add, remove and edit applications & shortcuts
 + Everything is stored persistently as XML-file
 + Wait period & rhytmus of notifications is easily customizeable through the settings menu
 + Print a list of your shortcuts
 + Search specific shortcuts
 
-##Planned features
+## Planned features
 + Export/Import functionality
 + Website to share/download Shortcut-Lists
 + Ability to change the storage location
@@ -24,10 +24,10 @@ Not everyone is born as a shortcut-wizard. But everyone can learn to be one. Tha
 + Mac Help entries
 + Mac App Store release (idk if the app works with sandboxing enabled)
 
-##Download
+## Download
 + [Shortcutter v1 - 10.2014](https://github.com/aerobless/Shortcutter/blob/master/binaries/Shortcutter_v1.zip?raw=true)
 
-##License (MIT)
+## License (MIT)
 > Copyright (c) 2014 Theo Winter
 
 > Permission is hereby granted, free of charge, to any person obtaining a copy
